@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>IW: Admin</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <main class="flex-shrink-0">
+        <div class="container">
+            <h1>Mi perfil</h1>
+            <div class="row">
+                    <h2>Mis datos:</h2>
+                    <div class="col">
+                        <div>Nombre de usuario: ...</div>
+                        <div>Correo: ...</div>
+                        <div>Teléfono: ...</div>
+                        <div>Fecha de registro: ...</div>
+                        <div>Número de vehículos: ...</div>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-dark ">Modificar datos</button>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2>Mis coches</h2>
+                    <div>Cohe - imagen - dinamica ... TODO </div>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-dark">Añadir coches: </button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-dark m-3">Eliminar cuenta definitivamente </button>
+        </div>
+    </main>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>
