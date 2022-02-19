@@ -27,4 +27,8 @@ public class RootController {
     public String profile(Model model) {
         return "profile";
     }
+    @GetMapping("/chat")
+    public String chat(Model model) {
+        return "chat";
+    }
 }
