@@ -7,11 +7,39 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <main class="flex-shrink-0">
         <div class="container">
-            <h1 class="mt-5">Administración</h1>
+            <h1>Administración</h1>
+            <div class="row d-flex justify-content-center">
+                <div class="gestionTrabajadores col-sm-4 border border-danger rounded">
+                    <h2>Gestion de trabajadores</h2>
+                    <div class="row d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Añadir</button>
+                        <div class="col-sm-1"></div>
+                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Eliminar</button>
+                        <div class="col-sm-1"></div>
+                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Editar</button>
+                    </div>
+                    
+                </div>
+                
+                <div class = "col-sm-2"></div>
+    
+                <div class="gestionClientes col-sm-4 border border-danger rounded">
+                    <h2>Gestion de clientes</h2>
+                    <div class="row d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Añadir</button>
+                        <div class="col-sm-1"></div>
+                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Eliminar</button>
+                        <div class="col-sm-1"></div>
+                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Editar</button>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
         </div>
     </main>
 
