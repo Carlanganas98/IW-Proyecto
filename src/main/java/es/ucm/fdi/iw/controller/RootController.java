@@ -23,6 +23,17 @@ public class RootController {
     public String index(Model model) {
         return "index";
     }
+
+    @GetMapping("/inicio")
+    public String inicio(Model model) {
+        return "inicio";
+    }
+
+    @GetMapping("/registro")
+    public String registro(Model model) {
+        return "registro";
+    }
+
     @GetMapping("/profile")
     public String profile(Model model) {
         return "profile";
