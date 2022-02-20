@@ -31,4 +31,11 @@ public class RootController {
     public String chat(Model model) {
         return "chat";
     }
+
+    @GetMapping("/reparaciones")
+    public String reparaciones(Model model) {
+        return "reparaciones";
+    }
+
+
 }
