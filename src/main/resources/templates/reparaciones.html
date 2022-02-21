@@ -11,79 +11,30 @@
     <header th:replace="fragments/nav.html :: nav"></header>
     <h1>Formulario de reparación</h1>
     <main class="flex-shrink-0">
-        <form>
-            <div class="form-row">
+        <form class = "form-group">
+            <div class="row d-flex justify-content-center">
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <label for="Nombre">Nombre</label>
-                <input type="text" class="form-control" id="nombre" placeholder="Nombre completo">
+                <label for="Nombre"><b>Nombre</b></label>
+                <input type="text" class="form-control ml-sm-5" id="nombre" placeholder="Nombre completo">
               </div>
-            <div class="form-group col-md-4">
-                <label for="inputState">Vehiculo</label>
+            </div>
+         
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                <label for="inputState"><b>Vehiculo</b></label>
                 <select id="vehiculo" class="form-control">
                   <option selected>Escoge una opción</option>
                   <option>Toyota Auris</option>
                   <option>Ford focus</option>
                   <option>...</option>
                 </select>
-            </div>
-            
-            <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
-            <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
-
-            <!--Font Awesome (added because you use icons in your prepend/append)-->
-            <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
-
-            <!-- Inline CSS based on choices in "Settings" tab -->
-            <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
-
-            <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
-            <div class="bootstrap-iso">
-            <div class="container-fluid">
-            <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <form method="post">
-                <div class="form-group ">
-                <label class="control-label " for="fecha_recogida">Fecha de recogida</label>
-                <div class="input-group">
-                <div class="input-group-addon">
-                    <i class="fa fa-calendar">
-                    </i>
                 </div>
-                <input class="form-control" id="date" name="fecha" placeholder="MM/DD/YYYY" type="text"/>
-                </div>
-                </div>
-                </form>
-            </div>
-            </div>
-            </div>
             </div>
 
             
-            <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
-            <div class="bootstrap-iso">
-                <div class="container-fluid">
-                <div class="row">
+            <div class="row d-flex justify-content-center">
                 <div class="col-md-6 col-sm-6 col-xs-12">
-                    <form method="post">
-                    <div class="form-group ">
-                    <label class="control-label " for="fecha_entrega">Fecha de entrega</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar">
-                        </i>
-                    </div>
-                    <input class="form-control" id="date" name="fecha" placeholder="MM/DD/YYYY" type="text"/>
-                    </div>
-                    </div>
-                    </form>
-                </div>
-                </div>
-                </div>
-                </div>
-
-             
-            <div class="form-group col-md-4">
-                    <label for="inputState">Servicios</label>
+                    <label for="inputState"><b>Servicios</b></label>
                     <select id="servicios" class="form-control">
                       <option selected>Escoge una opción</option>
                       <option>Revisión</option>
@@ -91,44 +42,85 @@
                       <option>Pintura</option>
                       <option>...</option>
                 </select>
-            </div>               
+                </div>
+            </div>   
+            
+           
 
-
-            <!-- Extra JavaScript/CSS added manually in "Settings" tab -->
-            <!-- Include jQuery -->
-            <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-            <!-- Include Date Range Picker -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-            <script>
-                $(document).ready(function(){
-                    var date_input=$('input[name="date"]'); //our date input has the name "date"
-                    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-                    date_input.datepicker({
-                        format: 'mm/dd/yyyy',
-                        container: container,
-                        todayHighlight: true,
-                        autoclose: true,
-                    })
-                })
-            </script>
-
-            <div class="form-group">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="gridCheck">
-                <label class="form-check-label" for="gridCheck">
-He leído y acepto los término</label>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Aceptar</button>
-          </form>
-    </main>
+            <div class="row d-flex justify-content-center">
+        
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+               
+                   <!-- Form code begins -->
+                   <form method="post">
+                     <div class="form-group"> <!-- Date input -->
+                       <label class="control-label" for="date"><b>Fecha de recogida</b></label>
+                       <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                     </div>
+                     <i class="fa fa-calendar"></i>
+                     
+                    </form>
+                    <!-- Form code ends --> 
+               
+                  
+                 </div>    
+                </div>
+                
+                <div class="row d-flex justify-content-center">
+        
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                 
+                     <!-- Form code begins -->
+                     <form method="post">
+                       <div class="form-group"> <!-- Date input -->
+                         <label class="control-label" for="date"><b>Fecha de entrega</b></label>
+                         <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                       </div>
+                       <i class="fa fa-calendar"></i>
+    
+                      </form>
+                      <!-- Form code ends --> 
+                 
+                     
+                   </div>    
+                  </div>
+            
+                  
+                  <div class="row d-flex justify-content-center">
+        
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <button type="button" class="btn btn-primary">Aceptar</button>
+                    </div>
+                  </div>
+                 
 
   
 
     <th:block th:replace="fragments/footer.html :: footer" />
 </body>
+
+<!--  jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
 
 </html>
