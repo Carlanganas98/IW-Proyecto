@@ -48,5 +48,10 @@ public class RootController {
         return "reparaciones";
     }
 
+    @GetMapping("/taller")
+    public String taller(Model model) {
+        return "taller";
+    }
+
 
 }
