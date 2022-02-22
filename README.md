@@ -6,7 +6,7 @@ Cada cliente tendrá acceso a una página donde verá sus vehículos y podrá ch
 Los trabajadores podrán chatear con los clientes y marcar los servicios de una reparación como completados.
 
 
-### admin.html --> /admin: En esta página el administrador podrá gestionar a los trabajadores y a los clientes
+### admin.html --> /admin: En esta página el administrador podrá gestionar a los trabajadores y a los clientes, añadiendo, eliminando o editando datos de estos manualmente cuando sea necesario.
 
 ### chat.html --> /chat: En esta página podrán chatear 2 usuarios entre sí. Por ejemplo, un trabajador del taller con un cliente. Próximamente aparecerá la imágen de cada usuario, así como su nombre de perfil. También se verá si un mensaje ha sido leído o no.
 
