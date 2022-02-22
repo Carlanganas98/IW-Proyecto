@@ -43,5 +43,17 @@ public class RootController {
         return "reparaciones";
     }
 
+    @GetMapping("/taller")
+    public String taller(Model model) {
+        return "taller";
+    }
+    @GetMapping("/misVehiculos")
+    public String misVehiculos(Model model) {
+        return "misVehiculos";
+    }
+    @GetMapping("/vehiculoDetallado")
+    public String vehiculoDetallado(Model model) {
+        return "vehiculoDetallado";
+    }
 
 }
