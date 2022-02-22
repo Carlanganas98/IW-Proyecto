@@ -25,4 +25,3 @@ Los trabajadores podrán chatear con los clientes y marcar los servicios de una 
 ### taller.html --> /taller: En esta vista se va a poder gestionar todo lo relacionado con los servicios del taller, notificar al usuario de servicios finalizados, asignar trabajadores, iniciar chats con usuarios.
 
 ### vehiculoDetallado.html --> /vehiculoDetallado: En esta página se muestra toda la información relevante acerca del vehículo seleccionado, como la marca, el modelo, ITV, año de fabricación, matrícula, foto del vehículo y el historial de reparaciones.
-
