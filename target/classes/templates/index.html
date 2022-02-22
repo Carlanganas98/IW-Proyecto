@@ -3,7 +3,7 @@
 
 <head>
     <th:block th:replace="fragments/head :: header" />
-    <title>IW: Welcome</title>
+    <title>IW: Inicio</title>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -11,7 +11,30 @@
 
     <main class="flex-shrink-0">
         <div class="container">
-            <h1 class="mt-5">Bienvenid@</h1>
+
+            <div class="row">
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Quienes Somos</h5>
+                      <p class="card-text">Nos dedicamos a proporcionar a nuestros clientes una comunicación con su taller para que puedan estar informados del estado de su vehículo en todo momento.</p>
+                      <p class="card-text">También actuamos como una agenda y recordamos cuándo los clientes tienen que hacer una visita al taller, y además proporcionamos un registro de todas las veces que se ha ido al taller para que el cliente tenga la información que desea.</p>
+                      <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-block" alt="logo IW" width="100" height="100">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Nuestras tarifas</h5>
+                      <p class="card-text">...</p>
+                      <p class="card-text">...</p>
+                      <img th:src="@{/img/motorcycle-solid.svg}" src="/img/motorcycle-solid.svg" class="rounded mx-auto d-block" alt="moto" width="100" height="100">
+                    </div>
+                  </div>
+                </div>
+            </div>
+
         </div>
     </main>
 
