@@ -24,11 +24,6 @@ public class RootController {
         return "index";
     }
 
-    @GetMapping("/inicio")
-    public String inicio(Model model) {
-        return "inicio";
-    }
-
     @GetMapping("/registro")
     public String registro(Model model) {
         return "registro";
@@ -60,4 +55,5 @@ public class RootController {
     public String vehiculoDetallado(Model model) {
         return "vehiculoDetallado";
     }
+
 }
