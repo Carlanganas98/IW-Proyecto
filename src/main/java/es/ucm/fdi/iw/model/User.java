@@ -40,6 +40,11 @@ public class User implements Transferable<User.Transfer> {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
 	private long id;
 
+
+    // @Column(name = "DISC")
+    // private String tipo;
+
+
     private ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
 
     @OneToMany(targetEntity=Vehiculo.class)
