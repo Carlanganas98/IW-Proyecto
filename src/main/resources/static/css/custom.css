@@ -18,3 +18,36 @@
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
 }
+
+.backgroundIndex{
+    background-image: url('../img/portadaImg.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    position: absolute;
+    backdrop-filter: blur(6px);
+}
+
+
+.portada{
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    left: 0;
+    padding: 0% 5% 5% 5% ;
+    background-color: rgb(202, 47, 47);
+}
+
+.portada h1{
+    color:whitesmoke;
+    font-size: 700%;
+}
+
+.portadaLogin{
+    position: absolute;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    left: 50%;
+}
