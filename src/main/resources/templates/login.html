@@ -6,55 +6,72 @@
     <title>IW: Login</title>
 </head>
 
-<body class="d-flex flex-column h-100">
-    <header th:replace="fragments/nav.html :: nav"></header>
+<body class="d-flex flex-column h-100 w-100">
+    <!--<header th:replace="fragments/nav.html :: nav"></header>-->
 
-    <main class="flex-shrink-0">
-        <div class="container">
-
-            <form class="form-signin" method="post" th:action="@{/login}">
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <h2 class="form-signin-heading">Inicia sesión</h2>
+    <main class="w-100 h-100">
+        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
+            <div class="container h-50 w-50">
+                <form class="form-signin" method="post" th:action="@{/login}">
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <h2 class="form-signin-heading">Inicia sesión</h2>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-4 mx-auto">
-                        <p>
-                            <label for="username" class="form-label">Introduce tu correo:</label>
-                            <label for="username" class="visually-hidden">datacar@gmail.com</label>
-                            <input type="text" id="username" name="username" class="form-control" placeholder="datacar@gmail.com" required="required">
-                        </p>
+                    <div class="row">
+                        <div class="col-4 mx-auto">
+                            <p>
+                                <label for="username" class="form-label">Introduce tu correo:</label>
+                                <label for="username" class="visually-hidden">datacar@gmail.com</label>
+                                <input type="text" id="username" name="username" class="form-control" placeholder="datacar@gmail.com" required="required">
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-4 mx-auto">
-                        <p>
-                            <label for="password" class="form-label">Introduce tu contraseña:</label>
-                            <label for="password" class="visually-hidden">**********</label>
-                            <input type="password" id="password" name="password" class="form-control" placeholder="**********" required="required">
-                        </p>
+                    <div class="row">
+                        <div class="col-4 mx-auto">
+                            <p>
+                                <label for="password" class="form-label">Introduce tu contraseña:</label>
+                                <label for="password" class="visually-hidden">**********</label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="**********" required="required">
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col d-flex justify-content-center">
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
+                    <div class="row">
+                        <div class="col d-flex justify-content-center">
+                            <button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
+                        </div>
                     </div>
-                </div>
+                    
+                    <p></p>
                 
-                <p></p>
-            
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-auto">
-                        <label>¿Aún no tienes cuenta?</label>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-auto">
+                            <label>¿Aún no tienes cuenta?</label>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary" type="submit">Regístrate aquí</button>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <button class="btn btn-primary" type="submit">Regístrate aquí</button>
-                    </div>
+                </form>
+                
+                <div class="row justify-content-center align-items-center mt-3">
+                    <form class="col-auto d-flex" th:action="@{/login}" method="post">
+                        <input type="hidden" name="username" value="a">
+                        <input type="hidden" name="password" value="aa">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">debug: usuario</button>
+                    </form>
+                    <form class="col-auto d-flex" th:action="@{/login}" method="post">
+                        <input type="hidden" name="username" value="b">
+                        <input type="hidden" name="password" value="aa">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">debug: admin</button>
+                    </form>
                 </div>
-            </form>
 
+            </div>
         </div>
+
+        
+        
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
