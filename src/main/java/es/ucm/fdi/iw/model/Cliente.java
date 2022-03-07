@@ -12,15 +12,14 @@ import lombok.Data;
 @Data
 @DiscriminatorValue("CLIENTE")
 public class Cliente extends User{
-    public Cliente(){
-        
-    }
-    private long id; 
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    public long getId() { 
-        return id; 
-    }
-    public void setId(long id) { this.id = id; }
+    private long id;
+
+    // private String nombre;
+    // private String apellidos;
+    // private String correo;
+    // private String contrasenya;
+
 }

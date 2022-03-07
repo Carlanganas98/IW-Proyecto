@@ -4,22 +4,23 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Entity
 @Data
 public class Servicio {
-    public Servicio(){
-
-    }
-    private long id; 
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    public long getId() { 
-        return id; 
-    }
-    public void setId(long id) { this.id = id; }
+    private long id; 
+
+    private String info;
+    private String precio;
+    private int num_horas;
+
+    @ManyToOne(targetEntity = Reparacion.class)
+    private Reparacion reparacion;
 
 }
