@@ -38,6 +38,38 @@
                     </div>
             </div> -->
         </div>
+
+        <main class="flex-shrink-0">
+            <form class = "form-group">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                    <label for="Nombre"><b>Nombre</b></label>
+                    <input type="text" class="form-control ml-sm-5" id="nombre" placeholder="Nombre completo">
+                  </div>
+                </div>
+
+              
+                        <div class="row d-flex justify-content-center">
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="Nombre"><b>Nombre</b></label>
+                            <input type="text" class="form-control ml-sm-5" id="nombre" placeholder="Número de matricula">
+                          </div>
+                        </div>
+
+    <button onclick="myFunction()">Click me</button>
+
+                        
+        <script>
+            function myFunction() {
+            const name = document.getElementById("nombre").value ;
+            const matri = document.getElementById("matricula").value;
+            console.log("name");
+            console.log("matri");
+            }
+        </script>
+                                   
+                        
+
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
