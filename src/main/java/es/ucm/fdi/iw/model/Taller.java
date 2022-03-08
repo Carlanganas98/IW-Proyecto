@@ -10,15 +10,12 @@ import lombok.Data;
 @Entity
 @Data
 public class Taller {
-    public Taller(){
-
-    }
-    private long id; 
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    public long getId() { 
-        return id; 
-    }
-    public void setId(long id) { this.id = id; }
+    private long id;
+
+    // logotipo
+    // ...
+
 }

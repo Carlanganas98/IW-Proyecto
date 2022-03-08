@@ -40,6 +40,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" th:if="${session.u.hasRole('USER')}" th:href="@{/taller/}">Taller</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:if="${session.u.hasRole('USER')}" th:href="@{/misVehiculos/}">Mis Vehiculos</a>
+                            </li>
                         </th:block>
                     </ul>
                     <ul class="navbar-nav ms-auto">

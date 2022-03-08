@@ -27,12 +27,13 @@ import java.util.List;
                         + "WHERE u.username = :username")
 })
 @Table(name="IWUser")
-@DiscriminatorColumn(name="DISC", discriminatorType=DiscriminatorType.STRING, length=16)
 public class User implements Transferable<User.Transfer> {
 
     public enum Role {
-        USER,			// normal users 
+        USER,			// normal users
         ADMIN,          // admin users
+        //CLIENTE,
+        //EMPLEADO,
     }
 
     @Id
@@ -40,12 +41,12 @@ public class User implements Transferable<User.Transfer> {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
 	private long id;
 
-    private ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
 
     @OneToMany(targetEntity=Vehiculo.class)
     @JoinColumn(name="propietario_id") // <-- evita tabla auxiliar 
-    ArrayList<Vehiculo> getVehiculos() { return listaVehiculos; }
+    private List<Vehiculo> lista_vehiculos; // = new ArrayList<>();
 
+    //private String email;
 
     @Column(nullable = false, unique = true)
     private String username;

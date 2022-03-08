@@ -13,13 +13,30 @@
     <main class="flex-shrink-0">
         <div class="container">
             <h1>Mis Vehiculos</h1>
-            <div class="row">
+            <ul>
+                <li>
+                    <a th:if="${session.u.hasRole('USER')}" th:href="@{/vehiculoDetallado/}">Coche 1
+                    <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
+                    </a>
+                </li>
+                <li>
+                    <a th:if="${session.u.hasRole('USER')}" th:href="@{/vehiculoDetallado/}">Moto 1
+                    <img th:src="@{/img/motorcycle-solid.svg}" src="/img/motorcycle-solid.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
+                    </a>
+                </li>
+                <li>
+                    <a th:if="${session.u.hasRole('USER')}" th:href="@{/vehiculoDetallado/}">Coche 2
+                    <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
+                    </a>
+                </li>
+            </ul>
+            <!-- <div class="row">
                     <div class="col">
                         <div>Vehiculo 1...</div>
                         <div>Vehiculo 2...</div>
                         <div>Vehiculo 3...</div>
                     </div>
-            </div>
+            </div> -->
         </div>
     </main>
 
