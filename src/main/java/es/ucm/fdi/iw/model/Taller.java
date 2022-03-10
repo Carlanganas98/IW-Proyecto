@@ -13,6 +13,9 @@ public class Taller {
 
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
-    private long id; 
+    private long id;
+
+    // logotipo
+    // ...
 
 }
