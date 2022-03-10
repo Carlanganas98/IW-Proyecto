@@ -45,7 +45,9 @@ public class User implements Transferable<User.Transfer> {
     @OneToMany(targetEntity=Vehiculo.class)
     @JoinColumn(name="propietario_id") // <-- evita tabla auxiliar 
     private List<Vehiculo> lista_vehiculos; // = new ArrayList<>();
-
+    List<Vehiculo> getVehiculos(){
+        return this.lista_vehiculos;
+    }
     //private String email;
 
     @Column(nullable = false, unique = true)
