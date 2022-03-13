@@ -27,8 +27,13 @@ public class Vehiculo {
     @OneToMany(targetEntity = Reparacion.class)
     @JoinColumn(name="vehiculo_id")
     private List<Reparacion> lista_reparaciones;
+    List<Reparacion> getReparaciones(){
+        return this.lista_reparaciones;
+    }
     
     @ManyToOne(targetEntity = User.class)
-    private User cliente;
-
+    private User propietario;
+    User getPropietario(){
+        return this.propietario;
+    }
 }
