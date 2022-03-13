@@ -18,30 +18,61 @@
         <div class="container">
             <h1>Administración</h1>
             <div class="row d-flex justify-content-center">
-                <div class="gestionTrabajadores col-sm-4 border border-danger rounded">
+                <div class="card rounded-0 col-sm-5 border">
                     <h2>Gestion de trabajadores</h2>
-                    <div class="row d-flex justify-content-center">
-                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Añadir</button>
-                        <div class="col-sm-1"></div>
-                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Eliminar</button>
-                        <div class="col-sm-1"></div>
-                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Editar</button>
-                    </div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user: ${users}">
+                                <td th:text="${user.id}"></td> 
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary"><i class="bi bi-eye"></i></button>
+                                    <button type="button" class="btn btn-success"><i class="bi bi-pencil"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                      </table>
                     
                 </div>
                 
-                <div class = "col-sm-2"></div>
+                <div class = "col-sm-1"></div>
     
-                <div class="gestionClientes col-sm-4 border border-danger rounded">
+                <div class="card rounded-0 col-sm-5 border">
                     <h2>Gestion de clientes</h2>
-                    <div class="row d-flex justify-content-center">
-                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Añadir</button>
-                        <div class="col-sm-1"></div>
-                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Eliminar</button>
-                        <div class="col-sm-1"></div>
-                        <button type="button" class="btn btn-outline-danger btn-sm col-sm-2">Editar</button>
-                    </div>
-                    <div></div>
+                    
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user: ${users}">
+                                <td th:text="${user.id}"></td> 
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary"><i class="bi bi-eye"></i></button>
+                                    <button type="button" class="btn btn-success"><i class="bi bi-pencil"></i></button>
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                      </table>
+
                 </div>
             </div>
         </div>
