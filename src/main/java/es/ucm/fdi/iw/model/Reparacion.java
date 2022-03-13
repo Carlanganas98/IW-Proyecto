@@ -22,12 +22,15 @@ public class Reparacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private long id;
 
-    @ManyToOne(targetEntity = Cliente.class)
-    private Cliente cliente;
+    @ManyToOne(targetEntity = User.class)
+    private User cliente;
     
-    @ManyToOne(targetEntity = Empleado.class)
-    private Empleado empleado;
 
+    // ¿Esto sobra? o ¿@ManyToMany?
+    @ManyToOne(targetEntity = User.class)
+    private User empleado;
+
+    
     @ManyToOne(targetEntity = Vehiculo.class)
     private Vehiculo vehiculo;
     
