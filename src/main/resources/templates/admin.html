@@ -61,7 +61,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="user: ${users}" th:if="${user.roles == 'EMPLEADO'}">
+                            <tr th:each="user: ${users}" th:if="${user.roles == 'CLIENTE'}">
                                 <td th:text="${user.id}"></td> 
                                 <td th:text="${user.firstName}"></td>
                                 <td th:text="${user.lastName}"></td>
