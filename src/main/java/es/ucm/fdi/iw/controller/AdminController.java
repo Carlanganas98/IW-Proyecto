@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import antlr.collections.List;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.User.Role;
 
 /**
  *  Site administration.
@@ -36,6 +37,13 @@ public class AdminController {
     public String index(Model model) {
         TypedQuery<User> consultaAlumnos= entityManager.createNamedQuery("User.allUsers", User.class);
         ArrayList<User> lista= (ArrayList<User>) consultaAlumnos.getResultList();
+        for(User user : lista){
+            if(user.hasRole(Role.CLIENTE)){
+                user.setRoles("CLIENTE");
+            }else{
+                user.setRoles("EMPLEADO");
+            }
+        }
         model.addAttribute("users", lista);
         return "admin";
     }
