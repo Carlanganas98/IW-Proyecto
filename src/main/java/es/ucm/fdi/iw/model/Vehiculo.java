@@ -24,7 +24,7 @@ public class Vehiculo {
     private String modelo;
     //private int anyo;
     
-    @OneToMany(targetEntity = Reparacion.class)
+    @OneToMany
     @JoinColumn(name="vehiculo_id")
     private List<Reparacion> lista_reparaciones;
     List<Reparacion> getReparaciones(){
