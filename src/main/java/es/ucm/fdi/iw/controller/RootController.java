@@ -26,6 +26,9 @@ public class RootController {
 
     @GetMapping("/registro")
     public String registro(Model model) {
+
+
+        
         return "registro";
     }
 
