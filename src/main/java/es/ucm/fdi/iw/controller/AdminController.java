@@ -3,13 +3,16 @@ package es.ucm.fdi.iw.controller;
 import java.util.ArrayList;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import antlr.collections.List;
 import es.ucm.fdi.iw.model.User;
@@ -46,5 +49,14 @@ public class AdminController {
         }
         model.addAttribute("users", lista);
         return "admin";
+    }
+    
+    @Transactional
+    @PostMapping("/editarTrabajador")
+    public String editarTrabajador(Model model, @RequestParam long id, @RequestParam String firstName) {
+        User u = entityManager.find(User.class, id);
+        u.setFirstName(firstName);
+        //model.addAttribute("users", lista);
+        return index(model);
     }
 }
