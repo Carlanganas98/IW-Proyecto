@@ -13,7 +13,34 @@
     <main class="flex-shrink-0">
         <div class="container">
             <h1>Mis Vehiculos</h1>
-            <ul>
+
+            <!-- <ul th:each="v: ${vehiculos}">
+                <li th:text="${v.tipo}">Coche</li>
+                <li th:text="${v.modelo}">Toyota Auris</li>
+            </ul> -->
+
+            <table>
+                <tbody>
+                    <tr th:each="v: ${vehiculos}">
+                        <td th:text="${v.tipo}">Coche</td>
+                        <td> --> </td>
+                        <td th:text="${v.modelo}">Toyota Auris</td>
+                        
+                        <td>
+                            <a th:if="${v.tipo == 'COCHE'}" th:href="@{/vehiculoDetallado/}">
+                                <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
+                            </a>
+                        </td>
+                        <td>
+                            <a th:if="${v.tipo == 'MOTO'}" th:href="@{/vehiculoDetallado/}">
+                                <img th:src="@{/img/motorcycle-solid.svg}" src="/img/motorcycle-solid.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- <ul>
                 <li>
                     <a th:if="${session.u.hasRole('USER')}" th:href="@{/vehiculoDetallado/}">Coche 1
                     <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
@@ -29,7 +56,7 @@
                     <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
                     </a>
                 </li>
-            </ul>
+            </ul> -->
             <!-- <div class="row">
                     <div class="col">
                         <div>Vehiculo 1...</div>

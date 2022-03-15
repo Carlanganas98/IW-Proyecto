@@ -7,12 +7,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
 
 @Entity
 @Data
+@NamedQueries({
+    @NamedQuery(name="verVehiculos",
+    query="select v from Vehiculo v where v.propietario = :propietario")
+    
+})
+
 public class Vehiculo {
 
     @Id 
@@ -27,13 +35,8 @@ public class Vehiculo {
     @OneToMany
     @JoinColumn(name="vehiculo_id")
     private List<Reparacion> lista_reparaciones;
-    List<Reparacion> getReparaciones(){
-        return this.lista_reparaciones;
-    }
     
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     private User propietario;
-    User getPropietario(){
-        return this.propietario;
-    }
+
 }

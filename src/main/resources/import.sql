@@ -15,4 +15,6 @@ INSERT INTO "IWUSER" VALUES
 ALTER SEQUENCE "PUBLIC"."GEN" RESTART WITH 1024;
 
 
-
+INSERT INTO Vehiculo (id, matricula, tipo, modelo, propietario_id) VALUES
+(1, '1234BCD', 'COCHE', 'Audi Q2', 1),
+(2, '5678EFG', 'MOTO', 'Yamaha FZ 10', 1);

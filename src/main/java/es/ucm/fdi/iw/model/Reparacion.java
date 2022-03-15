@@ -49,5 +49,6 @@ public class Reparacion {
     
     private Date fecha_inicio;
     private Date fecha_fin;
-
+    private String estado;
+    
 }
