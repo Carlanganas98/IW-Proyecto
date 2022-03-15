@@ -8,11 +8,9 @@ import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import antlr.collections.List;
 import es.ucm.fdi.iw.model.User;
@@ -50,6 +48,13 @@ public class AdminController {
         model.addAttribute("users", lista);
         return "admin";
     }
+
+    @GetMapping("/borrarId")
+    @Transactional
+    public String borrarId(Model model, @RequestParam long id){
+
+        User u = entityManager.find(User.class, id);
+        u.setEnabled(false);
     
     @Transactional
     @PostMapping("/editarTrabajador")
