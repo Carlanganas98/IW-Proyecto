@@ -7,6 +7,16 @@
 </head>
 
 
+<script>
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
+
+</script>
+
 <!--- comentario --->
 <!--- comentario --->
 <!--- comentario --->
@@ -14,7 +24,11 @@
 
     <header th:replace="fragments/nav.html :: nav"></header>
 
+    
+
     <main class="flex-shrink-0">
+
+        
         <div class="container">
             <h1>Administración</h1>
             <div class="row d-flex justify-content-center">
@@ -66,42 +80,60 @@
                                             </div>
                                         </div>
                                         </div>
-                                    </div>
-
-
-
+                                    </div>               
+                                    
+                                    
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarTrabajador">
-                                    <i class="bi bi-pencil"></i>
+                                        <i class="bi bi-pencil"></i>
                                     </button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="modalEditarTrabajador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Editando trabajador</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalEditarTrabajador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Editando trabajador</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form th:action="@{/admin/editarTrabajador}" method="POST">
+                                                        <input type="hidden" name="id" th:value="${user.id}">
+                                                        <input type="hidden" name="firstName" value="Alfredo">
+                                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                                    </form>
+                                                </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <form th:action="@{/admin/editarTrabajador}" method="POST">
-                                                    <input type="hidden" name="id" th:value="${user.id}">
-                                                    <input type="hidden" name="firstName" value="Alfredo">
-                                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                                </form>
                                             </div>
                                         </div>
+                                    
+
+
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"><i class="bi bi-trash"></i></button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalEliminarLabel" th:text="'Eliminar ' + ${user.firstName}"></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Estas a punto de eliminar este usuario. ¿Estás seguro?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                    <form th:action="@{/admin/borrarId/}">
+                                                        <input type="hidden" name="id" th:value="${user.id}">
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-
-
-
-                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
                       </table>
-                    
                 </div>
 
                 
@@ -136,6 +168,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
