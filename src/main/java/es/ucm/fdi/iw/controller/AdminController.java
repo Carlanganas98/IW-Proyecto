@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +37,7 @@ public class AdminController {
     public String index(Model model) {
         TypedQuery<User> consultaAlumnos= entityManager.createNamedQuery("User.allUsers", User.class);
         ArrayList<User> lista= (ArrayList<User>) consultaAlumnos.getResultList();
+        //ArrayList<User> listaTrabajadores;
         for(User user : lista){
             if(user.hasRole(Role.CLIENTE)){
                 user.setRoles("CLIENTE");
@@ -55,6 +55,8 @@ public class AdminController {
 
         User u = entityManager.find(User.class, id);
         u.setEnabled(false);
+        return index(model);
+    }
     
     @Transactional
     @PostMapping("/editarTrabajador")
