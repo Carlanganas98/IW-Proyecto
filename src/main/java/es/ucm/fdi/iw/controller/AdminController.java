@@ -50,7 +50,6 @@ public class AdminController {
         model.addAttribute("users", lista);
         return "admin";
     }
-    
     @Transactional
     @PostMapping("/editarTrabajador")
     public String editarTrabajador(Model model, @RequestParam long id, @RequestParam String firstName) {
