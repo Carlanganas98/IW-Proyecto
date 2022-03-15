@@ -3,17 +3,20 @@ package es.ucm.fdi.iw.controller;
 import java.util.ArrayList;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import antlr.collections.List;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.User.Role;
 
 /**
  *  Site administration.
@@ -37,17 +40,23 @@ public class AdminController {
     public String index(Model model) {
         TypedQuery<User> consultaAlumnos= entityManager.createNamedQuery("User.allUsers", User.class);
         ArrayList<User> lista= (ArrayList<User>) consultaAlumnos.getResultList();
+        for(User user : lista){
+            if(user.hasRole(Role.CLIENTE)){
+                user.setRoles("CLIENTE");
+            }else{
+                user.setRoles("EMPLEADO");
+            }
+        }
         model.addAttribute("users", lista);
         return "admin";
     }
-
-
-    @GetMapping("/borrarId")
+    
     @Transactional
-    public String borrarId(Model model, @RequestParam long id){
-
+    @PostMapping("/editarTrabajador")
+    public String editarTrabajador(Model model, @RequestParam long id, @RequestParam String firstName) {
         User u = entityManager.find(User.class, id);
-        u.setEnabled(false);
+        u.setFirstName(firstName);
+        //model.addAttribute("users", lista);
         return index(model);
     }
 }

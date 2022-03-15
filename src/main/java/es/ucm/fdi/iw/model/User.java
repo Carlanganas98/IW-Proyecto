@@ -35,8 +35,8 @@ public class User implements Transferable<User.Transfer> {
     public enum Role {
         USER,			// normal users
         ADMIN,          // admin users
-        //CLIENTE,
-        //EMPLEADO,
+        CLIENTE,
+        EMPLEADO,
     }
 
     @Id
