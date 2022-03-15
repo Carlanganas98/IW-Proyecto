@@ -44,7 +44,7 @@ myModal.addEventListener('shown.bs.modal', function () {
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="user: ${users}">
+                            <tr th:each="user: ${users}" th:if="${user.roles == 'EMPLEADO'}">
                                 <td th:text="${user.id}"></td> 
                                 <td th:text="${user.firstName}"></td>
                                 <td th:text="${user.lastName}"></td>
@@ -71,13 +71,66 @@ myModal.addEventListener('shown.bs.modal', function () {
                                                 <input type="hidden" name="id" th:value="${user.id}">
                                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                                             </form>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalObservarTrabajador">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalObservarTrabajador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Observando usuario</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col">
+                                                    <div>ID usuario:</div>
+                                                    <div th:text="${user.id}"></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div>ID usuario:</div>
+                                                    <div th:text="${user.id}"></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div>ID usuario:</div>
+                                                    <div th:text="${user.id}"></div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary">Cerrar</button>
                                             </div>
                                         </div>
                                         </div>
                                     </div>
+
+
+
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarTrabajador">
+                                    <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalEditarTrabajador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Editando trabajador</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{/admin/editarTrabajador}" method="POST">
+                                                    <input type="hidden" name="id" th:value="${user.id}">
+                                                    <input type="hidden" name="firstName" value="Alfredo">
+                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>
 
-
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -85,6 +138,7 @@ myModal.addEventListener('shown.bs.modal', function () {
                       </table>
                     
                 </div>
+
                 
                 <div class = "col-sm-1"></div>
     
@@ -101,7 +155,7 @@ myModal.addEventListener('shown.bs.modal', function () {
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="user: ${users}">
+                            <tr th:each="user: ${users}" th:if="${user.roles == 'CLIENTE'}">
                                 <td th:text="${user.id}"></td> 
                                 <td th:text="${user.firstName}"></td>
                                 <td th:text="${user.lastName}"></td>
