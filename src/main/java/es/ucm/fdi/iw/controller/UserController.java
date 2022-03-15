@@ -303,4 +303,16 @@ public class UserController {
 		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
 		return "{\"result\": \"message sent.\"}";
 	}	
+
+		@PostMapping("/addCar1")
+		@Transactional
+			public String addCar1(
+			@RequestParam String matricula,
+			@RequestParam String tipo,
+			@RequestParam String modelo, Model m) {
+
+		  return "{\"result\": \"Se ha creado el objeto.\"}";
+		}
+
+
 }
