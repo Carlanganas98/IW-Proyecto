@@ -39,43 +39,47 @@
             </div> -->
         </div>
 
-        <main class="flex-shrink-0">
-            <form class = "form-group">
-                <div class="row d-flex justify-content-center">
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label for="Nombre"><b>Nombre</b></label>
-                    <input type="text" class="form-control ml-sm-5" id="nombre" placeholder="Nombre completo">
-                  </div>
+       <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <b>Añade tu coche </b>
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Registrar un Vehiculo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <h5>Introduzca los datos</h6>  
+                
+                <form >
+                    <label>Introduzca la matricula</label>
+                    <input type="text" class="form-control" id="matricula" placeholder="Introduzca la matricula">
+                    <label>Seleccione el tipo</label>
+                    <select multiple class="form-control" id="tipo">
+                        <option>Coche</option>
+                        <option>Moto</option>
+                    </select>
+                    <label>Introduzca el modelo</label>
+                    <input type="text" class="form-control" id="modelo" placeholder="Introduzca el modelo">
+               
+                </form> 
                 </div>
 
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label for="inputState"><b>Vehiculo</b></label>
-                    <select id="tipo" class="form-control">
-                      <option selected>Coche</option>
-                      <option>Moto</option>
-                    </select>
-                    </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Aceptar</button>
+                
                 </div>
+            </div>
+            </div>
+        </div>
 
               
-                <div class="row d-flex justify-content-center">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <label for="Nombre"><b>Nombre</b></label>
-                      <input type="text" class="form-control ml-sm-5" id="matricula" placeholder="Número de matricula">
-                    </div>
-                  </div>
-
-    <button onclick="myFunction()">Click me</button>
-
-                        
-        <script>
-            function myFunction() {
-            const name = document.getElementById("nombre").value ;
-            const type = document.getElementById("tipo").value;
-            const matri = document.getElementById("matricula").value;
-            }
-        </script>
+   
                                    
                         
 

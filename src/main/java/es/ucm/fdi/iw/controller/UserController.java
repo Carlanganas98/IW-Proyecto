@@ -4,6 +4,7 @@ import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.Vehiculo;
 import es.ucm.fdi.iw.model.User.Role;
 
 import org.apache.logging.log4j.LogManager;
@@ -308,14 +309,21 @@ public class UserController {
 		return "{\"result\": \"message sent.\"}";
 	}	
 
-		@PostMapping("/addCar1")
+		@PostMapping("/misVehiculos")
 		@Transactional
-			public String addCar1(
+			public String misVehiculos(
 			@RequestParam String matricula,
 			@RequestParam String tipo,
 			@RequestParam String modelo, Model m) {
 
-		  return "{\"result\": \"Se ha creado el objeto.\"}";
+			Vehiculo v = new Vehiculo();
+			v.setId(1);
+			v.setMatricula(matricula);
+			v.setTipo(tipo);
+			v.setModelo(modelo);
+			
+			
+		  return "/misVehciulos" ;
 		}
 
 
