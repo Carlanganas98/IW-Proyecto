@@ -1,10 +1,20 @@
 package es.ucm.fdi.iw.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.Vehiculo;
 
 /**
  *  Non-authenticated requests only.
@@ -13,6 +23,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RootController {
 
 	private static final Logger log = LogManager.getLogger(RootController.class);
+
+    @Autowired
+    private EntityManager entityManager;
 
 	@GetMapping("/login")
     public String login(Model model) {
@@ -26,9 +39,6 @@ public class RootController {
 
     @GetMapping("/registro")
     public String registro(Model model) {
-
-
-        
         return "registro";
     }
 
@@ -50,10 +60,22 @@ public class RootController {
     public String taller(Model model) {
         return "taller";
     }
+    
     @GetMapping("/misVehiculos")
-    public String misVehiculos(Model model) {
+    public String misVehiculos(Model model, HttpSession session)
+    {
+        long userId = ((User)session.getAttribute("u")).getId();
+        User u = entityManager.find(User.class, userId);
+        List<Vehiculo> lista_vehiculos = null;    
+        
+        log.info("ID USUARIO: " + userId);
+        
+        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).setParameter("propietario", u).getResultList();
+        model.addAttribute("vehiculos", lista_vehiculos);
+
         return "misVehiculos";
     }
+    
     @GetMapping("/vehiculoDetallado")
     public String vehiculoDetallado(Model model) {
         return "vehiculoDetallado";

@@ -32,16 +32,15 @@ public class Reparacion {
     //y cada reparacion no tendra mas de 1 empleado
     @ManyToOne(targetEntity = User.class)
     private User empleado;
-
     
-    @ManyToOne(targetEntity = Vehiculo.class)
+    @ManyToOne
     private Vehiculo vehiculo;
     Vehiculo getVehiculo(){
         return this.vehiculo;
     }
 
     
-    @OneToMany(targetEntity = Servicio.class)
+    @OneToMany
     @JoinColumn(name="servicio_id")
     private List<Servicio> lista_servicios;
     Servicio getServicios(){
@@ -50,5 +49,6 @@ public class Reparacion {
     
     private Date fecha_inicio;
     private Date fecha_fin;
-
+    private String estado;
+    
 }
