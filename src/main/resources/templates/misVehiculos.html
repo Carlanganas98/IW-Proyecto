@@ -63,7 +63,6 @@
                                     </div>
                                     </div>
 
-
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarCoche"><i class="bi bi-trash"></i></button>
                                 <!-- Modal -->
                                 <div class="modal fade" id="modalEliminarCoche" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
@@ -78,8 +77,8 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                <form th:action="@{/}">
-                                                    <input type="hidden" name="id" th:value="${v.matricula}">
+                                                <form th:action="@{/user/borrarCoche}">
+                                                    <input type="hidden" name="id" th:value="${v.id}">
                                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                                 </form>
                                             </div>

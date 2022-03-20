@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 @NamedQueries({
     @NamedQuery(name="verVehiculos",
-    query="select v from Vehiculo v")
+    query="select v from Vehiculo v WHERE v.activo = TRUE")
     
 })
 
@@ -30,6 +30,8 @@ public class Vehiculo {
     private String matricula;
     private String tipo; // Coche o Moto
     private String modelo;
+    private boolean activo;
+
     //private int anyo;
     
     @OneToMany
