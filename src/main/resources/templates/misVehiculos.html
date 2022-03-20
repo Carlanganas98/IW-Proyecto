@@ -90,11 +90,38 @@
                     </tbody>
                     </table>
             </div>    
-            <div class="col">
-                AQUI EL BOTON DE ANYADIR
+            <div class="card rounded-0 col-sm-5 border">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalAnyadirCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                        <div class="modal-body">
+                            <form th:action="@{}" method="POST">
+                                <input type="hidden" name="id" >
+                                <p>Matricula: </p>
+                                <input type="text" name="matricula" >
+                                <p>Tipo: </p>
+                                <input type="text" name="tipo" >
+                                <p>Modelo: </p>
+                                <input type="text" name="modelo" >
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Añadir</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
             </div>
-
-        </div>
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />

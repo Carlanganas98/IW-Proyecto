@@ -317,7 +317,7 @@ public class UserController {
 
         
         lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
 		model.addAttribute("vehiculos", lista_vehiculos);
 
         return "misVehiculos";
@@ -344,4 +344,5 @@ public class UserController {
 		v.setActivo(false);
         return misVehiculos(model);
     }
+
 }
