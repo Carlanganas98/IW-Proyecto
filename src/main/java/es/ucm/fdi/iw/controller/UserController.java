@@ -317,7 +317,7 @@ public class UserController {
 
         
         lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
 		model.addAttribute("vehiculos", lista_vehiculos);
 
         return "misVehiculos";
@@ -332,6 +332,38 @@ public class UserController {
         v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
+
+        return misVehiculos(model);
+    }
+
+	@GetMapping("/borrarCoche")
+    @Transactional
+    public String borrarCoche(Model model, @RequestParam long id){
+
+		Vehiculo v = entityManager.find(Vehiculo.class, id);
+		v.setActivo(false);
+        return misVehiculos(model);
+    }
+
+	@PostMapping("/anyadirCoche")
+    @Transactional
+    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
+		log.info("ANYADIIRRRR COCHEEEE");
+
+		Vehiculo v = new Vehiculo();
+		v.setMatricula(matricula);
+		v.setModelo(modelo);
+		v.setTipo(tipo);
+		v.setActivo(true);
+		//SACAR ID del usuario actual
+		User propietario = entityManager.find(
+				User.class, ((User)session.getAttribute("u")).getId());
+
+		//log.info("PROPIETARIOOOOOOO" + propietario.getId());
+		v.setPropietario(propietario);
+
+		entityManager.persist(v);
+		entityManager.flush();
 
         return misVehiculos(model);
     }
