@@ -8,7 +8,8 @@
     
 INSERT INTO "IWUSER" VALUES
 (1, TRUE, 'Nombre1', 'Apellido1', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,ADMIN,EMPLEADO', 'a'),
-(2, TRUE, 'Nombre2', 'Apellido2', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,CLIENTE', 'b');     
+(2, TRUE, 'Nombre2', 'Apellido2', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,CLIENTE', 'b'),     
+(3, TRUE, 'Nombre3', 'Apellido3', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,ADMIN,EMPLEADO', 'c');
 
 
 -- start id numbering from a value that is larger than any assigned above

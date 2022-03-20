@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 @NamedQueries({
     @NamedQuery(name="verVehiculos",
-    query="select v from Vehiculo v where v.propietario = :propietario")
+    query="select v from Vehiculo v")
     
 })
 
