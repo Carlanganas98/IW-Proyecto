@@ -22,27 +22,35 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
                         <th:block th:if="${session.u}">
-                            <li class="nav-item mx-3">
-                                <a class="nav-link" th:if="${session.u.hasRole('ADMIN')}" th:href="@{/admin/}">Administrar</a>
-                            </li>
                             <li class="nav-item">
-                                <a class="nav-link" th:if="${session.u.hasRole('ADMIN')}" th:href="@{/chat/}">Chat</a>
+                                <a class="nav-link" th:if="${session.u.hasRole('ADMIN')}" th:href="@{/admin/}">Administrar usuarios</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:if="${session.u.hasRole('ADMIN')}" th:href="@{/admin/}">Dar de alta reparacion</a>
+                            <li class="nav-item ">
+                                <a class="nav-link" th:if="${session.u.hasRole('ADMIN')}" th:href="@{/}">Editar pantalla inicio</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:if="${session.u.hasRole('ADMIN')}" th:href="@{/admin/}">Taller</a>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" th:if="${session.u.hasRole('USER')}" th:href="@{/chat}">Chat</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:if="${session.u.hasRole('USER')}" th:href="@{/reparaciones/}">Reparaciones</a>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/}">Ver solicitudes de reparacion</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:if="${session.u.hasRole('USER')}" th:href="@{/taller/}">Taller</a>
+                            <li class="nav-item ">
+                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/}">Gestionar reparaciones</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" th:if="${session.u.hasRole('USER')}" th:href="@{/misVehiculos/}">Mis Vehiculos</a>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/user/misVehiculos}">Mis Vehiculos</a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/}">Solicitar reparacion</a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/}">Historico de reparaciones</a>
+                            </li>
+
                         </th:block>
                     </ul>
                     <ul class="navbar-nav ms-auto">
