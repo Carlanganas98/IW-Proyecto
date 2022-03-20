@@ -48,7 +48,7 @@ public class User implements Transferable<User.Transfer> {
     @JoinColumn(name="propietario_id") // <-- evita tabla auxiliar 
     private List<Vehiculo> lista_vehiculos; // = new ArrayList<>();
 
-    //private String email;
+    private String email;
 
     @Column(nullable = false, unique = true)
     private String username;

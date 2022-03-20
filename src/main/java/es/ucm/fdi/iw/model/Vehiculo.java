@@ -17,8 +17,11 @@ import lombok.Data;
 @Data
 @NamedQueries({
     @NamedQuery(name="verVehiculos",
-    query="select v from Vehiculo v where v.propietario = :propietario")
+    query="SELECT v FROM Vehiculo v WHERE v.propietario = :propietario"),
     
+    @NamedQuery(name="verVehiculoDetallado",
+    query="SELECT v FROM Vehiculo v WHERE v.propietario = :propietario AND v.id = :idVehiculo")
+
 })
 
 public class Vehiculo {
@@ -30,7 +33,7 @@ public class Vehiculo {
     private String matricula;
     private String tipo; // Coche o Moto
     private String modelo;
-    //private int anyo;
+    private int anyo;
     
     @OneToMany
     @JoinColumn(name="vehiculo_id")
