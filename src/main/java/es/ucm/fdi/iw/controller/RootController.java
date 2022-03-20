@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehiculo;
 
@@ -34,6 +35,13 @@ public class RootController {
 
 	@GetMapping("/")
     public String index(Model model) {
+
+        TextoTaller texto = new TextoTaller();
+        long id = 1;
+        texto = entityManager.find(TextoTaller.class, id);
+        log.info(texto.getTexto());
+        model.addAttribute("texto", texto.getTexto()); 
+
         return "index";
     }
 

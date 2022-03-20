@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import antlr.collections.List;
+import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.User.Role;
 
@@ -72,5 +73,20 @@ public class AdminController {
         u.setLastName(lastName);
         
         return index(model);
+    }
+    @GetMapping("/editarInicio")
+    public String editarInicio(Model model) {
+        return "editarInicio";
+    }
+
+    @Transactional
+    @PostMapping("/editarInicio")
+    public String editarIndex(Model model, @RequestParam String texto) {
+        long id = 1;
+        TextoTaller txt = entityManager.find(TextoTaller.class, id);
+
+        txt.setTexto(texto);
+
+        return "editarInicio";
     }
 }
