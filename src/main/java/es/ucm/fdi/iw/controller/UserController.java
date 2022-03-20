@@ -345,4 +345,26 @@ public class UserController {
         return misVehiculos(model);
     }
 
+	@PostMapping("/anyadirCoche")
+    @Transactional
+    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
+		log.info("ANYADIIRRRR COCHEEEE");
+
+		Vehiculo v = new Vehiculo();
+		v.setMatricula(matricula);
+		v.setModelo(modelo);
+		v.setTipo(tipo);
+		v.setActivo(true);
+		//SACAR ID del usuario actual
+		User propietario = entityManager.find(
+				User.class, ((User)session.getAttribute("u")).getId());
+
+		//log.info("PROPIETARIOOOOOOO" + propietario.getId());
+		v.setPropietario(propietario);
+
+		entityManager.persist(v);
+		entityManager.flush();
+
+        return misVehiculos(model);
+    }
 }

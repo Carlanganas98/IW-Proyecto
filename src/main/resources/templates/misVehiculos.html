@@ -90,6 +90,7 @@
                     </tbody>
                     </table>
             </div>    
+
             <div class="card rounded-0 col-sm-5 border">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
@@ -104,8 +105,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                         <div class="modal-body">
-                            <form th:action="@{}" method="POST">
-                                <input type="hidden" name="id" >
+                            <form th:action="@{/user/anyadirCoche}" method="POST">
                                 <p>Matricula: </p>
                                 <input type="text" name="matricula" >
                                 <p>Tipo: </p>
