@@ -90,7 +90,8 @@ myModal.addEventListener('shown.bs.modal', function () {
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                             <div class="modal-body">
-                                                <form th:action="@{/admin/editarTrabajador}" method="POST">
+                                                <form th:action="@{/admin/editarUsuario}" method="POST">
+                                                    <input type="hidden" name="id" th:value="${user.id}">
                                                     <p>Nombre: </p>
                                                     <input type="text" name="firstName" th:value="${user.firstName}">
                                                     <p>Apellido: </p>
@@ -194,6 +195,7 @@ myModal.addEventListener('shown.bs.modal', function () {
                                         </div>
                                             <div class="modal-body">
                                                 <form th:action="@{/admin/editarUsuario}" method="POST">
+                                                    <input type="hidden" name="id" th:value="${user.id}">
                                                     <p>Nombre: </p>
                                                     <input type="text" name="firstName" th:value="${user.firstName}">
                                                     <p>Apellido: </p>

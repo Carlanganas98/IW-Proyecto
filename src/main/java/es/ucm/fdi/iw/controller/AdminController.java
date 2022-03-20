@@ -43,8 +43,10 @@ public class AdminController {
         for(User user : lista){
             if(user.hasRole(Role.CLIENTE)){
                 listaClientes.add(user);
+                log.info("UN CLIENTE");
             }else{
                 listaTrabajadores.add(user);
+                log.info("UN TRABAJADOR");
             }           
         }
         model.addAttribute("trabajadores", listaTrabajadores);
@@ -64,9 +66,11 @@ public class AdminController {
     @Transactional
     @PostMapping("/editarUsuario")
     public String editarTrabajador(Model model, @RequestParam long id, @RequestParam String firstName, @RequestParam String lastName) {
+
         User u = entityManager.find(User.class, id);
         u.setFirstName(firstName);
         u.setLastName(lastName);
+        
         return index(model);
     }
 }

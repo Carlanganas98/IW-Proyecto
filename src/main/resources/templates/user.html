@@ -11,7 +11,7 @@
             <label for="isbn">ISBN</label><input id="isbn" value="9780140328721" />
             <button id="fetchBook">Buscar datos online</button>
             <img id="portada" alt="portada del libro" />
-            <form th:action="@{/user/__${user.id}__/pic}">
+            <form th:action="@{/user/__${user.id}__/pic}" method="GET">
                 <button id="postPortada">Subir portada al servidor</button>
             </form>
         </div>
@@ -19,14 +19,14 @@
             <label for="imdb">IMDB</label><input id="imdb" value="tt11286314" />
             <button id="fetchMovie">Buscar datos online</button>
             <img id="poster" alt="poster de la pelicula" />
-            <form th:action="@{/user/__${user.id}__/pic}">
+            <form th:action="@{/user/__${user.id}__/pic}" method="GET">
                 <button id="postPoster">Subir poster al servidor</button>
             </form>
         </div>
         <div id="profile" class="border border-2 border-tertiary rounded">
             <input type="file" id="f_avatar" accept="image/jpeg,image/png">
             <img id="avatar" alt="careto a subir" />
-            <form th:action="@{/user/__${user.id}__/pic}">
+            <form th:action="@{/user/__${user.id}__/pic}"  method="GET">
                 <button id="postAvatar">Subir poster al servidor</button>
             </form>
         </div>
