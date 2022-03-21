@@ -309,21 +309,28 @@ public class UserController {
 		return "{\"result\": \"message sent.\"}";
 	}	
 
-		@PostMapping("/misVehiculos")
+		@GetMapping("/anyadeVehiculo")
 		@Transactional
-			public String misVehiculos(
+			public String anyadeVehiculoS(
+			Model model,
 			@RequestParam String matricula,
 			@RequestParam String tipo,
-			@RequestParam String modelo, Model m) {
+			@RequestParam String modelo,
+			HttpSession session) {
 
+			User propietario = entityManager.find(
+				User.class, ((User)session.getAttribute("u")).getId());
+			
 			Vehiculo v = new Vehiculo();
-			v.setId(1);
 			v.setMatricula(matricula);
 			v.setTipo(tipo);
 			v.setModelo(modelo);
+			v.setPropietario(propietario);
 			
+			entityManager.persist(v);
+			entityManager.flush();
 			
-		  return "/misVehciulos" ;
+			return "misVehiculos";
 		}
 
 
