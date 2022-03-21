@@ -10,12 +10,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
 
 @Entity
 @Data
+@NamedQueries({
+    @NamedQuery(name="Reparaciones.listadoReparaciones",
+            query="SELECT * FROM Reparaciones r INNER JOIN Vehiculo v ON r.vehiculo = v"
+                    + "WHERE r.empleado = :mecanico"),
+})
 public class Reparacion {
 
     @Id 

@@ -311,6 +311,7 @@ public class UserController {
 	}	
 	
 	@GetMapping("/misVehiculos")
+	// Añadir http session
     public String misVehiculos(Model model)
     {
         List<Vehiculo> lista_vehiculos = null;    
@@ -367,4 +368,10 @@ public class UserController {
 
         return misVehiculos(model);
     }
+
+	@GetMapping("/gestionarReparaciones")
+    public String reparaciones(Model model) {
+        return "gestionarReparaciones";
+    }
+
 }

@@ -9,7 +9,8 @@
 INSERT INTO "IWUSER" VALUES
 (1, 'a@gmail.com', TRUE, 'Nombre1', 'Apellido1', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,ADMIN,EMPLEADO', 'a'),
 (2, 'b@gmail.com', TRUE, 'Nombre2', 'Apellido2', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,CLIENTE', 'b'),
-(3, 'c@gmail.com', TRUE, 'Nombre3', 'Apellido3', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,ADMIN,EMPLEADO', 'c'); 
+(3, 'c@gmail.com', TRUE, 'Nombre3', 'Apellido3', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,ADMIN,EMPLEADO', 'c'),
+(4, 'd@gmail.com', TRUE, 'Nombre4', 'Apellido4', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'USER,EMPLEADO', 'd');
 
 
 -- start id numbering from a value that is larger than any assigned above
@@ -21,3 +22,6 @@ INSERT INTO Vehiculo (id, activo, matricula, tipo, modelo, anyo, propietario_id)
 (2, TRUE, '5678EFG', 'MOTO', 'Yamaha FZ 10', 2010, 1);
 
 INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
+
+INSERT INTO Reparacion (id, estado, fecha_inicio, fecha_fin, empleado_id, vehiculo_id) VALUES
+(1, 'PENDIENTE', '2022-03-22 16:00:00', '2022-03-31 20:00:00', '4', '1');
