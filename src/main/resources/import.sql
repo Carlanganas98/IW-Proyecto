@@ -23,5 +23,5 @@ INSERT INTO Vehiculo (id, activo, matricula, tipo, modelo, propietario_id) VALUE
 INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
 
 INSERT INTO "REPARACION" VALUES 
-(1,'Hace un ruido muy raro', TRUE, '2022-05-05', '2022-05-05', 1, 2),
-(2,'Parabrisas roto', TRUE, '2022-06-05', '2022-05-05', 1, 2);
+(1,'Hace un ruido muy raro', TRUE, NULL, '2022-05-05', NULL, 2),
+(2,'Parabrisas roto', TRUE, NULL, '2022-05-05', NULL, 2);

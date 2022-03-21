@@ -47,7 +47,10 @@ myModal.addEventListener('shown.bs.modal', function () {
                                 <td th:text="${rep.id}"></td>
                                 <td th:text="${rep.descripcion}"></td>
                                 <td>
-                                <button type="button" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
+                                <form th:action="@{/admin/aceptarReparacion/}" method="POST">
+                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
+                                </form>
                                 <button type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                 </td>
 

@@ -3,6 +3,7 @@ package es.ucm.fdi.iw.controller;
 import java.util.ArrayList;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
@@ -88,6 +89,18 @@ public class AdminController {
 
         model.addAttribute("reparaciones", lista);
         return "solicitudesReparacion";
+    }
+
+    @Transactional
+    @PostMapping("/aceptarReparacion")
+    public String solicitudesReparacion(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+
+        rep.setEmpleado(u);
+
+        return solicitudesReparacion(model);
     }
 
     @Transactional
