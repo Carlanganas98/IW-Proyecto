@@ -61,22 +61,7 @@ public class RootController {
     public String taller(Model model) {
         return "taller";
     }
-    
-    // @GetMapping("/misVehiculos")
-    // public String misVehiculos(Model model, HttpSession session)
-    // {
-    //     long userId = ((User)session.getAttribute("u")).getId();
-    //     User u = entityManager.find(User.class, userId);
-    //     List<Vehiculo> lista_vehiculos = null;
         
-    //     log.info("ID USUARIO: " + userId);
-        
-    //     lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).setParameter("propietario", u).getResultList();
-    //     model.addAttribute("vehiculos", lista_vehiculos);
-
-    //     return "misVehiculos";
-    // }
-    
     @GetMapping("/vehiculoDetallado")
     public String vehiculoDetallado(Model model, HttpSession session, @RequestParam long idVehiculo)
     {
