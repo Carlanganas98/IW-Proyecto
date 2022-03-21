@@ -14,18 +14,12 @@
         <div class="container">
             <h1>Mis Vehiculos</h1>
 
-            <!-- <ul th:each="v: ${vehiculos}">
-                <li th:text="${v.tipo}">Coche</li>
-                <li th:text="${v.modelo}">Toyota Auris</li>
-            </ul> -->
-
             <table>
                 <tbody>
                     <tr th:each="v: ${vehiculos}">
                         <td th:text="${v.tipo}">Coche</td>
                         <td> --> </td>
                         <td th:text="${v.modelo}">Toyota Auris</td>
-                        
                         <td>
                             <a th:if="${v.tipo == 'COCHE'}" th:href="@{/vehiculoDetallado/}">
                                 <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
