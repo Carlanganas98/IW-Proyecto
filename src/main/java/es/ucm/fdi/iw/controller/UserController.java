@@ -32,6 +32,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import javax.websocket.Session;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -309,6 +310,7 @@ public class UserController {
 		return "{\"result\": \"message sent.\"}";
 	}	
 
+
 		@GetMapping("/anyadeVehiculo")
 		@Transactional
 			public String anyadeVehiculoS(
@@ -333,5 +335,65 @@ public class UserController {
 			return "misVehiculos";
 		}
 
+
+
+	
+	@GetMapping("/misVehiculos")
+    public String misVehiculos(Model model)
+    {
+        List<Vehiculo> lista_vehiculos = null;    
+
+        
+        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
+		model.addAttribute("vehiculos", lista_vehiculos);
+
+        return "misVehiculos";
+    }
+
+	@Transactional
+    @PostMapping("/editarVehiculo")
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo) {
+		Vehiculo v = entityManager.find(Vehiculo.class, id);
+
+
+        v.setMatricula(matricula);
+		v.setModelo(modelo);
+		v.setTipo(tipo);
+
+        return misVehiculos(model);
+    }
+
+	@GetMapping("/borrarCoche")
+    @Transactional
+    public String borrarCoche(Model model, @RequestParam long id){
+
+		Vehiculo v = entityManager.find(Vehiculo.class, id);
+		v.setActivo(false);
+        return misVehiculos(model);
+    }
+
+	@PostMapping("/anyadirCoche")
+    @Transactional
+    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
+		log.info("ANYADIIRRRR COCHEEEE");
+
+		Vehiculo v = new Vehiculo();
+		v.setMatricula(matricula);
+		v.setModelo(modelo);
+		v.setTipo(tipo);
+		v.setActivo(true);
+		//SACAR ID del usuario actual
+		User propietario = entityManager.find(
+				User.class, ((User)session.getAttribute("u")).getId());
+
+		//log.info("PROPIETARIOOOOOOO" + propietario.getId());
+		v.setPropietario(propietario);
+
+		entityManager.persist(v);
+		entityManager.flush();
+
+        return misVehiculos(model);
+    }
 
 }

@@ -19,10 +19,10 @@ public class Servicio {
     private long id; 
 
     private String info;
-    private String precio;
+    private double precio;
     private int num_horas;
 
-    @ManyToOne(targetEntity = Reparacion.class)
+    @ManyToOne
     private Reparacion reparacion;
 
 }

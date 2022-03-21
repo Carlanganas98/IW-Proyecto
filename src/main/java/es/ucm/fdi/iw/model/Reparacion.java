@@ -24,33 +24,22 @@ public class Reparacion {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
-    //@ManyToOne(targetEntity = User.class)
+    //@ManyToOne
     //private User cliente;
     //Sobera ya que al cliente accederemos a traves de la clase vehiculo
 
-
-    // ¿Esto sobra? o ¿@ManyToMany?
-    //Creo que esta bien ya que habra muchas reparaciones para 1 empleado
-    //y cada reparacion no tendra mas de 1 empleado
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     private User empleado;
-
     
-    @ManyToOne(targetEntity = Vehiculo.class)
+    @ManyToOne
     private Vehiculo vehiculo;
-    Vehiculo getVehiculo(){
-        return this.vehiculo;
-    }
-
     
-    @OneToMany(targetEntity = Servicio.class)
+    @OneToMany
     @JoinColumn(name="servicio_id")
     private List<Servicio> lista_servicios;
-    Servicio getServicios(){
-        return this.getServicios();
-    }
     
     private Date fecha_inicio;
     private Date fecha_fin;
-
+    private String estado;
+    
 }

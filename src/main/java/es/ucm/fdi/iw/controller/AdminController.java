@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import antlr.collections.List;
+import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.User.Role;
 
@@ -37,15 +38,20 @@ public class AdminController {
     public String index(Model model) {
         TypedQuery<User> consultaAlumnos= entityManager.createNamedQuery("User.allUsers", User.class);
         ArrayList<User> lista= (ArrayList<User>) consultaAlumnos.getResultList();
-        //ArrayList<User> listaTrabajadores;
+        ArrayList<User> listaTrabajadores= new ArrayList<User>();
+        ArrayList<User> listaClientes= new ArrayList<User>();
+
         for(User user : lista){
             if(user.hasRole(Role.CLIENTE)){
-                user.setRoles("CLIENTE");
+                listaClientes.add(user);
+                log.info("UN CLIENTE");
             }else{
-                user.setRoles("EMPLEADO");
-            }
+                listaTrabajadores.add(user);
+                log.info("UN TRABAJADOR");
+            }           
         }
-        model.addAttribute("users", lista);
+        model.addAttribute("trabajadores", listaTrabajadores);
+        model.addAttribute("clientes", listaClientes);
         return "admin";
     }
 
@@ -59,11 +65,28 @@ public class AdminController {
     }
     
     @Transactional
-    @PostMapping("/editarTrabajador")
-    public String editarTrabajador(Model model, @RequestParam long id, @RequestParam String firstName) {
+    @PostMapping("/editarUsuario")
+    public String editarTrabajador(Model model, @RequestParam long id, @RequestParam String firstName, @RequestParam String lastName) {
+
         User u = entityManager.find(User.class, id);
         u.setFirstName(firstName);
-        //model.addAttribute("users", lista);
+        u.setLastName(lastName);
+        
         return index(model);
+    }
+    @GetMapping("/editarInicio")
+    public String editarInicio(Model model) {
+        return "editarInicio";
+    }
+
+    @Transactional
+    @PostMapping("/editarInicio")
+    public String editarIndex(Model model, @RequestParam String texto) {
+        long id = 1;
+        TextoTaller txt = entityManager.find(TextoTaller.class, id);
+
+        txt.setTexto(texto);
+
+        return "editarInicio";
     }
 }

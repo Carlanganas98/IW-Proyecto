@@ -8,84 +8,27 @@
 
 
 
-<body class="d-flex h-100 w-100 backgroundIndex">
-    <!--<header th:replace="fragments/nav.html :: nav"></header>-->
-    <main class="h-100">
-      <div class="portada">
-        <h1 class="display-1 text-end">Datacar</h1>
-        <p class="text-justify" style="color:whitesmoke;">¿Puesta a punto?, ¿avería?, ¿problemas de arranque, suspensión o embrague? Tranquilidad. Echa el freno en cualquiera de nuestros centros Datacar y solucionaremos tu problema mecánico o de mantenimiento.
-          Datacar te ofrece una amplia gama de servicios vinculados al mantenimiento y mecánica de tu automóvil. Descubre online todos nuestros servicios de taller, elige el servicio que necesitas y pide cita en uno de los muchos centros Datacar a tu disposición.</p>
-      
-          <blockquote class="blockquote mb-5 border p-2" style="color:whitesmoke;">
-            <p class="mb-3">La mejor atencion que he recibido nunca en un taller, muy recomendado!</p>
-            <footer class="blockquote-footer text-end"  style="color:whitesmoke;"><cite title="Source Title">Maritere</cite></footer>
-          </blockquote>
-          <blockquote class="blockquote mb-5 border p-2" style="color:whitesmoke;">
-            <p class="mb-3">Increible la comunicación con el personal del taller</p>
-            <footer class="blockquote-footer text-end"  style="color:whitesmoke;"><cite title="Source Title">Paco</cite></footer>
-          </blockquote>
-
-          <p class="fs-2 text-end" style="color:whitesmoke;">Los testimonios hablan por si solos</p>
-        </div>
-
-        
-        <div class="portadaLogin d-flex justify-content-center align-items-center">
-
-          <div class="card w-50 h-50 rounded-0">
-            <div class="card-body">
-              <img class="card-img-top" src="/img/favicon.svg" alt="Card image cap" width="100" height="100">
-              <div class="card-body d-flex justify-content-center row">
-                <p class="card-title fs-3 text-center">¿Te interesa?</p>  
-                <div class="btn-group-vertical">                
-                  <a href="registro" class="btn btn-primary mt-5">Unete a nosotros</a>
-                  <a href="login" class="btn btn-primary mt-3">Ya tengo cuenta</a>
-                 </div>
-               </div>
+<body class="container">
+        <h1 class="row">Datacar</h1>
+        <div class="row">
+          <div class="col col-8">
+            <span th:text="${texto}">Texto</span>
           </div>
-        </div>
-
-         <!-- 
-           .container{
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-          
-          <div class="row h-100 justify-content-around mt-5 justify-content-between">
-              <div class="d-flex col-lg-8 h-100">
-                <div class="card h-100 w-50 rounded-0" >
-                  <div class="card-body">
-                    <h5 class="card-title"><b>Quienes Somos</b></h5>
-                    <p class="card-text">Nos dedicamos a proporcionar a nuestros clientes una comunicación con su taller para que puedan estar informados del estado de su vehículo en todo momento.</p>
-                    <p class="card-text">También actuamos como una agenda y recordamos cuándo los clientes tienen que hacer una visita al taller, y además proporcionamos un registro de todas las veces que se ha ido al taller para que el cliente tenga la información que desea.</p>
-                    <img th:src="@{/img/portadaImg.jpeg}" src="/img/portadaImg.jpeg" class="block card-img-top" alt="imagen portada">
+          <div class="col col-4">
+            <div class="card rounded-0">
+              <div class="card-body">
+                <img class="card-img-top" src="/img/favicon.svg" alt="Card image cap">
+                <div class="card-body d-flex justify-content-center row">
+                  <p class="card-title text-center">¿Te interesa?</p>  
+                  <div class="btn-group-vertical">                
+                    <a href="registro" class="btn btn-primary mt-5">Unete a nosotros</a>
+                    <a href="login" class="btn btn-primary mt-3">Ya tengo cuenta</a>
                   </div>
                 </div>
               </div>
-              <div class="d-flex col-lg-4 h-100">
-                <div class="card h-75 rounded-0">
-                  <div class="card-body">
-                    <img class="card-img-top" src="/img/favicon.svg" alt="Card image cap" width="100" height="100">
-                    <div class="card-body">
-                      <p class="card-title">¿Te interesa?</p>  
-                        <div class="btn-group-vertical">                
-                          <a href="registro" class="btn btn-primary">Unete a nosotros</a>
-                          <a href="login" class="btn btn-primary mt-3">Ya tengo cuenta</a>
-                       </div>
-                     </div>
-                </div>
-              </div>
+            </div>
           </div>
-          -->
         </div>
-        
-    </main>
-
-    <!--<th:block th:replace="fragments/footer.html :: footer" />-->
-
-
 </body>
 
 </html>

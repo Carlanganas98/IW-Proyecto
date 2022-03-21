@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
@@ -14,28 +16,33 @@ import lombok.Data;
 
 @Entity
 @Data
+@NamedQueries({
+    @NamedQuery(name="verVehiculos",
+    query="select v from Vehiculo v WHERE v.activo = TRUE"),
+    
+    @NamedQuery(name="verVehiculoDetallado",
+    query="SELECT v FROM Vehiculo v WHERE v.propietario = :propietario AND v.id = :idVehiculo")
+
+})
 public class Vehiculo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
     @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
-    
+
+
     private String matricula;
     private String tipo; // Coche o Moto
     private String modelo;
-    //private int anyo;
+    private int anyo;
+    private boolean activo;
     
-    @OneToMany(targetEntity = Reparacion.class)
+    @OneToMany
     @JoinColumn(name="vehiculo_id")
     private List<Reparacion> lista_reparaciones;
-    List<Reparacion> getReparaciones(){
-        return this.lista_reparaciones;
-    }
     
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     private User propietario;
-    User getPropietario(){
-        return this.propietario;
-    }
+
 }
