@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import antlr.collections.List;
+import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.User.Role;
@@ -77,6 +78,16 @@ public class AdminController {
     @GetMapping("/editarInicio")
     public String editarInicio(Model model) {
         return "editarInicio";
+    }
+
+    @GetMapping("/solicitudesReparacion")
+    public String solicitudesReparacion(Model model) {
+
+        TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.allReparaciones", Reparacion.class);
+        ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
+
+        model.addAttribute("reparaciones", lista);
+        return "solicitudesReparacion";
     }
 
     @Transactional

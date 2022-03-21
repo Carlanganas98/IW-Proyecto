@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>IW: Admin</title>
+</head>
+
+
+<script>
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
+
+</script>
+
+<!--- comentario --->
+<!--- comentario --->
+<!--- comentario --->
+<body class="d-flex flex-column h-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    
+
+    <main class="flex-shrink-0">
+
+        
+        <div class="container">
+            <h1>Reparaciones</h1>
+            <div class="row d-flex justify-content-center">
+                <div class="card rounded-0 border">
+                    <h2>Gestion de trabajadores</h2>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Id vehiculo</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="rep: ${reparaciones}" >
+                                <td th:text="${rep.id}"></td>
+                                <td th:text="${rep.descripcion}"></td>
+                                <td>
+                                <button type="button" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
+                                <button type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                      </table>
+                </div>                
+            </div> 
+        </div> 
+
+
+
+    </main>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>
