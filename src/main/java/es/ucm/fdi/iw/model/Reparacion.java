@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-
 import lombok.Data;
 
 @Entity
@@ -18,36 +17,25 @@ import lombok.Data;
 })
 public class Reparacion {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
+    @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
     public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
 
-    //@ManyToOne(targetEntity = User.class)
     //private User cliente;
     //Sobera ya que al cliente accederemos a traves de la clase vehiculo
 
-
-    // ¿Esto sobra? o ¿@ManyToMany?
-    //Creo que esta bien ya que habra muchas reparaciones para 1 empleado
-    //y cada reparacion no tendra mas de 1 empleado
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     private User empleado;
     
     @ManyToOne
     private Vehiculo vehiculo;
-    Vehiculo getVehiculo(){
-        return this.vehiculo;
-    }
-
     
     @OneToMany
     @JoinColumn(name="servicio_id")
     private List<Servicio> lista_servicios;
-    Servicio getServicios(){
-        return this.getServicios();
-    }
     
     private Date fecha_inicio;
     private Date fecha_fin;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
@@ -68,10 +69,19 @@ public class RootController {
     public String taller(Model model) {
         return "taller";
     }
-    
-    
+        
     @GetMapping("/vehiculoDetallado")
-    public String vehiculoDetallado(Model model) {
+    public String vehiculoDetallado(Model model, HttpSession session, @RequestParam long idVehiculo)
+    {
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Vehiculo vehiculo = null;
+
+        vehiculo = (Vehiculo) entityManager.createNamedQuery("verVehiculos").setParameter("propietario", u).setParameter("idVehiculo", idVehiculo).getSingleResult();
+        //vehiculo.setId(idVehiculo);
+        //vehiculo.setPropietario(u);
+
+        model.addAttribute("vehiculo", vehiculo);
+        
         return "vehiculoDetallado";
     }
 

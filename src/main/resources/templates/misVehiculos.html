@@ -101,16 +101,22 @@
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                         <div class="modal-body">
                             <form th:action="@{/user/anyadirCoche}" method="POST">
-                                <p>Matricula: </p>
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                <h6><label>Introduzca el modelo del vehículo:</label> </h6> 
                                 <input type="text" name="matricula" >
-                                <p>Tipo: </p>
-                                <input type="text" name="tipo" >
-                                <p>Modelo: </p>
+                               
+                               <h6><label>Seleccione el tipo de vehículo</label></h6> 
+                                    <select multiple class="form-control" name="tipo" id="tipo">
+                                        <option>Coche</option>
+                                        <option>Moto</option>
+                                    </select>
+                                <h6>Introduzca el modelo del vehículo: </h6>
                                 <input type="text" name="modelo" >
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Añadir</button>
@@ -121,7 +127,18 @@
                     </div>
                     </div>
                     </div>
+
             </div>
+        </div>
+
+       
+   
+                                   
+                        
+
+
+            </div>
+
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />

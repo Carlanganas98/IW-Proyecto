@@ -44,14 +44,11 @@ public class User implements Transferable<User.Transfer> {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
 	private long id;
 
-
-    @OneToMany(targetEntity=Vehiculo.class)
+    @OneToMany
     @JoinColumn(name="propietario_id") // <-- evita tabla auxiliar 
     private List<Vehiculo> lista_vehiculos; // = new ArrayList<>();
-    List<Vehiculo> getVehiculos(){
-        return this.lista_vehiculos;
-    }
-    //private String email;
+
+    private String email;
 
     @Column(nullable = false, unique = true)
     private String username;
