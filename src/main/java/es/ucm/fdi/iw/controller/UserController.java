@@ -309,6 +309,34 @@ public class UserController {
 		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
 		return "{\"result\": \"message sent.\"}";
 	}	
+
+
+		@GetMapping("/anyadeVehiculo")
+		@Transactional
+			public String anyadeVehiculoS(
+			Model model,
+			@RequestParam String matricula,
+			@RequestParam String tipo,
+			@RequestParam String modelo,
+			HttpSession session) {
+
+			User propietario = entityManager.find(
+				User.class, ((User)session.getAttribute("u")).getId());
+			
+			Vehiculo v = new Vehiculo();
+			v.setMatricula(matricula);
+			v.setTipo(tipo);
+			v.setModelo(modelo);
+			v.setPropietario(propietario);
+			
+			entityManager.persist(v);
+			entityManager.flush();
+			
+			return "misVehiculos";
+		}
+
+
+
 	
 	@GetMapping("/misVehiculos")
     public String misVehiculos(Model model)
@@ -367,4 +395,5 @@ public class UserController {
 
         return misVehiculos(model);
     }
+
 }
