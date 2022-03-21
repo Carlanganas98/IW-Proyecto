@@ -16,6 +16,7 @@ import antlr.collections.List;
 import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.Reparacion.ESTADO;
 import es.ucm.fdi.iw.model.User.Role;
 
 /**
@@ -93,11 +94,23 @@ public class AdminController {
 
     @Transactional
     @PostMapping("/aceptarReparacion")
-    public String solicitudesReparacion(Model model, @RequestParam long id_reparacion, HttpSession session) {
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session) {
 
         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
         Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.ACEPTADO);
+        rep.setEmpleado(u);
 
+        return solicitudesReparacion(model);
+    }
+
+    @Transactional
+    @PostMapping("/rechazarReparacion")
+    public String solicitudesReparacionRechazar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.RECHAZADO);
         rep.setEmpleado(u);
 
         return solicitudesReparacion(model);

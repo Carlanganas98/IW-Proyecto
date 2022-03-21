@@ -22,6 +22,8 @@ public class Reparacion {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private long id;
 
+    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
+
     //@ManyToOne(targetEntity = User.class)
     //private User cliente;
     //Sobera ya que al cliente accederemos a traves de la clase vehiculo
@@ -49,7 +51,9 @@ public class Reparacion {
     
     private Date fecha_inicio;
     private Date fecha_fin;
-    private String estado;
+
+    @Enumerated(value = EnumType.STRING)
+    private ESTADO estado = ESTADO.PENDIENTE;
     
     private String descripcion;
 

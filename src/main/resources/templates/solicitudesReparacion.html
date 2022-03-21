@@ -39,6 +39,7 @@ myModal.addEventListener('shown.bs.modal', function () {
                           <tr>
                             <th scope="col">Id vehiculo</th>
                             <th scope="col">Descripcion</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Acción</th>
                         </tr>
                         </thead>
@@ -46,12 +47,17 @@ myModal.addEventListener('shown.bs.modal', function () {
                             <tr th:each="rep: ${reparaciones}" >
                                 <td th:text="${rep.id}"></td>
                                 <td th:text="${rep.descripcion}"></td>
+                                <td th:text="${rep.estado}"></td>
                                 <td>
                                 <form th:action="@{/admin/aceptarReparacion/}" method="POST">
                                     <input type="hidden" name="id_reparacion" th:value="${rep.id}">
                                     <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
                                 </form>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                <form th:action="@{/admin/rechazarReparacion/}" method="POST">
+                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                </form>
+                                
                                 </td>
 
                             </tr>
