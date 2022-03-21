@@ -23,5 +23,10 @@ INSERT INTO Vehiculo (id, activo, matricula, tipo, modelo, anyo, propietario_id)
 
 INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
 
-INSERT INTO Reparacion (id, estado, fecha_inicio, fecha_fin, empleado_id, vehiculo_id) VALUES
-(1, 'PENDIENTE', '2022-03-22 16:00:00', '2022-03-31 20:00:00', '4', '1');
+-- INSERT INTO Reparacion (id, estado, fecha_inicio, fecha_fin, empleado_id, vehiculo_id) VALUES
+-- (1, 'PENDIENTE', '2022-03-22 16:00:00', '2022-03-31 20:00:00', '4', '1');
+
+INSERT INTO "REPARACION" VALUES 
+(1,'Hace un ruido muy raro', 'PENDIENTE', NULL, '2022-05-05', NULL, 2),
+(2,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05', NULL, 2);
+

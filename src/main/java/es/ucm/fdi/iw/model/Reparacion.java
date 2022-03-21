@@ -4,32 +4,30 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.Data;
 
 @Entity
 @Data
 @NamedQueries({
-    @NamedQuery(name="Reparaciones.listadoReparaciones",
-            query="SELECT * FROM Reparaciones r INNER JOIN Vehiculo v ON r.vehiculo = v"
-                    + "WHERE r.empleado = :mecanico"),
+    // @NamedQuery(name="Reparaciones.listadoReparaciones",
+    //         query="SELECT r, v FROM Reparacion r INNER JOIN Vehiculo v ON r.vehiculo = v"
+    //                 + "WHERE r.empleado = :mecanico"),
+                    
+    @NamedQuery(name="Reparacion.allReparaciones",
+    query="SELECT r "
+            + "FROM Reparacion r")
 })
 public class Reparacion {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
+    @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
-    //@ManyToOne
+    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
+
     //private User cliente;
     //Sobera ya que al cliente accederemos a traves de la clase vehiculo
 
@@ -45,6 +43,10 @@ public class Reparacion {
     
     private Date fecha_inicio;
     private Date fecha_fin;
-    private String estado;
+
+    @Enumerated(value = EnumType.STRING)
+    private ESTADO estado = ESTADO.PENDIENTE;
     
+    private String descripcion;
+
 }
