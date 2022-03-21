@@ -30,47 +30,21 @@ myModal.addEventListener('shown.bs.modal', function () {
 
         
         <div class="container">
-            <h1>Administración</h1>
+            <h1>Panel de administración</h1>
             <div class="row d-flex justify-content-center">
                 <div class="card rounded-0 col-sm-5 border">
                     <h2>Gestion de trabajadores</h2>
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Operaciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="user: ${users}" th:if="${user.roles == 'EMPLEADO'}">
-                                <td th:text="${user.id}"></td> 
+                            <tr th:each="user: ${trabajadores}" >
                                 <td th:text="${user.firstName}"></td>
-                                <td th:text="${user.lastName}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary"><i class="bi bi-eye"></i></button>
-                                    <button type="button" class="btn btn-success"><i class="bi bi-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"><i class="bi bi-trash"></i></button>
-                                
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 class="modal-title" id="modalEliminarLabel" th:text="'Eliminar ' + ${user.firstName}"></h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                            Estas a punto de eliminar este usuario. ¿Estás seguro?
-                                            </div>
-                                            <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            
-                                            <form th:action="@{/admin/borrarId/}">
-                                                <input type="hidden" name="id" th:value="${user.id}">
-                                                <button type="submit" class="btn btn-danger">Eliminar</button>
-                                            </form>
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalObservarTrabajador">
                                         <i class="bi bi-eye"></i>
@@ -80,36 +54,32 @@ myModal.addEventListener('shown.bs.modal', function () {
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Observando usuario</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Observando trabajador</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="col">
-                                                    <div>ID usuario:</div>
+                                                    <div>ID trabajador:</div>
                                                     <div th:text="${user.id}"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div>ID usuario:</div>
-                                                    <div th:text="${user.id}"></div>
+                                                    <div>Nombre:</div>
+                                                    <div th:text="${user.firstName}"></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div>ID usuario:</div>
-                                                    <div th:text="${user.id}"></div>
+                                                    <div>Apellido:</div>
+                                                    <div th:text="${user.lastName}"></div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                            <button type="button" class="btn btn-primary">Cerrar</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                             </div>
                                         </div>
                                         </div>
-                                    </div>
-
-
-
-
+                                    </div>               
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalEditarTrabajador">
-                                    <i class="bi bi-pencil"></i>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditarTrabajador">
+                                        <i class="bi bi-pencil"></i>
                                     </button>
                                     <!-- Modal -->
                                     <div class="modal fade" id="modalEditarTrabajador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -118,56 +88,155 @@ myModal.addEventListener('shown.bs.modal', function () {
                                             <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Editando trabajador</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
+                                        </div>
                                             <div class="modal-body">
-                                                <form th:action="@{/admin/editarTrabajador}" method="POST">
+                                                <form th:action="@{/admin/editarUsuario}" method="POST">
                                                     <input type="hidden" name="id" th:value="${user.id}">
-                                                    <input type="hidden" name="firstName" value="Alfredo">
-                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                    <p>Nombre: </p>
+                                                    <input type="text" name="firstName" th:value="${user.firstName}">
+                                                    <p>Apellido: </p>
+                                                    <input type="text" name="lastName" th:value="${user.lastName}">
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
                                         </div>
-                                    </div>
+                                        </div>
 
-                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"><i class="bi bi-trash"></i></button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalEliminarLabel" th:text="'Eliminar ' + ${user.firstName}"></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Estas a punto de eliminar este trabajador. ¿Estás seguro?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <form th:action="@{/admin/borrarId/}">
+                                                        <input type="hidden" name="id" th:value="${user.id}">
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
-                        
                       </table>
-                    
-                </div>
+                </div>                
 
-                
                 <div class = "col-sm-1"></div>
-    
                 <div class="card rounded-0 col-sm-5 border">
                     <h2>Gestion de clientes</h2>
-                    
                     <table class="table">
                         <thead>
                           <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Operaciones</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="user: ${users}" th:if="${user.roles == 'CLIENTE'}">
-                                <td th:text="${user.id}"></td> 
+                            <tr th:each="user: ${clientes}">
                                 <td th:text="${user.firstName}"></td>
-                                <td th:text="${user.lastName}"></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary"><i class="bi bi-eye"></i></button>
-                                    <button type="button" class="btn btn-success"><i class="bi bi-pencil"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalObservarCliente">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalObservarCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Observando cliente</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="col">
+                                                    <div>ID cliente:</div>
+                                                    <div th:text="${user.id}"></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div>Nombre:</div>
+                                                    <div th:text="${user.firstName}"></div>
+                                                </div>
+                                                <div class="col">
+                                                    <div>Apellido:</div>
+                                                    <div th:text="${user.lastName}"></div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>               
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditarCliente">
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Editando cliente</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{/admin/editarUsuario}" method="POST">
+                                                    <input type="hidden" name="id" th:value="${user.id}">
+                                                    <p>Nombre: </p>
+                                                    <input type="text" name="firstName" th:value="${user.firstName}">
+                                                    <p>Apellido: </p>
+                                                    <input type="text" name="lastName" th:value="${user.lastName}">
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+
+
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"><i class="bi bi-trash"></i></button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalEliminarLabel" th:text="'Eliminar ' + ${user.firstName}"></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Estas a punto de eliminar este cliente. ¿Estás seguro?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <form th:action="@{/admin/borrarId/}">
+                                                        <input type="hidden" name="id" th:value="${user.id}">
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
                       </table>
-
                 </div>
             </div>
         </div>
