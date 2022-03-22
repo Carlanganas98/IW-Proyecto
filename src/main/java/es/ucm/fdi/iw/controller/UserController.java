@@ -418,4 +418,25 @@ public class UserController {
         return "gestionarReparaciones";
     }
 
+
+	@GetMapping("/reparaciones")
+	@Transactional
+	// Añadir http session
+    public String solicitaReparaciones(Model model,
+	HttpSession session)
+    {
+        List<Vehiculo> lista_vehiculos = null;    
+
+		Reparacion r = new Reparacion();
+
+		entityManager.persist(r);
+		entityManager.flush();
+
+        
+        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
+		model.addAttribute("vehiculos", lista_vehiculos);
+
+        return "reparaciones";
+    }
 }

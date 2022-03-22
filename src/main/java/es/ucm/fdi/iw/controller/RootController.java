@@ -70,11 +70,6 @@ public class RootController {
         return "taller";
     }
 
-    @GetMapping("/solicitaReparacion")
-    public String solicitaReparacion(Model model) {
-        return "solicitaReparacion";
-    }
-        
     @GetMapping("/vehiculoDetallado")
     public String vehiculoDetallado(Model model, HttpSession session, @RequestParam long idVehiculo)
     {
