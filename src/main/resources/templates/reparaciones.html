@@ -3,124 +3,84 @@
 
 <head>
     <th:block th:replace="fragments/head :: header" />
-    <title>IW: Vehiculo detallado</title>
+    <title>IW: Mis Vehiculos</title>
 </head>
 
 <body class="d-flex flex-column h-100">
 
     <header th:replace="fragments/nav.html :: nav"></header>
-    <h1>Formulario de reparación</h1>
+
     <main class="flex-shrink-0">
-        <form class = "form-group">
-            <div class="row d-flex justify-content-center">
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <label for="Nombre"><b>Nombre</b></label>
-                <input type="text" class="form-control ml-sm-5" id="nombre" placeholder="Nombre completo">
-              </div>
+        <div class="container">
+            <h1>Solicita una reparacion de un vehículo</h1>
+
+            <div class="card rounded-0 col-sm-5 border">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Matricula</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Modelo</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="v: ${vehiculos}" >
+                            <td th:text="${v.id}"></td>
+                            <td th:text="${v.matricula}"></td>
+                            <td th:text="${v.tipo}"></td>
+                            <td th:text="${v.modelo}"></td>
+                            <td>            
+                               
+  
+
+                                    <div class="card rounded-0 col-sm-5 border">
+                                      <!-- Button trigger modal -->
+                                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
+                                          <i class="bi bi-plus-circle-fill"></i>
+                                      </button>
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="modalAnyadirCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                              <div class="modal-body">
+                                                  <form th:action="@{/user/solicitaReparacion}" method="POST">
+                                                      
+            
+                                                      <p>Tipo: </p>
+                                                      <input type="text" name="tipo" th:value="${v.tipo}">
+                                                      <p>Modelo: </p>
+                                                      <input type="text" name="modelo" th:value="${v.modelo}">
+                                                      <input type="hidden" name="id" th:value="${v.id}">
+                                                      <p>Fecha de entrega </p>
+                                                      <input type="date" id="fecha_fin" name="fecha_inicio">
+                                                      <p>Describe brevemente lo que le ocurre a tu vehículo: </p>
+                                                      <textarea rows = "5" cols = "60" name = "descripcion" id ="descripcion">
+                                                      </textarea>
+                                                            <div class="modal-footer">
+                                                              <button type="submit" class="btn btn-primary">Guardar</button>
+                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                          </div>  
+                                                  </form>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                    </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-         
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                <label for="inputState"><b>Vehiculo</b></label>
-                <select id="vehiculo" class="form-control">
-                  <option selected>Escoge una opción</option>
-                  <option>Toyota Auris</option>
-                  <option>Ford focus</option>
-                  <option>...</option>
-                </select>
-                </div>
-            </div>
-
-            
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <label for="inputState"><b>Servicios</b></label>
-                    <select id="servicios" class="form-control">
-                      <option selected>Escoge una opción</option>
-                      <option>Revisión</option>
-                      <option>ITV</option>
-                      <option>Pintura</option>
-                      <option>...</option>
-                </select>
-                </div>
-            </div>   
-            
-           
-
-            <div class="row d-flex justify-content-center">
-        
-                  <div class="col-md-6 col-sm-6 col-xs-12">
-               
-                   <!-- Form code begins -->
-                   <form method="post">
-                     <div class="form-group"> <!-- Date input -->
-                       <label class="control-label" for="date"><b>Fecha de recogida</b></label>
-                       <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
-                     </div>
-                     <i class="fa fa-calendar"></i>
-                     
-                    </form>
-                    <!-- Form code ends --> 
-               
-                  
-                 </div>    
-                </div>
-                
-                <div class="row d-flex justify-content-center">
-        
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                 
-                     <!-- Form code begins -->
-                     <form method="post">
-                       <div class="form-group"> <!-- Date input -->
-                         <label class="control-label" for="date"><b>Fecha de entrega</b></label>
-                         <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
-                       </div>
-                       <i class="fa fa-calendar"></i>
-    
-                      </form>
-                      <!-- Form code ends --> 
-                 
-                     
-                   </div>    
-                  </div>
-            
-                  
-                  <div class="row d-flex justify-content-center">
-        
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <button type="button" class="btn btn-primary">Aceptar</button>
-                    </div>
-                  </div>
-                 
-
+        </div>
+    </main>
   
 
     <th:block th:replace="fragments/footer.html :: footer" />
 </body>
-
-<!--  jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
-<!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-
-<!-- Bootstrap Date-Picker Plugin -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-<script>
-    $(document).ready(function(){
-      var date_input=$('input[name="date"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'mm/dd/yyyy',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
-</script>
 
 </html>
