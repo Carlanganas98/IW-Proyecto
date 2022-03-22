@@ -33,11 +33,11 @@
                             <td th:text="${v.modelo}"></td>
                             <td>            
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditandoCoche">
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target= '#Anyadir' + ${v.id}" >
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <!-- Modal -->
-                                <div class="modal fade" id="modalEditandoCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" th:attr="id='Anyadir' +${v.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -63,9 +63,9 @@
                                     </div>
                                     </div>
 
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarCoche"><i class="bi bi-trash"></i></button>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target= '#Eliminar' + ${v.id}"><i class="bi bi-trash"></i></button>
                                 <!-- Modal -->
-                                <div class="modal fade" id="modalEliminarCoche" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                <div class="modal fade" th:attr="id='Eliminar' +${v.id}" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -112,10 +112,18 @@
                                 <input type="text" name="matricula" >
                                
                                <h6><label>Seleccione el tipo de vehículo</label></h6> 
-                                    <select multiple class="form-control" name="tipo" id="tipo">
-                                        <option>Coche</option>
-                                        <option>Moto</option>
-                                    </select>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="coche" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                          Coche
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="moto">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                          Moto
+                                        </label>
+                                      </div>
                                 <h6>Introduzca el modelo del vehículo: </h6>
                                 <input type="text" name="modelo" >
                                 <div class="modal-footer">
