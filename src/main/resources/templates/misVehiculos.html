@@ -112,10 +112,18 @@
                                 <input type="text" name="matricula" >
                                
                                <h6><label>Seleccione el tipo de vehículo</label></h6> 
-                                    <select multiple class="form-control" name="tipo" id="tipo">
-                                        <option>Coche</option>
-                                        <option>Moto</option>
-                                    </select>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="coche" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                          Coche
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="moto">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                          Moto
+                                        </label>
+                                      </div>
                                 <h6>Introduzca el modelo del vehículo: </h6>
                                 <input type="text" name="modelo" >
                                 <div class="modal-footer">
