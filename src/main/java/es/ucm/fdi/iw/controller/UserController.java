@@ -2,6 +2,7 @@ package es.ucm.fdi.iw.controller;
 
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Message;
+import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehiculo;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -339,6 +341,7 @@ public class UserController {
 
 	
 	@GetMapping("/misVehiculos")
+	// Añadir http session
     public String misVehiculos(Model model)
     {
         List<Vehiculo> lista_vehiculos = null;    
@@ -396,16 +399,23 @@ public class UserController {
         return misVehiculos(model);
     }
 
-	
-	@GetMapping("/solicitaReparacion")
-    public String solicitaReparacion(Model model){
+	@GetMapping("/gestionarReparaciones")
+    public String reparaciones(Model model, HttpSession session)
+	{
+		List<Reparacion> lista_reparaciones = null;
+		TypedQuery<Reparacion> query;
+		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
 
-		List<Vehiculo> lista_vehiculos = null;    
-        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+        // query = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class);
+		// query.setParameter("mecanico", empleado);
+		// lista_reparaciones = query.getResultList();
+		lista_reparaciones = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class).setParameter("mecanico", empleado).getResultList();
+
+		log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
 		
-		model.addAttribute("vehiculos", lista_vehiculos);
-		return "soliciaReparacion";
-    }
+		model.addAttribute("reparaciones_empleado", lista_reparaciones);
 
+        return "gestionarReparaciones";
+    }
 
 }
