@@ -421,7 +421,7 @@ public class UserController {
 	@Transactional
     public String solicitaReparacion(Model model,
 	@RequestParam long id,
-	@RequestParam String fecha_inicio,
+	@RequestParam String fecha_fin,
 	@RequestParam String descripcion
 	) throws ParseException
     {
@@ -434,7 +434,7 @@ public class UserController {
 		r.setVehiculo(v);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-		java.util.Date date = sdf.parse(fecha_inicio); 
+		java.util.Date date = sdf.parse(fecha_fin); 
 		java.sql.Date sqlDate = new Date(date.getTime());   
 		
 
