@@ -6,6 +6,7 @@ import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehiculo;
+import es.ucm.fdi.iw.model.Reparacion.ESTADO;
 import es.ucm.fdi.iw.model.User.Role;
 
 import org.apache.logging.log4j.LogManager;
@@ -470,6 +471,31 @@ public class UserController {
         return "gestionarReparaciones";
 
 
+	}
+
+	@Transactional
+    @PostMapping("/aceptarReparacion")
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.ACEPTADO);
+        rep.setEmpleado(u);
+
+        return reparaciones(model, session);
+    }
+
+    @Transactional
+    @PostMapping("/rechazarReparacion")
+    public String solicitudesReparacionRechazar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.RECHAZADO);
+        rep.setEmpleado(u);
+
+        return reparaciones(model, session);
+    }
 
 
 	@GetMapping("/reparacionesEnCursoCliente")

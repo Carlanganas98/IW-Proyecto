@@ -36,9 +36,6 @@
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/chat}">Chat</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/admin/solicitudesReparacion}">Ver solicitudes de reparacion</a>
-                            </li>
-                            <li class="nav-item ">
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/user/gestionarReparaciones}">Gestionar reparaciones</a>
                             </li>
 
