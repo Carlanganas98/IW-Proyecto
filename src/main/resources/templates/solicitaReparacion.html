@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>IW: solicitaReparacion</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+    <h1>Formulario de reparación</h1>
+    <main class="flex-shrink-0">
+        <div class="card rounded-0 col-sm-5 border">
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Matricula</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Operaciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="v: ${vehiculos}" >
+                        <td th:text="${v.id}"></td>
+                        <td th:text="${v.matricula}"></td>
+                        <td th:text="${v.tipo}"></td>
+                        <td th:text="${v.modelo}"></td>
+                        <td>            
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+        </div>    
+

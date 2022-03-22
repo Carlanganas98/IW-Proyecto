@@ -396,4 +396,16 @@ public class UserController {
         return misVehiculos(model);
     }
 
+	
+	@GetMapping("/solicitaReparacion")
+    public String solicitaReparacion(Model model){
+
+		List<Vehiculo> lista_vehiculos = null;    
+        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		
+		model.addAttribute("vehiculos", lista_vehiculos);
+		return "soliciaReparacion";
+    }
+
+
 }
