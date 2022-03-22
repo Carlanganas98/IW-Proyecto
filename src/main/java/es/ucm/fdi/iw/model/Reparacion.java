@@ -4,51 +4,53 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.Data;
 
 @Entity
 @Data
+@NamedQueries({
+    @NamedQuery(name="Reparaciones.listadoReparaciones",
+    query="SELECT r FROM Reparacion r "
+            + "WHERE r.empleado = :mecanico"),
+    // @NamedQuery(name="",
+    //         query="SELECT r FROM Reparacion r, IN (r.vehiculo) v "
+    //                 + "WHERE r.empleado = :mecanico AND v.propietario = :cliente"),
+                    
+    @NamedQuery(name="Reparacion.allReparaciones",
+    query="SELECT r "
+            + "FROM Reparacion r")
+})
 public class Reparacion {
 
-    @Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
+    @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
-    //@ManyToOne(targetEntity = User.class)
-    //private User cliente;
+    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
+
+    // @ManyToOne
+    // private User cliente;
     //Sobera ya que al cliente accederemos a traves de la clase vehiculo
 
-
-    // ¿Esto sobra? o ¿@ManyToMany?
-    //Creo que esta bien ya que habra muchas reparaciones para 1 empleado
-    //y cada reparacion no tendra mas de 1 empleado
-    @ManyToOne(targetEntity = User.class)
+    @ManyToOne
     private User empleado;
     
     @ManyToOne
     private Vehiculo vehiculo;
-    Vehiculo getVehiculo(){
-        return this.vehiculo;
-    }
-
     
     @OneToMany
     @JoinColumn(name="servicio_id")
     private List<Servicio> lista_servicios;
-    Servicio getServicios(){
-        return this.getServicios();
-    }
     
     private Date fecha_inicio;
     private Date fecha_fin;
-    private String estado;
+
+    @Enumerated(value = EnumType.STRING)
+    private ESTADO estado = ESTADO.PENDIENTE;
     
+    private String descripcion;
+
 }

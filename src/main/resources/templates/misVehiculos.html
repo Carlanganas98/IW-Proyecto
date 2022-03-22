@@ -14,51 +14,139 @@
         <div class="container">
             <h1>Mis Vehiculos</h1>
 
-            <table>
-                <tbody>
-                    <tr th:each="v: ${vehiculos}">
-                        <td th:text="${v.tipo}">Coche</td>
-                        <td> --> </td>
-                        <td th:text="${v.modelo}">Toyota Auris</td>
-                        <td>
-                            <a th:if="${v.tipo == 'COCHE'}" th:href="@{/vehiculoDetallado/}">
-                                <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
-                            </a>
-                        </td>
-                        <td>
-                            <a th:if="${v.tipo == 'MOTO'}" th:href="@{/vehiculoDetallado/}">
-                                <img th:src="@{/img/motorcycle-solid.svg}" src="/img/motorcycle-solid.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
-                            </a>
-                        </td>
+            <div class="card rounded-0 col-sm-5 border">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Matricula</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Modelo</th>
+                        <th scope="col">Operaciones</th>
                     </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <tr th:each="v: ${vehiculos}" >
+                            <td th:text="${v.id}"></td>
+                            <td th:text="${v.matricula}"></td>
+                            <td th:text="${v.tipo}"></td>
+                            <td th:text="${v.modelo}"></td>
+                            <td>            
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target= '#Anyadir' + ${v.id}" >
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:attr="id='Anyadir' +${v.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                        <div class="modal-body">
+                                            <form th:action="@{/user/editarVehiculo}" method="POST">
+                                                <input type="hidden" name="id" th:value="${v.id}">
+                                                <p>Matricula: </p>
+                                                <input type="text" name="matricula" th:value="${v.matricula}">
+                                                <p>Tipo: </p>
+                                                <input type="text" name="tipo" th:value="${v.tipo}">
+                                                <p>Modelo: </p>
+                                                <input type="text" name="modelo" th:value="${v.modelo}">
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
 
-            <!-- <ul>
-                <li>
-                    <a th:if="${session.u.hasRole('USER')}" th:href="@{/vehiculoDetallado/}">Coche 1
-                    <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
-                    </a>
-                </li>
-                <li>
-                    <a th:if="${session.u.hasRole('USER')}" th:href="@{/vehiculoDetallado/}">Moto 1
-                    <img th:src="@{/img/motorcycle-solid.svg}" src="/img/motorcycle-solid.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
-                    </a>
-                </li>
-                <li>
-                    <a th:if="${session.u.hasRole('USER')}" th:href="@{/vehiculoDetallado/}">Coche 2
-                    <img th:src="@{/img/favicon.svg}" src="/img/favicon.svg" class="rounded mx-auto d-inline-block" width="50" height="50">
-                    </a>
-                </li>
-            </ul> -->
-            <!-- <div class="row">
-                    <div class="col">
-                        <div>Vehiculo 1...</div>
-                        <div>Vehiculo 2...</div>
-                        <div>Vehiculo 3...</div>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target= '#Eliminar' + ${v.id}"><i class="bi bi-trash"></i></button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:attr="id='Eliminar' +${v.id}" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalEliminarLabel" th:text="'Eliminar ' + ${v.matricula}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Estas a punto de eliminar este coche. ¿Estás seguro?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <form th:action="@{/user/borrarCoche}">
+                                                    <input type="hidden" name="id" th:value="${v.id}">
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+            </div>    
+
+            <div class="card rounded-0 col-sm-5 border">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalAnyadirCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-            </div> -->
+                        <div class="modal-body">
+                            <form th:action="@{/user/anyadirCoche}" method="POST">
+                                <div class="row">
+                                    <div class="col-sm-9">
+                                <h6><label>Introduzca el modelo del vehículo:</label> </h6> 
+                                <input type="text" name="matricula" >
+                               
+                               <h6><label>Seleccione el tipo de vehículo</label></h6> 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="coche" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                          Coche
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="moto">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                          Moto
+                                        </label>
+                                      </div>
+                                <h6>Introduzca el modelo del vehículo: </h6>
+                                <input type="text" name="modelo" >
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Añadir</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+            </div>
         </div>
+
+       
+   
+                                   
+                        
+
+
+            </div>
+
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />

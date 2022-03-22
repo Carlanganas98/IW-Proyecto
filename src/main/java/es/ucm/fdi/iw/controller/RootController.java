@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehiculo;
 
@@ -34,6 +36,13 @@ public class RootController {
 
 	@GetMapping("/")
     public String index(Model model) {
+
+        TextoTaller texto = new TextoTaller();
+        long id = 1;
+        texto = entityManager.find(TextoTaller.class, id);
+        log.info(texto.getTexto());
+        model.addAttribute("texto", texto.getTexto()); 
+
         return "index";
     }
 
@@ -60,24 +69,19 @@ public class RootController {
     public String taller(Model model) {
         return "taller";
     }
-    
-    @GetMapping("/misVehiculos")
-    public String misVehiculos(Model model, HttpSession session)
-    {
-        long userId = ((User)session.getAttribute("u")).getId();
-        User u = entityManager.find(User.class, userId);
-        List<Vehiculo> lista_vehiculos = null;    
         
-        log.info("ID USUARIO: " + userId);
-        
-        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).setParameter("propietario", u).getResultList();
-        model.addAttribute("vehiculos", lista_vehiculos);
-
-        return "misVehiculos";
-    }
-    
     @GetMapping("/vehiculoDetallado")
-    public String vehiculoDetallado(Model model) {
+    public String vehiculoDetallado(Model model, HttpSession session, @RequestParam long idVehiculo)
+    {
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Vehiculo vehiculo = null;
+
+        vehiculo = (Vehiculo) entityManager.createNamedQuery("verVehiculos").setParameter("propietario", u).setParameter("idVehiculo", idVehiculo).getSingleResult();
+        //vehiculo.setId(idVehiculo);
+        //vehiculo.setPropietario(u);
+
+        model.addAttribute("vehiculo", vehiculo);
+        
         return "vehiculoDetallado";
     }
 
