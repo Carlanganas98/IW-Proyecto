@@ -1,4 +1,4 @@
-# DataCar --> Entrega 3
+# DataCar
 
 Esta aplicación será usada internamente por un taller para gestionar las reparaciones de sus clientes.
 Habrá 3 tipos de usuarios, el admin, el trabajador del taller y el cliente.
