@@ -60,10 +60,7 @@ public class RootController {
         return "chat";
     }
 
-    @GetMapping("/reparaciones")
-    public String reparaciones(Model model) {
-        return "reparaciones";
-    }
+   
 
     @GetMapping("/taller")
     public String taller(Model model) {

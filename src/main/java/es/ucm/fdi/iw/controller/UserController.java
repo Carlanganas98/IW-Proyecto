@@ -11,12 +11,14 @@ import es.ucm.fdi.iw.model.User.Role;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,6 +45,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.*;
 import java.security.SecureRandom;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
@@ -399,6 +405,51 @@ public class UserController {
         return misVehiculos(model);
     }
 
+	@GetMapping("/reparaciones")
+    public String reparaciones(Model model) {
+
+		List<Vehiculo> lista_vehiculos = null; 
+
+		lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
+		model.addAttribute("vehiculos", lista_vehiculos); 
+
+        return "reparaciones";
+    }
+
+	@PostMapping("/solicitaReparacion")
+	@Transactional
+    public String solicitaReparacion(Model model,
+	@RequestParam long id,
+	@RequestParam String fecha_inicio,
+	@RequestParam String descripcion
+	) throws ParseException
+    {
+         
+
+		Reparacion r = new Reparacion();
+
+		Vehiculo v = entityManager.find(Vehiculo.class, id);
+		
+		r.setVehiculo(v);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		java.util.Date date = sdf.parse(fecha_inicio); 
+		java.sql.Date sqlDate = new Date(date.getTime());   
+		
+
+		r.setFecha_fin(sqlDate);
+		r.setDescripcion(descripcion);
+
+		entityManager.persist(r);
+		entityManager.flush();
+
+        
+      
+
+        return reparaciones(model);
+    }
+
 	@GetMapping("/gestionarReparaciones")
     public String reparaciones(Model model, HttpSession session)
 	{
@@ -416,27 +467,9 @@ public class UserController {
 		model.addAttribute("reparaciones_empleado", lista_reparaciones);
 
         return "gestionarReparaciones";
-    }
+
+	}
 
 
-	@GetMapping("/reparaciones")
-	@Transactional
-	// Añadir http session
-    public String solicitaReparaciones(Model model,
-	HttpSession session)
-    {
-        List<Vehiculo> lista_vehiculos = null;    
-
-		Reparacion r = new Reparacion();
-
-		entityManager.persist(r);
-		entityManager.flush();
-
-        
-        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
-		model.addAttribute("vehiculos", lista_vehiculos);
-
-        return "reparaciones";
-    }
+	
 }

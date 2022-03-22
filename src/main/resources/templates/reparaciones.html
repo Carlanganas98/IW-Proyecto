@@ -31,55 +31,54 @@
                             <td th:text="${v.tipo}"></td>
                             <td th:text="${v.modelo}"></td>
                             <td>            
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target= '#Anyadir' + ${v.id}" >
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <!-- Modal -->
-                                <div class="modal fade" th:attr="id='Anyadir' +${v.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                        <div class="modal-body">
-                                            <form th:action="@{/user/solicitaReparacion}" method="POST">
-                                                <input type="hidden" name="id" th:value="${v.id}">
-                                                <input type="hidden" name="id" th:value="${v.matricula}">
-                                                <input type="hidden" name="id" th:value="${v.tipo}">
-                                                <input type="hidden" name="id" th:value="${v.modelo}">
-                                                <p>Tipo: </p>
-                                                <input type="text" name="tipo" th:value="${v.tipo}">
-                                                <p>Modelo: </p>
-                                                <input type="text" name="modelo" th:value="${v.modelo}">
-                                               
-                                                <p>Fecha de entrega </p>
-                                                <input type="datetime-local" id="fechaEntrega" name="fechaEntrega">
-                                                <p>Describe brevemente lo que le ocurre a tu vehículo: </p>
-                                                <textarea rows = "5" cols = "60" name = "descripcion" id ="descripcion">
-                                                 
-                                               </textarea><br>
+                               
+  
 
-
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn btn-primary">Guardar</button>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                    <div class="card rounded-0 col-sm-5 border">
+                                      <!-- Button trigger modal -->
+                                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
+                                          <i class="bi bi-plus-circle-fill"></i>
+                                      </button>
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="modalAnyadirCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                          <div class="modal-content">
+                                              <div class="modal-header">
+                                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                              <div class="modal-body">
+                                                  <form th:action="@{/user/solicitaReparacion}" method="POST">
+                                                      
+            
+                                                      <p>Tipo: </p>
+                                                      <input type="text" name="tipo" th:value="${v.tipo}">
+                                                      <p>Modelo: </p>
+                                                      <input type="text" name="modelo" th:value="${v.modelo}">
+                                                      <input type="hidden" name="id" th:value="${v.id}">
+                                                      <p>Fecha de entrega </p>
+                                                      <input type="date" id="fecha_inicio" name="fecha_inicio">
+                                                      <p>Describe brevemente lo que le ocurre a tu vehículo: </p>
+                                                      <textarea rows = "5" cols = "60" name = "descripcion" id ="descripcion">
+                                                      </textarea>
+                                                            <div class="modal-footer">
+                                                              <button type="submit" class="btn btn-primary">Guardar</button>
+                                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                          </div>  
+                                                  </form>
+                                              </div>
+                                          </div>
+                                          </div>
+                                      </div>
                                     </div>
-                                    </div>
-                                    </div>
-
                             </td>
                         </tr>
                     </tbody>
-                    </table>
-            </div>    
-
+                </table>
+            </div>
         </div>
     </main>
+  
 
     <th:block th:replace="fragments/footer.html :: footer" />
 </body>
