@@ -18,8 +18,8 @@ ALTER SEQUENCE "PUBLIC"."GEN" RESTART WITH 1024;
 
 
 INSERT INTO Vehiculo (id, activo, matricula, tipo, modelo, anyo, propietario_id) VALUES
-(1, TRUE, '1234BCD', 'COCHE', 'Audi Q2', 2000, 1),
-(2, TRUE, '5678EFG', 'MOTO', 'Yamaha FZ 10', 2010, 1);
+(1, TRUE, '1234BCD', 'COCHE', 'Audi Q2', 2000, 2),
+(2, TRUE, '5678EFG', 'MOTO', 'Yamaha FZ 10', 2010, 2);
 
 INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
 
@@ -27,6 +27,6 @@ INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
 -- (1, 'PENDIENTE', '2022-03-22 16:00:00', '2022-03-31 20:00:00', '4', '1');
 
 INSERT INTO "REPARACION" VALUES 
-(1,'Hace un ruido muy raro', 'PENDIENTE', NULL, '2022-05-05', NULL, 2),
-(2,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05', NULL, 2);
-
+(1,'Hace un ruido muy raro', 'PENDIENTE', NULL, '2022-05-05', 4, 2),
+(2,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05', 4, 1),
+(3, 'Rueda pinchada', 'PENDIENTE', NULL, '2022-03-31 20:00:00', 4, 1);

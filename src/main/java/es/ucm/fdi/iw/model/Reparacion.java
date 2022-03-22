@@ -11,9 +11,12 @@ import lombok.Data;
 @Entity
 @Data
 @NamedQueries({
-    // @NamedQuery(name="Reparaciones.listadoReparaciones",
-    //         query="SELECT r, v FROM Reparacion r INNER JOIN Vehiculo v ON r.vehiculo = v"
-    //                 + "WHERE r.empleado = :mecanico"),
+    @NamedQuery(name="Reparaciones.listadoReparaciones",
+    query="SELECT r FROM Reparacion r "
+            + "WHERE r.empleado = :mecanico"),
+    // @NamedQuery(name="",
+    //         query="SELECT r FROM Reparacion r, IN (r.vehiculo) v "
+    //                 + "WHERE r.empleado = :mecanico AND v.propietario = :cliente"),
                     
     @NamedQuery(name="Reparacion.allReparaciones",
     query="SELECT r "
@@ -28,7 +31,8 @@ public class Reparacion {
 
     public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
 
-    //private User cliente;
+    // @ManyToOne
+    // private User cliente;
     //Sobera ya que al cliente accederemos a traves de la clase vehiculo
 
     @ManyToOne

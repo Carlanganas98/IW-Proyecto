@@ -14,13 +14,13 @@
         <div class="container">
             <h1>Listado de reparaciones actuales</h1>
 
-            <div class="card rounded-0 col-sm-5 border">
+            <div class="card rounded-0 col-sm-12 border">
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Vehículo</th>
+                        <th scope="col">Descripción</th>
                         <th scope="col">Fecha inicio</th>
                         <th scope="col">Fecha fin</th>
                         <th scope="col">Estado</th>
@@ -28,17 +28,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="v: ${vehiculos}" >
-                            <td th:text="${v.id}"></td>
-                            <td th:text="${v.matricula}"></td>
-                            <td th:text="${v.tipo}"></td>
-                            <td th:text="${v.modelo}"></td>
+                        <tr th:each="r: ${reparaciones_empleado}" >
+                            <td th:text="|${r.vehiculo.propietario.firstName} ${r.vehiculo.propietario.lastName}|"></td>
+                            <td th:text="${r.vehiculo.modelo}"></td>
+                            <td th:text="${r.descripcion}"></td>
+                            <td th:text="${r.fecha_inicio}"></td>
+                            <td th:text="${r.fecha_inicio}"></td>
+                            <td th:text="${r.estado}"></td>
                             <td>            
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditandoCoche">
+                                
+                                <!-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditandoCoche">
                                     <i class="bi bi-pencil"></i>
                                 </button>
-                                <!-- Modal -->
+                                
                                 <div class="modal fade" id="modalEditandoCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                     <div class="modal-content">
@@ -63,7 +65,7 @@
                                         </div>
                                     </div>
                                     </div>
-                                    </div>
+                                </div> -->
 
                             </td>
                         </tr>
