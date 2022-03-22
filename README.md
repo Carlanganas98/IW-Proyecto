@@ -4,6 +4,7 @@ Esta aplicación será usada internamente por un taller para gestionar las repar
 Habrá 3 tipos de usuarios, el admin, el trabajador del taller y el cliente.
 Cada cliente tendrá acceso a una página donde verá sus vehículos y podrá chatear con el taller. Así mismo también podrá ver el estado de sus reparaciones.
 Los trabajadores podrán chatear con los clientes y marcar los servicios de una reparación como completados.
+También se ha añadido una prueba en src/test llamada anyadirCoche.feature que realiza un test de añadir el coche.
 
 
 ------------------ TODOS LOS USUARIOS ---------------------
@@ -17,6 +18,9 @@ Un usuario de cualquier tipo (administrador, cliente o trabajador del taller) in
 ### [Formulario de registro](http://localhost:8080/registro)
 Un usuario de cualquier tipo (administrador, cliente o trabajador del taller) se registrará introduciendo su correo y una contraseña cualquiera.
 
+### [Perfil de usuario](http://localhost:8080/profile)
+En esta página se podrán ver y modificar los datos propios de cada usuario. En caso de ser un cliente, podrá ver un listado de sus coches en propiedad.
+
 
 ------------------ ADMINISTRADOR ---------------------
 
@@ -24,7 +28,10 @@ Un usuario de cualquier tipo (administrador, cliente o trabajador del taller) se
 En esta página el administrador podrá gestionar a los trabajadores y a los clientes, añadiendo, eliminando o editando datos de estos manualmente cuando sea necesario.
 
 ### [editarInicio](http://localhost:8080/admin/editarInicio)
-...
+En esta página el adimistrador puede editar la pantalla de incio del taller.De momento sólo deja cambiar una fras de momento.
+
+### [Gestión del taller](http://localhost:8080/taller)
+En esta vista se va a poder gestionar todo lo relacionado con los servicios del taller, notificar al usuario de servicios finalizados, asignar trabajadores, iniciar chats con usuarios.
 
 
 ------------------ CLIENTE ---------------------
@@ -38,11 +45,12 @@ En esta página se muestra toda la información relevante acerca del vehículo s
 ### [Formulario de reparación](http://localhost:8080/reparaciones)
 En esta página se van a rellenar los formularios de la reparación asignando los campos necesarios. Después se mostrará tanto en la vista taller como en la del propio usuario que reparaciones se están y se han realizado.
 
+### [Reparaciones en curso](http://localhost:8080/reparacionesEnCursoCliente)
+En esta página se van a ver todas las reparaciones asignadas al cliente.Esta vista se modificará llevándola a la página de reparaciones.
+
+
 
 ------------------ EMPLEADO ---------------------
-
-### [Ver Solicitudes de reparación](http://localhost:8080/admin/solicitudesReparacion)
-...
 
 ### [Gestionar reparaciones](http://localhost:8080/user/gestionarReparaciones)
 El mecánico dispone de un listado de todas las reparaciones que se le han asignado, y él puede decidir si aceptar la reparación que se le ha propuesto o, por el contrario, rechazarla, si por ejemplo no dispone de tiempo suficiente para llevar a cabo la reparación antes de la fecha establecida por el cliente.
@@ -54,10 +62,4 @@ El mecánico dispone de un listado de todas las reparaciones que se le han asign
 En esta página podrán chatear 2 usuarios entre sí. Por ejemplo, un trabajador del taller con un cliente. Próximamente aparecerá la imágen de cada usuario, así como su nombre de perfil. También se verá si un mensaje ha sido leído o no.
 
 
------------------- ? ---------------------
 
-### [Perfil de usuario](http://localhost:8080/profile)
-En esta página se podrán ver y modificar los datos propios de cada usuario. En caso de ser un cliente, podrá ver un listado de sus coches en propiedad.
-
-### [Gestión del taller](http://localhost:8080/taller)
-En esta vista se va a poder gestionar todo lo relacionado con los servicios del taller, notificar al usuario de servicios finalizados, asignar trabajadores, iniciar chats con usuarios.
