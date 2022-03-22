@@ -20,7 +20,11 @@ import lombok.Data;
                     
     @NamedQuery(name="Reparacion.allReparaciones",
     query="SELECT r "
-            + "FROM Reparacion r")
+            + "FROM Reparacion r"),
+    @NamedQuery(name="Reparacion.reparacionesPorPropietario",
+    query="SELECT r "
+            + "FROM Reparacion r where r.vehiculo "
+            + "IN (SELECT v FROM Vehiculo v WHERE v.propietario = :usuario)" )
 })
 public class Reparacion {
 

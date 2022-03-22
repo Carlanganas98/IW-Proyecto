@@ -50,7 +50,7 @@
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/}">Historico de reparaciones</a>
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/user/reparacionesEnCursoCliente}">Reparaciones en curso</a>
                             </li>
 
                         </th:block>
