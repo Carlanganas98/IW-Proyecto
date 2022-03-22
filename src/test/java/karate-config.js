@@ -19,10 +19,11 @@ function fn() {
      * Drivers for tests - currently configured value is good for Linux
      */
     karate.configure('driver', {
-        type: 'chrome',
+        //type: 'chrome',
         // descomentar para chromium bajo linux
         // executable: '/usr/bin/chromium-browser',
-        executable: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        //executable: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        executable: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
         showDriverLog: true
     })
 

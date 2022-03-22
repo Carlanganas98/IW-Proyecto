@@ -18,7 +18,7 @@ ALTER SEQUENCE "PUBLIC"."GEN" RESTART WITH 1024;
 
 INSERT INTO Vehiculo (id, activo, matricula, tipo, modelo, anyo, propietario_id) VALUES
 (1, TRUE, '1234BCD', 'COCHE', 'Audi Q2', 2000, 2),
-(2, TRUE, '5678EFG', 'MOTO', 'Yamaha FZ 10', 2010, 2);
+(2, TRUE, '5678EFG', 'MOTO', 'Yamaha FZ 10', 2010, 1);
 
 INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
 
