@@ -44,6 +44,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.*;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
@@ -416,6 +417,25 @@ public class UserController {
 		model.addAttribute("reparaciones_empleado", lista_reparaciones);
 
         return "gestionarReparaciones";
+    }
+
+
+	@GetMapping("/reparacionesEnCursoCliente")
+    public String reparacionesEnCursoCliente(Model model, HttpSession session)
+	{
+		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+
+		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
+        ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
+
+		log.info("reparaciones para este cliente");
+		for (Reparacion reparacion : lista) {
+			log.info(reparacion.getDescripcion());
+		}
+
+        model.addAttribute("reparaciones_cliente", lista);
+
+        return "reparacionesEnCursoCliente";
     }
 
 }
