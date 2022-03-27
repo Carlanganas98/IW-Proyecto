@@ -28,4 +28,4 @@ INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
 INSERT INTO "REPARACION" VALUES 
 (1,'Hace un ruido muy raro', 'PENDIENTE', NULL, '2022-05-05', 4, 2),
 (2,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05', 4, 1),
-(3, 'Rueda pinchada', 'PENDIENTE', NULL, '2022-03-31 20:00:00', 4, 1);
+(3, 'Rueda pinchada', 'PENDIENTE', '2022-04-01', '2022-03-31 20:00:00', 4, 1);
