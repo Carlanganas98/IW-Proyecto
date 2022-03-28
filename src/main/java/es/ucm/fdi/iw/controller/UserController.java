@@ -51,6 +51,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -427,7 +428,7 @@ public class UserController {
 	@Transactional
     public String solicitaReparacion(Model model,
 	@RequestParam long id,
-	@RequestParam String fecha_fin,
+	@RequestParam String fechaFin,
 	@RequestParam String descripcion
 	) throws ParseException
     {
@@ -439,12 +440,10 @@ public class UserController {
 		
 		r.setVehiculo(v);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-		java.util.Date date = sdf.parse(fecha_fin); 
-		java.sql.Date sqlDate = new Date(date.getTime());   
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime dateTime = LocalDateTime.parse(fechaFin, formatter);
 		
-
-		r.setFecha_fin(sqlDate);
+		r.setFechaFin(dateTime);
 		r.setDescripcion(descripcion);
 
 		entityManager.persist(r);
@@ -463,13 +462,12 @@ public class UserController {
 		TypedQuery<Reparacion> query;
 		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
 
-        // query = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class);
-		// query.setParameter("mecanico", empleado);
-		// lista_reparaciones = query.getResultList();
-		lista_reparaciones = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class).setParameter("mecanico", empleado).getResultList();
+        query = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class);
+		query.setParameter("mecanico", empleado);
+		lista_reparaciones = query.getResultList();
 
-		log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
-		
+		//log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
+
 		model.addAttribute("reparaciones_empleado", lista_reparaciones);
 
         return "gestionarReparaciones";
@@ -506,6 +504,7 @@ public class UserController {
     public String reparacionesEnCursoCliente(Model model, HttpSession session)
 	{
 		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+		log.info("ID CLIENTE: " + usuario.getId());
 
 		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
         ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();

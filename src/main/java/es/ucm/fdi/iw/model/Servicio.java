@@ -17,7 +17,7 @@ public class Servicio {
 
     private String info;
     private double precio;
-    private int num_horas;
+    private int numHoras;
 
     @ManyToOne
     private Reparacion reparacion;

@@ -31,7 +31,6 @@ public class Vehiculo {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
-
     private String matricula;
     private String tipo; // Coche o Moto
     private String modelo;
@@ -40,7 +39,7 @@ public class Vehiculo {
     
     @OneToMany
     @JoinColumn(name="vehiculo_id")
-    private List<Reparacion> lista_reparaciones;
+    private List<Reparacion> reparaciones;
     
     @ManyToOne
     private User propietario;

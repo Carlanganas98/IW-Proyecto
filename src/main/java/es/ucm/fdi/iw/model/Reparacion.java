@@ -1,7 +1,6 @@
 package es.ucm.fdi.iw.model;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
@@ -14,10 +13,7 @@ import lombok.Data;
     @NamedQuery(name="Reparaciones.listadoReparaciones",
     query="SELECT r FROM Reparacion r "
             + "WHERE r.empleado = :mecanico"),
-    // @NamedQuery(name="",
-    //         query="SELECT r FROM Reparacion r, IN (r.vehiculo) v "
-    //                 + "WHERE r.empleado = :mecanico AND v.propietario = :cliente"),
-                    
+
     @NamedQuery(name="Reparacion.allReparaciones",
     query="SELECT r "
             + "FROM Reparacion r"),
@@ -47,10 +43,10 @@ public class Reparacion {
     
     @OneToMany
     @JoinColumn(name="servicio_id")
-    private List<Servicio> lista_servicios;
+    private List<Servicio> servicios;
     
-    private Date fecha_inicio;
-    private Date fecha_fin;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaFin;
 
     @Enumerated(value = EnumType.STRING)
     private ESTADO estado = ESTADO.PENDIENTE;
