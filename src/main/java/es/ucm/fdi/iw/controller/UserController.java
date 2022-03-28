@@ -321,33 +321,6 @@ public class UserController {
 		return "{\"result\": \"message sent.\"}";
 	}	
 
-
-		@GetMapping("/anyadeVehiculo")
-		@Transactional
-			public String anyadeVehiculoS(
-			Model model,
-			@RequestParam String matricula,
-			@RequestParam String tipo,
-			@RequestParam String modelo,
-			HttpSession session) {
-
-			User propietario = entityManager.find(
-				User.class, ((User)session.getAttribute("u")).getId());
-			
-			Vehiculo v = new Vehiculo();
-			v.setMatricula(matricula);
-			v.setTipo(tipo);
-			v.setModelo(modelo);
-			v.setPropietario(propietario);
-			
-			entityManager.persist(v);
-			entityManager.flush();
-			
-			return "misVehiculos";
-		}
-
-
-
 	
 	@GetMapping("/misVehiculos")
 	// Añadir http session
@@ -376,7 +349,7 @@ public class UserController {
         return misVehiculos(model);
     }
 
-	@GetMapping("/borrarCoche")
+	@PostMapping("/borrarCoche")
     @Transactional
     public String borrarCoche(Model model, @RequestParam long id){
 
@@ -388,7 +361,6 @@ public class UserController {
 	@PostMapping("/anyadirCoche")
     @Transactional
     public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
-		log.info("ANYADIIRRRR COCHEEEE");
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
@@ -407,6 +379,7 @@ public class UserController {
 
         return misVehiculos(model);
     }
+
 
 	@GetMapping("/reparaciones")
     public String reparaciones(Model model) {
