@@ -31,7 +31,43 @@
                             <td th:text="${v.matricula}"></td>
                             <td th:text="${v.tipo}"></td>
                             <td th:text="${v.modelo}" th:attr="id='Modelo' + ${v.matricula}"></td>
-                            <td>            
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target= '#Observar' + ${v.id}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:attr="id='Observar' +${v.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Observando vehiculo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col">
+                                                <div>ID vehiculo:</div>
+                                                <div th:text="${v.id}"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div>Matricula:</div>
+                                                <div th:text="${v.matricula}"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div>Tipo:</div>
+                                                <div th:text="${v.tipo}"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div>Modelo:</div>
+                                                <div th:text="${v.modelo}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>           
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target= '#Anyadir' + ${v.id}" >
                                     <i class="bi bi-pencil"></i>
