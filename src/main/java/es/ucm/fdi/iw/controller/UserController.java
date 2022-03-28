@@ -328,6 +328,7 @@ public class UserController {
 			@RequestParam String matricula,
 			@RequestParam String tipo,
 			@RequestParam String modelo,
+			@RequestParam int anyo,
 			HttpSession session) {
 
 			User propietario = entityManager.find(
@@ -337,6 +338,7 @@ public class UserController {
 			v.setMatricula(matricula);
 			v.setTipo(tipo);
 			v.setModelo(modelo);
+			v.setAnyo(anyo);
 			v.setPropietario(propietario);
 			
 			entityManager.persist(v);
@@ -364,13 +366,14 @@ public class UserController {
 
 	@Transactional
     @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo) {
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo) {
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 
 
         v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
+		v.setAnyo(anyo);
 
         return misVehiculos(model);
     }
@@ -386,13 +389,14 @@ public class UserController {
 
 	@PostMapping("/anyadirCoche")
     @Transactional
-    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
+    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo, HttpSession session){
 		log.info("ANYADIIRRRR COCHEEEE");
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
+		v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
