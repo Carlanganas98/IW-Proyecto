@@ -322,6 +322,7 @@ public class UserController {
 	}	
 
 
+
 		@GetMapping("/anyadeVehiculo")
 		@Transactional
 			public String anyadeVehiculoS(
@@ -379,7 +380,7 @@ public class UserController {
         return misVehiculos(model);
     }
 
-	@GetMapping("/borrarCoche")
+	@PostMapping("/borrarCoche")
     @Transactional
     public String borrarCoche(Model model, @RequestParam long id){
 
@@ -390,8 +391,7 @@ public class UserController {
 
 	@PostMapping("/anyadirCoche")
     @Transactional
-    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo, HttpSession session){
-		log.info("ANYADIIRRRR COCHEEEE");
+    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
@@ -411,6 +411,7 @@ public class UserController {
 
         return misVehiculos(model);
     }
+
 
 	@GetMapping("/reparaciones")
     public String reparaciones(Model model) {
