@@ -391,13 +391,15 @@ public class UserController {
 
 	@PostMapping("/anyadirCoche")
     @Transactional
-    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
+    public String anyadirCoche(Model model, @RequestParam String matricula, 
+	@RequestParam String tipo, @RequestParam String modelo, HttpSession session,
+	@RequestParam int anyo){
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
-		//v.setAnyo(anyo);
+		v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
