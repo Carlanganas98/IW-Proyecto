@@ -397,7 +397,7 @@ public class UserController {
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
-		v.setAnyo(anyo);
+		//v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
