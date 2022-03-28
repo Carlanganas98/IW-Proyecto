@@ -321,6 +321,36 @@ public class UserController {
 		return "{\"result\": \"message sent.\"}";
 	}	
 
+
+
+		@GetMapping("/anyadeVehiculo")
+		@Transactional
+			public String anyadeVehiculoS(
+			Model model,
+			@RequestParam String matricula,
+			@RequestParam String tipo,
+			@RequestParam String modelo,
+			@RequestParam int anyo,
+			HttpSession session) {
+
+			User propietario = entityManager.find(
+				User.class, ((User)session.getAttribute("u")).getId());
+			
+			Vehiculo v = new Vehiculo();
+			v.setMatricula(matricula);
+			v.setTipo(tipo);
+			v.setModelo(modelo);
+			v.setAnyo(anyo);
+			v.setPropietario(propietario);
+			
+			entityManager.persist(v);
+			entityManager.flush();
+			
+			return "misVehiculos";
+		}
+
+
+
 	
 	@GetMapping("/misVehiculos")
 	// Añadir http session
@@ -338,13 +368,14 @@ public class UserController {
 
 	@Transactional
     @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo) {
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo) {
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 
 
         v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
+		v.setAnyo(anyo);
 
         return misVehiculos(model);
     }
@@ -366,6 +397,7 @@ public class UserController {
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
+		v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
