@@ -32,8 +32,8 @@
                             <td th:text="|${rep.vehiculo.propietario.firstName} ${rep.vehiculo.propietario.lastName}|"></td>
                             <td th:text="${rep.vehiculo.modelo}"></td>
                             <td th:text="${rep.descripcion}"></td>
-                            <td th:text="${rep.fecha_inicio}"></td>
-                            <td th:text="${rep.fecha_inicio}"></td>
+                            <td th:text="${rep.fechaInicio}"></td>
+                            <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
                             <td>
                                 <form th:action="@{/user/aceptarReparacion/}" method="POST">
