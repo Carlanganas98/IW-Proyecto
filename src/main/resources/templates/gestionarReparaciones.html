@@ -36,14 +36,21 @@
                             <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
                             <td>
-                                <form th:action="@{/user/aceptarReparacion/}" method="POST">
-                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                    <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
-                                </form>
-                                <form th:action="@{/user/rechazarReparacion/}" method="POST">
-                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                                </form>
+                                <span th:if="${#strings.equals(rep.estado, 'PENDIENTE')}">
+                                    <form th:action="@{/user/aceptarReparacion/}" method="POST">
+                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                        <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
+                                    </form>
+                                    <form th:action="@{/user/rechazarReparacion/}" method="POST">
+                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                                    </form>
+                                </span>
+                                <span th:unless="${#strings.equals(rep.estado, 'PENDIENTE')}">
+                                    <button type="submit" class="btn btn-success"><i class="bi bi-chat-quote-fill"></i></button>
+                                </span>
+
+                                
                                 
                                 </td>
                         </tr>
