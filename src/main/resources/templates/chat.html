@@ -6,37 +6,63 @@
     <title>IW: Chat</title>
 </head>
 
+<style>
+    .scroll {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+</style>
+
+
 <body class="d-flex flex-column h-100">
 
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <main class="flex-shrink-0">
-        <div class="container">
-            <h1>Chat</h1>
-            <div class="row">
-                    <div class="col">
-                        USUARIO 1 --> TODO: rellenar con su imagen y su nombre dinamicamente
-                    </div>
-                    <div class="col">
-                        USUARIO 2 --> TODO: rellenar con su imagen y su nombre dinamicamente
-                    </div>
-            </div>
-            <div class="row card text-center">
-                <div class="col card col-2">
-                    Mensajes user 1
-                </div>
+        <div class="container h-50">
+            <div class="container d-flex justify-content-center">
+                <div class="card mt-5 ">
+                    <div class="card-header d-flex justify-content-center"><h1>Chat</h1></div>
+                        <div class="card-body scroll">
+                            <div class="d-flex flex-row p-3"> 
+                                <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-3">Hello and thankyou for visiting birdlymind. Please click the video above</div>
+                            </div>
+                            <div class="d-flex flex-row p-3 justify-content-end">
+                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row p-3 justify-content-end">
+                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row p-3 justify-content-end">
+                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row p-3 justify-content-end">
+                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
+                            </div>
+                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
+                            </div>
+                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
+                            </div>
+                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
+                            </div>
+                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
+                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
+                            </div>
+                        </div>
 
-                <div class="col card col-2">
-                    Mensajes user 2
-                </div>
-            </div>
-            <div class="row">
-                <div class="col col-9">
-                    <label for="mensaje"> Escribe tu mensaje: </label>
-                    <input type="text" class="form-control" id="mensaje"> 
-                </div>
-                <div class="col col-3">
-                    <button type="submit" class="btn btn-dark m-3">Mandar mensaje </button>
+
+                        <footer class="d-flex ">
+                            <div class="chat-txt ml-auto m-3" style="width: 90%; height:100%;">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="chat-txt ml-auto m-3" style="width: 10%; height:100%;">
+                                <button class="btn btn-primary">Enviar</button>
+                            </div>
+                        </footer>
                 </div>
             </div>
         </div>
