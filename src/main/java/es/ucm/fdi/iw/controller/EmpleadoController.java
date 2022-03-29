@@ -58,21 +58,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-/**
- *  User management.
- *
- *  Access to this end-point is authenticated.
- */
 @Controller()
-@RequestMapping("cliente")
-public class UserController {
+@RequestMapping("empleado")
+public class EmpleadoController {
 
-	private static final Logger log = LogManager.getLogger(UserController.class);
+    private static final Logger log = LogManager.getLogger(UserController.class);
 
 	@Autowired
 	private EntityManager entityManager;
 
-	@Autowired
+    @Autowired
     private LocalData localData;
 
 	@Autowired
@@ -198,13 +193,13 @@ public class UserController {
      * @return
      * @throws IOException
      */
-    @GetMapping("{id}/pic")
-    public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
-		File f = localData.getFile("user", ""+id+".jpg");
-        InputStream in = new BufferedInputStream(f.exists() ?
-            new FileInputStream(f) : UserController.defaultPic());
-        return os -> FileCopyUtils.copy(in, os);
-    }
+    // @GetMapping("{id}/pic")
+    // public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
+	// 	File f = localData.getFile("user", ""+id+".jpg");
+    //     InputStream in = new BufferedInputStream(f.exists() ?
+    //         new FileInputStream(f) : UserController.defaultPic());
+    //     return os -> FileCopyUtils.copy(in, os);
+    // }
 
     /**
      * Uploads a profile pic for a user id
@@ -322,100 +317,7 @@ public class UserController {
 	}	
 
 
-
-		@GetMapping("/anyadeVehiculo")
-		@Transactional
-			public String anyadeVehiculoS(
-			Model model,
-			@RequestParam String matricula,
-			@RequestParam String tipo,
-			@RequestParam String modelo,
-			@RequestParam int anyo,
-			HttpSession session) {
-
-			User propietario = entityManager.find(
-				User.class, ((User)session.getAttribute("u")).getId());
-			
-			Vehiculo v = new Vehiculo();
-			v.setMatricula(matricula);
-			v.setTipo(tipo);
-			v.setModelo(modelo);
-			v.setAnyo(anyo);
-			v.setPropietario(propietario);
-			
-			entityManager.persist(v);
-			entityManager.flush();
-			
-			return "misVehiculos";
-		}
-
-
-
-	
-	@GetMapping("/misVehiculos")
-	// Añadir http session
-    public String misVehiculos(Model model)
-    {
-        List<Vehiculo> lista_vehiculos = null;    
-
-        
-        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
-		model.addAttribute("vehiculos", lista_vehiculos);
-
-        return "misVehiculos";
-    }
-
-	@Transactional
-    @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo) {
-		Vehiculo v = entityManager.find(Vehiculo.class, id);
-
-
-        v.setMatricula(matricula);
-		v.setModelo(modelo);
-		v.setTipo(tipo);
-		v.setAnyo(anyo);
-
-        return misVehiculos(model);
-    }
-
-	@PostMapping("/borrarCoche")
-    @Transactional
-    public String borrarCoche(Model model, @RequestParam long id){
-
-		Vehiculo v = entityManager.find(Vehiculo.class, id);
-		v.setActivo(false);
-        return misVehiculos(model);
-    }
-
-	@PostMapping("/anyadirCoche")
-    @Transactional
-    public String anyadirCoche(Model model, @RequestParam String matricula, 
-	@RequestParam String tipo, @RequestParam String modelo, HttpSession session,
-	@RequestParam int anyo){
-
-		Vehiculo v = new Vehiculo();
-		v.setMatricula(matricula);
-		v.setModelo(modelo);
-		v.setTipo(tipo);
-		v.setAnyo(anyo);
-		v.setActivo(true);
-		//SACAR ID del usuario actual
-		User propietario = entityManager.find(
-				User.class, ((User)session.getAttribute("u")).getId());
-
-		//log.info("PROPIETARIOOOOOOO" + propietario.getId());
-		v.setPropietario(propietario);
-
-		entityManager.persist(v);
-		entityManager.flush();
-
-        return misVehiculos(model);
-    }
-
-
-	@GetMapping("/reparaciones")
+    @GetMapping("/reparaciones")
     public String reparaciones(Model model) {
 
 		List<Vehiculo> lista_vehiculos = null; 
@@ -427,56 +329,47 @@ public class UserController {
         return "reparaciones";
     }
 
-	@PostMapping("/solicitaReparacion")
-	@Transactional
-    public String solicitaReparacion(Model model,
-	@RequestParam long id,
-	@RequestParam String fechaFin,
-	@RequestParam String descripcion
-	) throws ParseException
-    {
-         
-
-		Reparacion r = new Reparacion();
-
-		Vehiculo v = entityManager.find(Vehiculo.class, id);
-		
-		r.setVehiculo(v);
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateTime = LocalDateTime.parse(fechaFin, formatter);
-		
-		r.setFechaFin(dateTime);
-		r.setDescripcion(descripcion);
-
-		entityManager.persist(r);
-		entityManager.flush();
-
-        
-      
-
-        return reparaciones(model);
-    }
-
-
-
-	@GetMapping("/reparacionesEnCursoCliente")
-    public String reparacionesEnCursoCliente(Model model, HttpSession session)
+    @GetMapping("/gestionarReparaciones")
+    public String gestionarReparaciones(Model model, HttpSession session)
 	{
-		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+		List<Reparacion> lista_reparaciones = null;
+		TypedQuery<Reparacion> query;
+		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
 
-		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
-        ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
+        query = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class);
+		query.setParameter("mecanico", empleado);
+		lista_reparaciones = query.getResultList();
+		//log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
 
-		log.info("reparaciones para este cliente");
-		for (Reparacion reparacion : lista) {
-			log.info(reparacion.getDescripcion());
-		}
+		model.addAttribute("reparaciones_empleado", lista_reparaciones);
 
-        model.addAttribute("reparaciones_cliente", lista);
+        return "gestionarReparaciones";
 
-        return "reparacionesEnCursoCliente";
+
+	}
+
+	@Transactional
+    @PostMapping("/aceptarReparacion")
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.ACEPTADO);
+        rep.setEmpleado(u);
+
+        return gestionarReparaciones(model, session);
     }
 
+    @Transactional
+    @PostMapping("/rechazarReparacion")
+    public String solicitudesReparacionRechazar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.RECHAZADO);
+        rep.setEmpleado(u);
+
+        return gestionarReparaciones(model, session);
+    }
 
 }
