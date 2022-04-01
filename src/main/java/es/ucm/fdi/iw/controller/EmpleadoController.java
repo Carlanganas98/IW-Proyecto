@@ -62,7 +62,7 @@ import java.util.stream.Collectors;
 @RequestMapping("empleado")
 public class EmpleadoController {
 
-    private static final Logger log = LogManager.getLogger(UserController.class);
+    private static final Logger log = LogManager.getLogger(EmpleadoController.class);
 
 	@Autowired
 	private EntityManager entityManager;
@@ -182,7 +182,7 @@ public class EmpleadoController {
      */
     private static InputStream defaultPic() {
 	    return new BufferedInputStream(Objects.requireNonNull(
-            UserController.class.getClassLoader().getResourceAsStream(
+            EmpleadoController.class.getClassLoader().getResourceAsStream(
                 "static/img/default-pic.jpg")));
     }
 
@@ -193,13 +193,13 @@ public class EmpleadoController {
      * @return
      * @throws IOException
      */
-    // @GetMapping("{id}/pic")
-    // public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
-	// 	File f = localData.getFile("user", ""+id+".jpg");
-    //     InputStream in = new BufferedInputStream(f.exists() ?
-    //         new FileInputStream(f) : UserController.defaultPic());
-    //     return os -> FileCopyUtils.copy(in, os);
-    // }
+    @GetMapping("{id}/pic")
+    public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
+		File f = localData.getFile("user", ""+id+".jpg");
+        InputStream in = new BufferedInputStream(f.exists() ?
+            new FileInputStream(f) : EmpleadoController.defaultPic());
+        return os -> FileCopyUtils.copy(in, os);
+    }
 
     /**
      * Uploads a profile pic for a user id

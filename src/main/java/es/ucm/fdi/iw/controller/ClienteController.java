@@ -65,9 +65,9 @@ import java.util.stream.Collectors;
  */
 @Controller()
 @RequestMapping("cliente")
-public class UserController {
+public class ClienteController {
 
-	private static final Logger log = LogManager.getLogger(UserController.class);
+	private static final Logger log = LogManager.getLogger(ClienteController.class);
 
 	@Autowired
 	private EntityManager entityManager;
@@ -187,7 +187,7 @@ public class UserController {
      */
     private static InputStream defaultPic() {
 	    return new BufferedInputStream(Objects.requireNonNull(
-            UserController.class.getClassLoader().getResourceAsStream(
+            ClienteController.class.getClassLoader().getResourceAsStream(
                 "static/img/default-pic.jpg")));
     }
 
@@ -202,7 +202,7 @@ public class UserController {
     public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
 		File f = localData.getFile("user", ""+id+".jpg");
         InputStream in = new BufferedInputStream(f.exists() ?
-            new FileInputStream(f) : UserController.defaultPic());
+            new FileInputStream(f) : ClienteController.defaultPic());
         return os -> FileCopyUtils.copy(in, os);
     }
 
