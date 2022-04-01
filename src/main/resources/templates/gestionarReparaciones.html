@@ -36,16 +36,19 @@
                             <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
                             <td>
-                                <form th:action="@{/user/aceptarReparacion/}" method="POST">
+                                <form th:action="@{/empleado/aceptarReparacion/}" method="POST">
                                     <input type="hidden" name="id_reparacion" th:value="${rep.id}">
                                     <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
                                 </form>
-                                <form th:action="@{/user/rechazarReparacion/}" method="POST">
+                                <form th:action="@{/empleado/rechazarReparacion/}" method="POST">
                                     <input type="hidden" name="id_reparacion" th:value="${rep.id}">
                                     <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                                 </form>
-                                
-                                </td>
+                                <form th:action="@{/empleado/reparacionPendiente/}" method="POST">
+                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                    <button type="submit" class="btn btn-info"><i class="bi bi-arrow-counterclockwise"></i></button>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                     </table>

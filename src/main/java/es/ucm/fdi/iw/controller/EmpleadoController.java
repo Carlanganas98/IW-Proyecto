@@ -372,4 +372,16 @@ public class EmpleadoController {
         return gestionarReparaciones(model, session);
     }
 
+    @Transactional
+    @PostMapping("/reparacionPendiente")
+    public String solicitudesReparacionPendiente(Model model, @RequestParam long id_reparacion, HttpSession session)
+    {
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.PENDIENTE);
+        rep.setEmpleado(u);
+
+        return gestionarReparaciones(model, session);
+    }
+
 }
