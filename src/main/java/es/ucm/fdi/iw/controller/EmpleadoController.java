@@ -3,6 +3,7 @@ package es.ucm.fdi.iw.controller;
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Reparacion;
+import es.ucm.fdi.iw.model.Servicio;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Vehiculo;
@@ -357,6 +358,16 @@ public class EmpleadoController {
         rep.setEstado(ESTADO.ACEPTADO);
         rep.setEmpleado(u);
 
+        // for para cada servicio
+
+        // Servicio s = new Servicio();
+        // s.setInfo(info);
+        // s.setPrecio(precio);
+        // s.setReparacion(r);
+
+        // entityManager.persist(s);
+        // entityManager.flush();
+
         return gestionarReparaciones(model, session);
     }
 
@@ -383,5 +394,37 @@ public class EmpleadoController {
 
         return gestionarReparaciones(model, session);
     }
+
+    @GetMapping("/verServicios")
+    public String verServiciosDeUnaReparacion(Model model, HttpSession session, @RequestParam long id_reparacion)
+    {
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        List<Servicio> lista_servicios = null;
+        TypedQuery<Servicio> query;
+        
+        query = entityManager.createNamedQuery("Servicio.ServiciosDeUnaReparacion", Servicio.class);
+		query.setParameter("reparacion", rep);
+		lista_servicios = query.getResultList();
+        model.addAttribute("lista_servicios", lista_servicios);
+
+        return gestionarReparaciones(model, session);
+    }
+
+    @Transactional
+    @PostMapping("/anyadirServicio")
+    public String anyadirServicio(Model model, HttpSession session, @RequestParam long id_reparacion, @RequestParam String info, @RequestParam double precio)
+    {
+        // Reparacion r = entityManager.find(Reparacion.class, id_reparacion);
+        // Servicio s = new Servicio();
+        // s.setInfo(info);
+        // s.setPrecio(precio);
+        // s.setReparacion(r);
+
+        // entityManager.persist(s);
+        // entityManager.flush();
+
+        return "";
+    }
+
 
 }

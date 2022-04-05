@@ -42,7 +42,7 @@ public class Reparacion {
     private Vehiculo vehiculo;
     
     @OneToMany
-    @JoinColumn(name="servicio_id")
+    @JoinColumn(name="reparacion_id")
     private List<Servicio> servicios;
     
     private LocalDateTime fechaInicio;

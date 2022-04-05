@@ -31,3 +31,6 @@ INSERT INTO "REPARACION" VALUES
 (2,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05', NULL, 1),
 (3, 'Rueda pinchada', 'PENDIENTE', '2022-04-01', '2022-03-31 20:00:00', NULL, 1),
 (4, 'Rueda pinchada', 'PENDIENTE', NULL, '2022-03-31 20:00:00', NULL, 2);
+
+
+insert into servicio values (1, 'condensador', 2, 100, 1);
