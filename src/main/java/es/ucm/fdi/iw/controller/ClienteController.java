@@ -51,6 +51,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -63,10 +64,10 @@ import java.util.stream.Collectors;
  *  Access to this end-point is authenticated.
  */
 @Controller()
-@RequestMapping("user")
-public class UserController {
+@RequestMapping("cliente")
+public class ClienteController {
 
-	private static final Logger log = LogManager.getLogger(UserController.class);
+	private static final Logger log = LogManager.getLogger(ClienteController.class);
 
 	@Autowired
 	private EntityManager entityManager;
@@ -186,7 +187,7 @@ public class UserController {
      */
     private static InputStream defaultPic() {
 	    return new BufferedInputStream(Objects.requireNonNull(
-            UserController.class.getClassLoader().getResourceAsStream(
+            ClienteController.class.getClassLoader().getResourceAsStream(
                 "static/img/default-pic.jpg")));
     }
 
@@ -201,7 +202,7 @@ public class UserController {
     public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
 		File f = localData.getFile("user", ""+id+".jpg");
         InputStream in = new BufferedInputStream(f.exists() ?
-            new FileInputStream(f) : UserController.defaultPic());
+            new FileInputStream(f) : ClienteController.defaultPic());
         return os -> FileCopyUtils.copy(in, os);
     }
 
@@ -321,6 +322,7 @@ public class UserController {
 	}	
 
 
+
 		@GetMapping("/anyadeVehiculo")
 		@Transactional
 			public String anyadeVehiculoS(
@@ -328,6 +330,7 @@ public class UserController {
 			@RequestParam String matricula,
 			@RequestParam String tipo,
 			@RequestParam String modelo,
+			@RequestParam int anyo,
 			HttpSession session) {
 
 			User propietario = entityManager.find(
@@ -337,6 +340,7 @@ public class UserController {
 			v.setMatricula(matricula);
 			v.setTipo(tipo);
 			v.setModelo(modelo);
+			v.setAnyo(anyo);
 			v.setPropietario(propietario);
 			
 			entityManager.persist(v);
@@ -364,18 +368,19 @@ public class UserController {
 
 	@Transactional
     @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo) {
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo) {
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 
 
         v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
+		v.setAnyo(anyo);
 
         return misVehiculos(model);
     }
 
-	@GetMapping("/borrarCoche")
+	@PostMapping("/borrarCoche")
     @Transactional
     public String borrarCoche(Model model, @RequestParam long id){
 
@@ -386,13 +391,15 @@ public class UserController {
 
 	@PostMapping("/anyadirCoche")
     @Transactional
-    public String anyadirCoche(Model model, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session){
-		log.info("ANYADIIRRRR COCHEEEE");
+    public String anyadirCoche(Model model, @RequestParam String matricula, 
+	@RequestParam String tipo, @RequestParam String modelo, HttpSession session,
+	@RequestParam int anyo){
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
+		v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
@@ -406,6 +413,7 @@ public class UserController {
 
         return misVehiculos(model);
     }
+
 
 	@GetMapping("/reparaciones")
     public String reparaciones(Model model) {
@@ -423,7 +431,7 @@ public class UserController {
 	@Transactional
     public String solicitaReparacion(Model model,
 	@RequestParam long id,
-	@RequestParam String fecha_fin,
+	@RequestParam String fechaFin,
 	@RequestParam String descripcion
 	) throws ParseException
     {
@@ -435,12 +443,10 @@ public class UserController {
 		
 		r.setVehiculo(v);
 
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-		java.util.Date date = sdf.parse(fecha_fin); 
-		java.sql.Date sqlDate = new Date(date.getTime());   
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDateTime dateTime = LocalDateTime.parse(fechaFin, formatter);
 		
-
-		r.setFecha_fin(sqlDate);
+		r.setFechaFin(dateTime);
 		r.setDescripcion(descripcion);
 
 		entityManager.persist(r);
@@ -452,50 +458,6 @@ public class UserController {
         return reparaciones(model);
     }
 
-	@GetMapping("/gestionarReparaciones")
-    public String reparaciones(Model model, HttpSession session)
-	{
-		List<Reparacion> lista_reparaciones = null;
-		TypedQuery<Reparacion> query;
-		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-
-        // query = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class);
-		// query.setParameter("mecanico", empleado);
-		// lista_reparaciones = query.getResultList();
-		lista_reparaciones = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class).setParameter("mecanico", empleado).getResultList();
-
-		log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
-		
-		model.addAttribute("reparaciones_empleado", lista_reparaciones);
-
-        return "gestionarReparaciones";
-
-
-	}
-
-	@Transactional
-    @PostMapping("/aceptarReparacion")
-    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session) {
-
-        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
-        rep.setEstado(ESTADO.ACEPTADO);
-        rep.setEmpleado(u);
-
-        return reparaciones(model, session);
-    }
-
-    @Transactional
-    @PostMapping("/rechazarReparacion")
-    public String solicitudesReparacionRechazar(Model model, @RequestParam long id_reparacion, HttpSession session) {
-
-        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
-        rep.setEstado(ESTADO.RECHAZADO);
-        rep.setEmpleado(u);
-
-        return reparaciones(model, session);
-    }
 
 
 	@GetMapping("/reparacionesEnCursoCliente")

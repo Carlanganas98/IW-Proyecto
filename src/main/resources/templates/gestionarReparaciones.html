@@ -18,46 +18,139 @@
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Vehículo</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Fecha inicio</th>
-                        <th scope="col">Fecha fin</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Operaciones</th>
-                    </tr>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Vehículo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha inicio</th>
+                            <th scope="col">Fecha fin</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Operaciones</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr th:each="rep: ${reparaciones_empleado}" >
                             <td th:text="|${rep.vehiculo.propietario.firstName} ${rep.vehiculo.propietario.lastName}|"></td>
                             <td th:text="${rep.vehiculo.modelo}"></td>
                             <td th:text="${rep.descripcion}"></td>
-                            <td th:text="${rep.fecha_inicio}"></td>
-                            <td th:text="${rep.fecha_inicio}"></td>
+                            <td th:text="${rep.fechaInicio}"></td>
+                            <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
                             <td>
-                                <span th:if="${#strings.equals(rep.estado, 'PENDIENTE')}">
-                                    <form th:action="@{/user/aceptarReparacion/}" method="POST">
-                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                        <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
-                                    </form>
-                                    <form th:action="@{/user/rechazarReparacion/}" method="POST">
-                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                                    </form>
-                                </span>
-                                <span th:unless="${#strings.equals(rep.estado, 'PENDIENTE')}">
-                                    <button type="submit" class="btn btn-success"><i class="bi bi-chat-quote-fill"></i></button>
-                                </span>
 
-                                
-                                
-                                </td>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
+                                    <i class="bi bi-heart-fill"></i>
+                                </button>
+                                <div class="modal fade" th:attr="id='Aceptar' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Formulario para aceptar la reparación:</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- <form th:action="@{/empleado/aceptarReparacion}" method="POST"> -->
+                                                    <!-- <input type="hidden" name="id" th:value="${v.id}"> -->
+                                                    <div class="d-grid gap-2 col-6 mx-auto">
+                                                        <input type="button" value="Introducir nuevo servicio" id="boton" class="btn btn-primary">
+                                                    </div>
+
+                                                    <p></p>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Servicio:</label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input class="form-control" type="text" placeholder="Servicio" aria-label="default input example">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-2">
+                                                            <label>Precio estimado: </label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" type="text">
+                                                        </div>
+                                                        €
+                                                    </div>
+
+                                                    <script>
+                                                        let boton = document.querySelector('#boton');
+                                                        boton.addEventListener('click', ()=>{
+                                                        let contenedor = document.querySelector('#contenido');
+                                                        let p = document.createElement('p');
+                                                        p.innerHTML =
+                                                        `<div class="row">
+                                                            <div class="col-md-2">
+                                                                <label>Servicio:</label>
+                                                            </div>
+                                                            <div class="col">
+                                                                <input class="form-control" type="text" placeholder="Servicio" aria-label="default input example">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label>Precio estimado: </label>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <input class="form-control" type="text">
+                                                            </div>
+                                                            €
+                                                        </div>`
+                                                        ;
+                                                        contenedor.appendChild(p);
+                                                        });
+                                                    </script>
+
+                                                    <div id="contenido"></div>
+
+                                                    <!-- <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div> -->
+                                                <!-- </form> -->
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form th:action="@{/empleado/aceptarReparacion/}" method="POST">
+                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                </form>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Rechazar' + ${rep.id}">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                                <div class="modal fade" th:attr="id='Rechazar' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que deseas rechazar la reparación?</h5>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form th:action="@{/empleado/rechazarReparacion/}" method="POST">
+                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                </form>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:action="@{/empleado/reparacionPendiente/}" method="POST">
+                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                    <button type="submit" class="btn btn-info"><i class="bi bi-arrow-counterclockwise"></i></button>
+                                </form>
+
+                            </td>
                         </tr>
                     </tbody>
-                    </table>
-            </div>    
-
+                </table>
+            </div>
+            
+        </div>
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
