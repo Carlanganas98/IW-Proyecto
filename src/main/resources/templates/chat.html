@@ -23,9 +23,8 @@
             <div class="container d-flex justify-content-center">
                 <div class="card mt-5 ">
                     <div class="card-header d-flex justify-content-center"><h1>Chat</h1></div>
-                        <div class="card-body scroll" th:each="men: ${mensajes}">
-                            <div class="d-flex flex-row p-3" id="cuerpoChat">  
-                                <input type="text" id="message" placeholder="escribe a este usuario" />
+                        <div class="card-body scroll" id="cuerpoChat">
+                            <div class="d-flex flex-row p-3">  
 
                             </div>
 
@@ -63,14 +62,14 @@
 
 
                         <footer class="d-flex">
-                            <form>
+                            <div>
                                 <div class="chat-txt ml-auto m-3" style="width: 90%; height:100%;">
                                     <input id="messageBar" type="text" class="form-control">
                                 </div>
                                 <div class="chat-txt ml-auto m-3" style="width: 10%; height:100%;">
                                     <button class="btn btn-primary" th:onclick="'javascript:sendMessage(' + ${session.u.id} + ')'">Enviar</button>
                                 </div>
-                            </form>
+                            </div>
                         </footer>
                     </div>
                 </div>
@@ -82,38 +81,7 @@
 </body>
 <script >
 
-    function sendMessage(id){
-        let msg = document.getElementById("messageBar").value;
-        let params = {message: msg};
-        go("/empleado/" + id + "/msg", 'POST', params).then(req => 
-                {
-                    let resp = resolve(JSON.parse(req.response));
-                    console.log("el json se ha parseado y es " + resp);
-                })
-                .catch(e => "Ha sucedido un error" + e );
-                
-    }
-
-// cómo pintar 1 mensaje (devuelve html que se puede insertar en un div)
-    function renderMsg(msg) {
-        console.log("rendering: ", msg);
-        return '<div>${msg.from} @${msg.sent}: ${msg.text}</div>';
-    }
-
-    // pinta mensajes viejos al cargarse, via AJAX
-    let messageDiv = document.getElementById("mensajes");
-    go(config.rootUrl + "/empleado/received", "GET").then(ms =>
-        ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
-
-    // y aquí pinta mensajes según van llegando
-    if (ws.receive) {
-        const oldFn = ws.receive; // guarda referencia a manejador anterior
-        ws.receive = (m) => {
-            oldFn(m); // llama al manejador anterior
-            messageDiv.insertAdjacentHTML("beforeend", renderMsg(m));
-        }
-    }
-    /**
+        /**
  * Sends an "ajax" request using Fetch. Sends JSON and expects JSON back.
  * 
  * @param {string} url 
@@ -132,7 +100,7 @@
  *     text: <describing the error>
  *  }
  */
- function go(url, method, data = {}, headers = false) {
+    function go(url, method, data = {}, headers = false) {
     let params = {
         method: method, // POST, GET, POST, PUT, DELETE, etc.
         headers: headers === false ? {
@@ -161,6 +129,52 @@
                 }));
             }
         });
-}
+    }
+
+    // cómo pintar 1 mensaje (devuelve html que se puede insertar en un div)
+    function renderMsg(msg) {
+        console.log("rendering: ", msg);
+        return '<div>' + msg.from + ': ' + msg.text + '</div>';
+    }
+
+    function sendMessage(id){
+        let msg = document.getElementById("messageBar").value;
+        let params = {message: msg};
+        go("/empleado/" + id + "/msg", 'POST', params).then(req => 
+                {
+                    let resp = resolve(JSON.parse(req.response));
+                    console.log("el json se ha parseado y es " + resp);
+                })
+                .catch(e => "Ha sucedido un error" + e );   
+
+        drawAllMesajes();
+    }
+
+    function drawAllMesajes(){
+        let messageDiv = document.getElementById("cuerpoChat");
+        messageDiv.innerHTML = "";
+        go("/empleado/received", "GET").then(ms => 
+            ms.forEach(m => messageDiv.insertAdjacentHTML("afterbegin", renderMsg(m))));
+    }
+
+    drawAllMesajes();
+
+
+
+/**
+    // pinta mensajes viejos al cargarse, via AJAX
+    let messageDiv = document.getElementById("mensajes");
+    go(config.rootUrl + "/empleado/received", "GET").then(ms =>
+        ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
+
+    // y aquí pinta mensajes según van llegando
+    if (ws.receive) {
+        const oldFn = ws.receive; // guarda referencia a manejador anterior
+        ws.receive = (m) => {
+            oldFn(m); // llama al manejador anterior
+            messageDiv.insertAdjacentHTML("beforeend", renderMsg(m));
+        }
+    }**/
+
 </script>
 </html>
