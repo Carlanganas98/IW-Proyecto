@@ -33,4 +33,11 @@ INSERT INTO "REPARACION" VALUES
 (4, 'Rueda pinchada', 'PENDIENTE', NULL, '2022-03-31 20:00:00', NULL, 2);
 
 
-insert into servicio values (1, 'condensador', 2, 100, 1);
+insert into servicio values
+(1, 'condensador', 2, 100, 1);
+                            
+
+INSERT INTO "MESSAGE" VALUES 
+(1,'2007-12-03T10:15:30' '2007-12-03T10:15:30', 'Hola buenos dias', 1, 2),
+(2,'2007-12-03T10:15:30', '2007-12-03T10:15:30', 'Hola a ti tambien', 2, 1);
+

@@ -196,11 +196,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (config.socketUrl) {
         let subs = config.admin ? ["/topic/admin", "/user/queue/updates"] : ["/user/queue/updates"]
         ws.initialize(config.socketUrl, subs);
-
+        /** creo que da error por los cambios de controladores
         let p = document.querySelector("#nav-unread");
         if (p) {
             go(`${config.rootUrl}/user/unread`, "GET").then(d => p.textContent = d.unread);
-        }
+        } */
     } else {
         console.log("Not opening websocket: missing config", config)
     }
