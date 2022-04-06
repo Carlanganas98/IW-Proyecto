@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @NamedQueries({
     @NamedQuery(name= "Servicio.ServiciosDeUnaReparacion",
-    query= "SELECT s FROM Servicio s"
+    query= "SELECT s FROM Servicio s "
             + "WHERE s.reparacion = :reparacion")
 })
 public class Servicio {

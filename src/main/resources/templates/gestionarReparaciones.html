@@ -38,7 +38,7 @@
                             <td>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" 
-                                    th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" 
+                                    th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).RECHAZADO}"
                                     th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
                                     <i class="bi bi-plus"></i>
                                 </button>
@@ -51,23 +51,14 @@
                                             <form th:action="@{/empleado/aceptarReparacion/}" method="POST">
 
                                             <div class="modal-body">
-                                                <!-- <form th:action="@{/empleado/aceptarReparacion}" method="POST"> -->
-                                                    <!-- <input type="hidden" name="id" th:value="${v.id}"> -->
-                                                    <div class="d-grid gap-2 col-6 mx-auto">
-                                                        <input type="button" value="Introducir nuevo servicio" th:attr="data-contenido='contenido' + ${rep.id}" class="btn btn-primary bservicio">
-                                                        <!--  -->
-                                                    </div>
-                                                    <p></p>
 
-                                                    
+                                                <div class="d-grid gap-2 col-6 mx-auto">
+                                                    <input type="button" value="Introducir nuevo servicio" th:attr="data-contenido='contenido' + ${rep.id}" class="btn btn-primary bservicio">
+                                                </div>
+                                                <p></p>
 
-                                                    <div th:id="'contenido' + ${rep.id}"></div>
+                                                <div th:id="'contenido' + ${rep.id}"></div>
 
-                                                    <!-- <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-primary">Guardar</button>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                    </div> -->
-                                                <!-- </form> -->
                                             </div>
                                             <div class="modal-footer">
                                                     <input type="hidden" name="id_reparacion" th:value="${rep.id}">
@@ -127,29 +118,23 @@
             boton.addEventListener('click', ()=>{
                 let p = document.createElement('p');
                 p.innerHTML =
-                `<form th:action="@{/empleado/anyadirServicio}" method="POST">
-                    
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label>Servicio:</label>
-                        </div>
-                        <div class="col">
-                            <input class="form-control" type="text"
-                            placeholder="Cambio de cristal" name="info">
-                        </div>
+                `<div class="row">
+                    <div class="col-md-2">
+                        <label>Servicio:</label>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <label>Precio estimado: </label>
-                        </div>
-                        <div class="col-md-4">
-                            <input class="form-control" type="text"
-                            placeholder="50" name="precio">
-                        </div>
-                        €
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder="Cambio de cristal" name="info" required>
                     </div>
-                    
-                </form>`
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Precio estimado: </label>
+                    </div>
+                    <div class="col-md-4">
+                        <input class="form-control" type="text" placeholder="50" name="precio" required>
+                    </div>
+                    €
+                </div>`
                 ;
                 contenedor.appendChild(p);
             });
