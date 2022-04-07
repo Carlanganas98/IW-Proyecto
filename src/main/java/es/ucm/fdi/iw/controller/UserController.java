@@ -50,6 +50,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -64,10 +65,10 @@ import java.util.stream.Collectors;
  *  Access to this end-point is authenticated.
  */
 @Controller()
-@RequestMapping("cliente")
-public class ClienteController {
+@RequestMapping("user")
+public class UserController {
 
-	private static final Logger log = LogManager.getLogger(ClienteController.class);
+	private static final Logger log = LogManager.getLogger(UserController.class);
 
 	@Autowired
 	private EntityManager entityManager;
@@ -187,7 +188,7 @@ public class ClienteController {
      */
     private static InputStream defaultPic() {
 	    return new BufferedInputStream(Objects.requireNonNull(
-            ClienteController.class.getClassLoader().getResourceAsStream(
+            UserController.class.getClassLoader().getResourceAsStream(
                 "static/img/default-pic.jpg")));
     }
 
@@ -202,7 +203,7 @@ public class ClienteController {
     public StreamingResponseBody getPic(@PathVariable long id) throws IOException {
 		File f = localData.getFile("user", ""+id+".jpg");
         InputStream in = new BufferedInputStream(f.exists() ?
-            new FileInputStream(f) : ClienteController.defaultPic());
+            new FileInputStream(f) : UserController.defaultPic());
         return os -> FileCopyUtils.copy(in, os);
     }
 
@@ -416,13 +417,34 @@ public class ClienteController {
 
 
 	@GetMapping("/reparaciones")
-    public String reparaciones(Model model) {
+    public String reparacionesIndex(Model model, HttpSession session) {
 
-		List<Vehiculo> lista_vehiculos = null; 
+		//List<Vehiculo> lista_vehiculos = null; 
 
-		lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//lista_vehiculos = entityManager.createNamedQuery("verVehiculosR", Vehiculo.class).getResultList();
+		
+
+		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+		log.info("ID CLIENTE: " + usuario.getId());
+
+		
+		TypedQuery<Vehiculo> consultaVehiculos= entityManager.createNamedQuery("verVehiculoR", Vehiculo.class).setParameter("usuario", usuario);
+        ArrayList<Vehiculo> lista_vehiculos= (ArrayList<Vehiculo>) consultaVehiculos.getResultList();
+
 		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
 		model.addAttribute("vehiculos", lista_vehiculos); 
+
+
+		
+		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
+        ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
+
+		log.info("reparaciones para este cliente");
+		for (Reparacion reparacion : lista) {
+			log.info(reparacion.getDescripcion());
+		}
+
+        model.addAttribute("reparaciones_cliente", lista);
 
         return "reparaciones";
     }
@@ -432,7 +454,8 @@ public class ClienteController {
     public String solicitaReparacion(Model model,
 	@RequestParam long id,
 	@RequestParam String fechaFin,
-	@RequestParam String descripcion
+	@RequestParam String descripcion,
+	HttpSession session
 	) throws ParseException
     {
          
@@ -444,7 +467,7 @@ public class ClienteController {
 		r.setVehiculo(v);
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateTime = LocalDateTime.parse(fechaFin, formatter);
+		LocalDateTime dateTime = LocalDate.parse(fechaFin, formatter).atStartOfDay();
 		
 		r.setFechaFin(dateTime);
 		r.setDescripcion(descripcion);
@@ -452,18 +475,60 @@ public class ClienteController {
 		entityManager.persist(r);
 		entityManager.flush();
 
-        
-      
 
-        return reparaciones(model);
+        return reparacionesIndex(model,session);
     }
 
+	@GetMapping("/gestionarReparaciones")
+    public String reparaciones(Model model, HttpSession session)
+	{
+		List<Reparacion> lista_reparaciones = null;
+		TypedQuery<Reparacion> query;
+		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+
+        query = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class);
+		query.setParameter("mecanico", empleado);
+		lista_reparaciones = query.getResultList();
+
+		//log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
+
+		model.addAttribute("reparaciones_empleado", lista_reparaciones);
+
+        return "gestionarReparaciones";
+
+
+	}
+
+	@Transactional
+    @PostMapping("/aceptarReparacion")
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.ACEPTADO);
+        rep.setEmpleado(u);
+
+        return reparaciones(model, session);
+    }
+
+    @Transactional
+    @PostMapping("/rechazarReparacion")
+    public String solicitudesReparacionRechazar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        rep.setEstado(ESTADO.RECHAZADO);
+        rep.setEmpleado(u);
+
+        return reparaciones(model, session);
+    }
 
 
 	@GetMapping("/reparacionesEnCursoCliente")
     public String reparacionesEnCursoCliente(Model model, HttpSession session)
 	{
 		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+		log.info("ID CLIENTE: " + usuario.getId());
 
 		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
         ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
