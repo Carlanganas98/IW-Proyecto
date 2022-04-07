@@ -31,13 +31,11 @@
                             <td th:text="${v.tipo}"></td>
                             <td th:text="${v.modelo}"></td>
                             <td>            
-                               
-  
 
                                     <div class="card rounded-0 col-sm-5 border">
                                       <!-- Button trigger modal -->
                                       <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
-                                          <i class="bi bi-plus-circle-fill"></i>
+                                        <i class="fa-solid fa-wrench"></i>
                                       </button>
                                       <!-- Modal -->
                                       <div class="modal fade" id="modalAnyadirCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -48,7 +46,7 @@
                                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                           </div>
                                               <div class="modal-body">
-                                                  <form th:action="@{/cliente/solicitaReparacion}" method="POST">
+                                                  <form th:action="@{/user/solicitaReparacion}" method="POST">
                                                       
             
                                                       <p>Tipo: </p>
@@ -57,7 +55,7 @@
                                                       <input type="text" name="modelo" th:value="${v.modelo}">
                                                       <input type="hidden" name="id" th:value="${v.id}">
                                                       <p>Fecha de entrega </p>
-                                                      <input type="date" id="fecha_fin" name="fecha_inicio">
+                                                      <input type="date" id="fechaFin" name="fechaFin">
                                                       <p>Describe brevemente lo que le ocurre a tu vehículo: </p>
                                                       <textarea rows = "5" cols = "60" name = "descripcion" id ="descripcion">
                                                       </textarea>
@@ -77,6 +75,35 @@
                 </table>
             </div>
         </div>
+
+        <div class="card rounded-0 col-sm-12 border">
+            <h1>Lista de reparaciones</h1>
+            <table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">Vehículo</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha inicio</th>
+                    <th scope="col">Fecha fin</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Operaciones</th>
+                    <th scope ="col">Chat</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="r: ${reparaciones_cliente}" >
+                        <td th:text="${r.vehiculo.modelo}"></td>
+                        <td th:text="${r.descripcion}"></td>
+                        <td th:text="${r.fechaInicio}"></td>
+                        <td th:text="${r.fechaFin}"></td>
+                        <td th:text="${r.estado}"></td>
+                        <td>
+
+                        </td>
+                    </tr>
+                </tbody>
+                </table>
+        </div>    
     </main>
   
 
