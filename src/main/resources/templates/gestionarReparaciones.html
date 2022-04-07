@@ -18,14 +18,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Vehículo</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Fecha inicio</th>
-                        <th scope="col">Fecha fin</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Operaciones</th>
-                    </tr>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Vehículo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha inicio</th>
+                            <th scope="col">Fecha fin</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Operaciones</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr th:each="rep: ${reparaciones_empleado}" >
@@ -36,23 +36,6 @@
                             <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
                             <td>
-                                <span th:if="${#strings.equals(rep.estado, 'PENDIENTE')}">
-                                    <form th:action="@{/user/aceptarReparacion/}" method="POST">
-                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                        <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
-                                    </form>
-                                    <form th:action="@{/user/rechazarReparacion/}" method="POST">
-                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                                    </form>
-                                </span>
-                                <span th:unless="${#strings.equals(rep.estado, 'PENDIENTE')}">
-                                    <button type="submit" class="btn btn-success"><i class="bi bi-chat-quote-fill"></i></button>
-                                </span>
-
-                                
-                                
-                                </td>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" 
                                     th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).RECHAZADO}"
@@ -172,9 +155,10 @@
                             </td>
                         </tr>
                     </tbody>
-                    </table>
-            </div>    
-
+                </table>
+            </div>
+            
+        </div>
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
