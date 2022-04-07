@@ -50,6 +50,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -416,13 +417,34 @@ public class UserController {
 
 
 	@GetMapping("/reparaciones")
-    public String reparaciones(Model model) {
+    public String reparacionesIndex(Model model, HttpSession session) {
 
-		List<Vehiculo> lista_vehiculos = null; 
+		//List<Vehiculo> lista_vehiculos = null; 
 
-		lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//lista_vehiculos = entityManager.createNamedQuery("verVehiculosR", Vehiculo.class).getResultList();
+		
+
+		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+		log.info("ID CLIENTE: " + usuario.getId());
+
+		
+		TypedQuery<Vehiculo> consultaVehiculos= entityManager.createNamedQuery("verVehiculoR", Vehiculo.class).setParameter("usuario", usuario);
+        ArrayList<Vehiculo> lista_vehiculos= (ArrayList<Vehiculo>) consultaVehiculos.getResultList();
+
 		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
 		model.addAttribute("vehiculos", lista_vehiculos); 
+
+
+		
+		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
+        ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
+
+		log.info("reparaciones para este cliente");
+		for (Reparacion reparacion : lista) {
+			log.info(reparacion.getDescripcion());
+		}
+
+        model.addAttribute("reparaciones_cliente", lista);
 
         return "reparaciones";
     }
@@ -432,7 +454,8 @@ public class UserController {
     public String solicitaReparacion(Model model,
 	@RequestParam long id,
 	@RequestParam String fechaFin,
-	@RequestParam String descripcion
+	@RequestParam String descripcion,
+	HttpSession session
 	) throws ParseException
     {
          
@@ -444,7 +467,7 @@ public class UserController {
 		r.setVehiculo(v);
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateTime = LocalDateTime.parse(fechaFin, formatter);
+		LocalDateTime dateTime = LocalDate.parse(fechaFin, formatter).atStartOfDay();
 		
 		r.setFechaFin(dateTime);
 		r.setDescripcion(descripcion);
@@ -452,10 +475,8 @@ public class UserController {
 		entityManager.persist(r);
 		entityManager.flush();
 
-        
-      
 
-        return reparaciones(model);
+        return reparacionesIndex(model,session);
     }
 
 	@GetMapping("/gestionarReparaciones")
