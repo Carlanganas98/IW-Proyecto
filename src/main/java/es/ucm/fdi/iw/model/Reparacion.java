@@ -12,7 +12,7 @@ import lombok.Data;
 @NamedQueries({
     @NamedQuery(name="Reparaciones.listadoReparaciones",
     query="SELECT r FROM Reparacion r "
-            + "WHERE r.empleado = :mecanico"),
+            + "WHERE r.empleado = :mecanico OR r.estado = 'PENDIENTE'"),
 
     @NamedQuery(name="Reparacion.allReparaciones",
     query="SELECT r "

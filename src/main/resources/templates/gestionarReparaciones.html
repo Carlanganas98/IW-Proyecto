@@ -18,14 +18,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Vehículo</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Fecha inicio</th>
-                        <th scope="col">Fecha fin</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Operaciones</th>
-                    </tr>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Vehículo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha inicio</th>
+                            <th scope="col">Fecha fin</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Operaciones</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr th:each="rep: ${reparaciones_empleado}" >
@@ -36,23 +36,6 @@
                             <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
                             <td>
-                                <span th:if="${#strings.equals(rep.estado, 'PENDIENTE')}">
-                                    <form th:action="@{/user/aceptarReparacion/}" method="POST">
-                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                        <button type="submit" class="btn btn-success"><i class="bi bi-heart-fill"></i></button>
-                                    </form>
-                                    <form th:action="@{/user/rechazarReparacion/}" method="POST">
-                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                        <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                                    </form>
-                                </span>
-                                <span th:unless="${#strings.equals(rep.estado, 'PENDIENTE')}">
-                                    <button type="submit" class="btn btn-success"><i class="bi bi-chat-quote-fill"></i></button>
-                                </span>
-
-                                
-                                
-                                </td>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" 
                                     th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).RECHAZADO}"
@@ -63,30 +46,29 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Formulario para aceptar la reparación</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Formulario para aceptar la reparación:</h5>
                                             </div>
-                                            <form th:action="@{/empleado/aceptarReparacion}" method="POST">
+                                            <form th:action="@{/empleado/aceptarReparacion/}" method="POST">
 
-                                                <div class="modal-body">
+                                            <div class="modal-body">
 
-                                                    <div class="d-grid gap-2 col-6 mx-auto">
-                                                        <input type="button" value="Introducir nuevo servicio" th:attr="data-contenido='contenido' + ${rep.id}" class="btn btn-primary bservicio">
-                                                    </div>
-                                                    <p></p>
-
-                                                    <div th:id="'contenido' + ${rep.id}"></div>
-
+                                                <div class="d-grid gap-2 col-6 mx-auto">
+                                                    <input type="button" value="Introducir nuevo servicio" th:attr="data-contenido='contenido' + ${rep.id}" class="btn btn-primary bservicio">
                                                 </div>
-                                                <div class="modal-footer">
-                                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                                        <button type="submit" class="btn btn-primary">Aceptar</button>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                </div>  
-                                            </form>
+                                                <p></p>
+
+                                                <div th:id="'contenido' + ${rep.id}"></div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            </div>  
+                                        </form>
                                     </div>
                                     </div>
                                 </div>
-
 
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Rechazar' + ${rep.id}">
                                     <i class="bi bi-trash-fill"></i>
@@ -98,7 +80,7 @@
                                                 <h5 class="modal-title" id="exampleModalLabel">¿Seguro que deseas rechazar la reparación?</h5>
                                             </div>
                                             <div class="modal-footer">
-                                                <form th:action="@{/empleado/rechazarReparacion}" method="POST">
+                                                <form th:action="@{/empleado/rechazarReparacion/}" method="POST">
                                                     <input type="hidden" name="id_reparacion" th:value="${rep.id}">
                                                     <button type="submit" class="btn btn-primary">Aceptar</button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -108,73 +90,23 @@
                                     </div>
                                 </div>
 
+                                <form th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:action="@{/empleado/reparacionPendiente/}" method="POST">
+                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                    <button type="submit" class="btn btn-warning"><i class="bi bi-arrow-counterclockwise"></i></button>
+                                </form>
 
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).ACEPTADO}" th:attr="data-bs-target= '#Info' + ${rep.id}">
-                                    <i class="bi bi-info"></i>
-                                </button>
-                                <div class="modal fade" th:attr="id='Info' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Información sobre la reparación</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                                
-                                                <!-- Nº <label th:text="s.count"></label> -->
-                                                <div id="div_servicios" data-id_servicios="'id_servicios' + ${rep.id}">
-                                                </div>
-
-                                                <!-- <table>
-                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                                    <tr>
-                                                        <th>Servicio</th>
-                                                        <th>Precio</th>
-                                                    </tr>
-                                                    <tr th:each="s: ${lista_servicios}" name="id_reparacion" th:value="${rep.id}">
-                                                        <td th:text="${s.info}">Onions</td>
-                                                        <td th:text="${s.precio}">2.41</td>
-                                                    </tr>
-                                                </table> -->
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            </div>  
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Pendiente' + ${rep.id}">
-                                    <i class="bi bi-arrow-counterclockwise"></i>
-                                </button>
-                                <div class="modal fade" th:attr="id='Pendiente' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que deseas poner la reparación en estado pendiente?</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Recuerda que esta opción elimina todos los servicios que hayas creado para esta reparación.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form th:action="@{/empleado/reparacionPendiente}" method="POST">
-                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                </form>
-                                            </div>  
-                                        </div>
-                                    </div>
-                                </div>
+                                <form th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).ACEPTADO}">
+                                    <!-- <input type="hidden" > -->
+                                    <button type="submit" class="btn btn-info"><i class="bi bi-info"></i></button>
+                                </form>
 
                             </td>
                         </tr>
                     </tbody>
-                    </table>
-            </div>    
-
+                </table>
+            </div>
+            
+        </div>
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
@@ -196,7 +128,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <label>Precio: </label>
+                        <label>Precio estimado: </label>
                     </div>
                     <div class="col-md-4">
                         <input class="form-control" type="text" placeholder="50" name="precio" required>
@@ -210,27 +142,6 @@
 
         document.querySelectorAll('.bservicio')
             .forEach(b => botonDeNuevoServicio(b));
-
-
-        function V()
-        {
-            let serviciosDiv = document.getElementById("div_servicios".dataset.id_servicios);
-            console.log("LLEGO HASTA AQUI");
-            serviciosDiv.innerHTML = 
-            `<table>
-
-                <tr>
-                    <th>Servicio</th>
-                    <th>Precio</th>
-                </tr>
-                
-            </table>`
-            ;
-            go("/empleado/verServicios", "GET").then(ms => 
-                ms.forEach(s => serviciosDiv.appendChild(s)));
-        }
-
-        drawAllMesajes();
         
     </script>
 </body>

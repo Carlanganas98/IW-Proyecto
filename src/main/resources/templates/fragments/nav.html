@@ -36,18 +36,18 @@
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/chat}">Chat</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/user/gestionarReparaciones}">Gestionar reparaciones</a>
+                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/gestionarReparaciones}">Gestionar reparaciones</a>
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" id="misVehi" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/user/misVehiculos}">Mis Vehiculos</a>
+                                <a class="nav-link" id="misVehi" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/misVehiculos}">Mis Vehiculos</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/user/reparaciones}">Reparaciones</a>
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparaciones}">Reparaciones</a>
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/user/reparacionesEnCursoCliente}">Reparaciones en curso</a>
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparacionesEnCursoCliente}">Reparaciones en curso</a>
                             </li>
 
                         </th:block>
@@ -56,11 +56,16 @@
                         <th:block th:if="${session.u}">
 
                             <li class="nav-item mx-2">
-                                <a class="nav-link" th:href="@{/user/{id}(id=${session.u.id})}">
-                                    <img class="iwthumb rounded" th:src="@{/user/{id}/pic(id=${session.u.id})}">
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/{id}(id=${session.u.id})}">
+                                    <img class="iwthumb rounded" th:src="@{/cliente/{id}/pic(id=${session.u.id})}">
+                                    <span th:text="${session.u.username}">Pepe</span>
+                                </a>
+                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/{id}(id=${session.u.id})}">
+                                    <img class="iwthumb rounded" th:src="@{/empleado/{id}/pic(id=${session.u.id})}">
                                     <span th:text="${session.u.username}">Pepe</span>
                                 </a>
                             </li>
+
                             <li class="nav-item align-self-center me-4">
                                 <button type="button" class="btn btn-outline-primary btn-sm position-relative">
                                     ✉️ <span id="nav-unread" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">+99 <span class="visually-hidden">unread messages</span></span>
