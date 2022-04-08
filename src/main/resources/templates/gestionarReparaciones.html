@@ -105,7 +105,7 @@
                                                 <input type="hidden" name="id_reparacion" th:value="${rep.id}">
                                                 
                                                 <!-- Nº <label th:text="s.count"></label> -->
-                                                <div id="div_servicios" data-id_servicios="'id_servicios' + ${rep.id}">
+                                                <div id="div_servicios" th:attr="data-id_servicios='id_servicios' + ${rep.id}">
                                                 </div>
 
                                                 <!-- <table>
@@ -196,25 +196,28 @@
             .forEach(b => botonDeNuevoServicio(b));
 
 
-        function verServicios()
-        {
-            let serviciosDiv = document.getElementById("div_servicios".dataset.id_servicios);
-            console.log("LLEGO HASTA AQUI");
-            serviciosDiv.innerHTML = 
-            `<table>
+        // function verServicios()
+        // {
+        //     let serviciosDiv = document.getElementById("div_servicios".dataset.id_servicios);
+        //     console.log("LLEGO HASTA AQUI");
+        //     serviciosDiv.innerHTML = 
+        //     `<table>
+        //         <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+        //         <tr>
+        //             <th>Servicio</th>
+        //             <th>Precio</th>
+        //         </tr>
+        //         <tr th:each="s: ${lista_servicios}" name="id_reparacion" th:value="${rep.id}">
+        //             <td th:text="${s.info}">Onions</td>
+        //             <td th:text="${s.precio}">2.41</td>
+        //         </tr>
+        //     </table>`
+        //     ;
+        //     go("/empleado/verServicios", "GET").then(ms => 
+        //         ms.forEach(s => serviciosDiv.appendChild(s)));
+        // }
 
-                <tr>
-                    <th>Servicio</th>
-                    <th>Precio</th>
-                </tr>
-                
-            </table>`
-            ;
-            go("/empleado/verServicios", "GET").then(ms => 
-                ms.forEach(s => serviciosDiv.appendChild(s)));
-        }
-
-        verServicios();
+        // verServicios();
         
     </script>
 </body>
