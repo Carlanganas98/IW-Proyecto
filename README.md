@@ -53,7 +53,7 @@ En esta página se van a ver todas las reparaciones asignadas al cliente.Esta vi
 ------------------ EMPLEADO ---------------------
 
 ### [Gestionar reparaciones](http://localhost:8080/user/gestionarReparaciones)
-El mecánico dispone de un listado de todas las reparaciones que se le han asignado, y él puede decidir si aceptar la reparación que se le ha propuesto o, por el contrario, rechazarla, si por ejemplo no dispone de tiempo suficiente para llevar a cabo la reparación antes de la fecha establecida por el cliente.
+El mecánico dispone de un listado de todas las reparaciones que están disponibles, y él puede decidir si aceptar la reparación, por el contrario, rechazarla, si por ejemplo no dispone de tiempo suficiente para llevar a cabo la reparación antes de la fecha establecida por el cliente.
 
 
 ------------------ CLIENTE Y EMPLEADO ---------------------
@@ -62,4 +62,13 @@ El mecánico dispone de un listado de todas las reparaciones que se le han asign
 En esta página podrán chatear 2 usuarios entre sí. Por ejemplo, un trabajador del taller con un cliente. Próximamente aparecerá la imágen de cada usuario, así como su nombre de perfil. También se verá si un mensaje ha sido leído o no.
 
 
+
+### -------------- NUEVOS CAMBIOS -------------------------
+
+
+-------------------- EMPLEADO ----------------------------
+
+Vista gestionarReparaciones.html:
+    - Si se acepta o rechaza una reparación, y se quiere deshacer esta acción, ahora se puede ya que se ha añadido un botón para volver a poner la reparación en estado pendiente.
+    - Al aceptar una reparación, ahora aparece un formulario que permite añadir todos los servicios que se deseen (con un botón hecho con ajax).
 
