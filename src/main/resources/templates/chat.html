@@ -67,7 +67,7 @@
                                     <input id="messageBar" type="text" class="form-control">
                                 </div>
                                 <div class="chat-txt ml-auto m-3" style="width: 10%; height:100%;">
-                                    <button class="btn btn-primary" th:onclick="'javascript:sendMessage(' + ${session.u.id} + ')'">Enviar</button>
+                                    <button class="btn btn-primary" th:onclick="'javascript:sendMessage(' + ${session.u.id} + ');'">Enviar</button>
                                 </div>
                             </div>
                         </footer>
@@ -142,19 +142,20 @@
         let params = {message: msg};
         go("/empleado/" + id + "/msg", 'POST', params).then(req => 
                 {
-                    let resp = resolve(JSON.parse(req.response));
-                    console.log("el json se ha parseado y es " + resp);
+                    //let resp = resolve(JSON.parse(req.response));
+                    drawAllMesajes();
+
                 })
                 .catch(e => "Ha sucedido un error" + e );   
 
-        drawAllMesajes();
     }
 
     function drawAllMesajes(){
+        console.log("test");
         let messageDiv = document.getElementById("cuerpoChat");
         messageDiv.innerHTML = "";
         go("/empleado/received", "GET").then(ms => 
-            ms.forEach(m => messageDiv.insertAdjacentHTML("afterbegin", renderMsg(m))));
+            ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
     }
 
     drawAllMesajes();
