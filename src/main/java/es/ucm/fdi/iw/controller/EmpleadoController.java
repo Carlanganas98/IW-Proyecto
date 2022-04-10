@@ -241,19 +241,7 @@ public class EmpleadoController {
 		return "{\"status\":\"photo uploaded correctly\"}";
     }
     
-    /**
-     * Returns JSON with all received messages
-     */
-    @GetMapping(path = "received", produces = "application/json")
-	@Transactional // para no recibir resultados inconsistentes
-	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
-	public List<Message.Transfer> retrieveMessages(HttpSession session) {
-		long userId = ((User)session.getAttribute("u")).getId();		
-		User u = entityManager.find(User.class, userId);
-		log.info("Generating message list for user {} ({} messages)", 
-				u.getUsername(), u.getReceived().size());
-		return  u.getReceived().stream().map(Transferable::toTransfer).collect(Collectors.toList());
-	}	
+
     
     /**
      * Returns JSON with count of unread messages 
@@ -275,7 +263,7 @@ public class EmpleadoController {
      * @param o JSON-ized message, similar to {"message": "text goes here"}
      * @throws JsonProcessingException
      */
-    @PostMapping("/{id}/msg")
+    @PostMapping("/msg/{id}")
 	@ResponseBody
 	@Transactional
 	public String postMsg(@PathVariable long id, 
