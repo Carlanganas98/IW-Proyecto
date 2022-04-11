@@ -67,7 +67,7 @@
                                     <input id="messageBar" type="text" class="form-control">
                                 </div>
                                 <div class="chat-txt ml-auto m-3" style="width: 10%; height:100%;">
-                                    <button class="btn btn-primary" th:onclick="'javascript:sendMessage(' + ${session.u.id} + ');'">Enviar</button>
+                                    <button class="btn btn-primary" th:onclick="'javascript:sendMessage(' + ${destination} + ');'">Enviar</button>
                                 </div>
                             </div>
                         </footer>
@@ -79,7 +79,7 @@
 
     <th:block th:replace="fragments/footer.html :: footer" />
 </body>
-<script >
+<script th:inline="javascript">
 
         /**
  * Sends an "ajax" request using Fetch. Sends JSON and expects JSON back.
@@ -140,25 +140,24 @@
     function sendMessage(id){
         let msg = document.getElementById("messageBar").value;
         let params = {message: msg};
-        go("/empleado/" + id + "/msg", 'POST', params).then(req => 
+        go("/message/msg/" + id, 'POST', params).then(req => 
                 {
                     //let resp = resolve(JSON.parse(req.response));
-                    drawAllMesajes();
+                    drawAllMesajes(id);
 
                 })
                 .catch(e => "Ha sucedido un error" + e );   
 
     }
 
-    function drawAllMesajes(){
-        console.log("test");
+    function drawAllMesajes(id){
         let messageDiv = document.getElementById("cuerpoChat");
         messageDiv.innerHTML = "";
-        go("/empleado/received", "GET").then(ms => 
+        go("/message/received/" + id, "GET").then(ms => 
             ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
     }
 
-    drawAllMesajes();
+    //drawAllMesajes();
 
 
 
@@ -177,5 +176,7 @@
         }
     }**/
 
+
+    ws.receive = (txt) => {drawAllMesajes('[[${destination}]]')};
 </script>
 </html>
