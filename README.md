@@ -72,6 +72,8 @@ Vista gestionarReparaciones.html:
     - Si se acepta o rechaza una reparación, y se quiere deshacer esta acción, ahora se puede ya que se ha añadido un botón para volver a poner la reparación en estado pendiente.
     - Al aceptar una reparación, ahora aparece un formulario que permite añadir todos los servicios que se deseen (con un botón hecho con ajax).
     
+-------------------- GENERAL ----------------------------
+
 Vista chat.html:
     -Ya funcionan. Para hacer la prueba se tiene que entrar en /chat/{id_destinatario}. Recordar que el cliente debug tiene id 2 y el empleado debug tiene id 4. 
     -La peticion de los mensajes del chat, asi como enviar un mensaje se hace con ajax. Una vez el servidor recibe el mensaje, notifica al destinatario a través de websockets. 
