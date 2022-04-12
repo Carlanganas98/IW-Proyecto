@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>IW: Reparaciones en curso</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <main class="flex-shrink-0">
+        <div class="container">
+            <h2>Listado de tus reparaciones</h2>
+            <p></p>
+
+            <table class="table">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col">Vehículo</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Servicios</th>
+                        <th scope="col">Operaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="rep: ${reparaciones_aceptadas}" >
+                        <td th:text="${rep.vehiculo.modelo}"></td>
+                        <td th:text="${rep.descripcion}"></td>
+                        <td>
+                            <p th:each="serv : ${rep.servicios}">
+                                <!-- checklist -->
+                                <label th:text="${serv.info}"></label> -
+                                <label th:text="${serv.precio}"></label>€
+                            </p>
+                        </td>
+                        <td>
+                            Finalizar reparación
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </main>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>

@@ -325,7 +325,7 @@ public class EmpleadoController {
 		TypedQuery<Reparacion> query;
 		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
 
-        query = entityManager.createNamedQuery("Reparaciones.listadoReparaciones", Reparacion.class);
+        query = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar", Reparacion.class);
 		query.setParameter("mecanico", empleado);
 		lista_reparaciones = query.getResultList();
 		//log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
@@ -390,25 +390,20 @@ public class EmpleadoController {
         return gestionarReparaciones(model, session);
     }
 
-    @GetMapping(path = "/verServicios", produces = "application/json")
-    @Transactional // para no recibir resultados inconsistentes
-	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
-    public List<Servicio> verServiciosDeUnaReparacion(Model model, HttpSession session, @RequestParam long id_reparacion)
+    @GetMapping("/reparacionesEnCursoEmpleado")
+    public String reparacionesEnCursoEmpleado(Model model, HttpSession session)
     {
-        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
-        List<Servicio> lista_servicios = null;
-        TypedQuery<Servicio> query;
+        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        List<Reparacion> lista_reparaciones = null;
+        TypedQuery<Reparacion> query;
         
-        query = entityManager.createNamedQuery("Servicio.ServiciosDeUnaReparacion", Servicio.class);
-		query.setParameter("reparacion", rep);
-		lista_servicios = query.getResultList();
+        query = entityManager.createNamedQuery("Reparaciones.reparacionesAceptadas", Reparacion.class);
+		query.setParameter("mecanico", u);
+		lista_reparaciones = query.getResultList();
 
-        log.info("ID REPARACION: " + id_reparacion);
-        log.info("UN PRECIO: " + lista_servicios.get(0).getInfo());
+        model.addAttribute("reparaciones_aceptadas", lista_reparaciones);
 
-        model.addAttribute("lista_servicios", lista_servicios);
-
-        return lista_servicios;
+        return "reparacionesEnCursoEmpleado";
     }
 
 }

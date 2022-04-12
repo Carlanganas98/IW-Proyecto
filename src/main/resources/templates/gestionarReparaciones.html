@@ -12,12 +12,13 @@
 
     <main class="flex-shrink-0">
         <div class="container">
-            <h1>Listado de reparaciones actuales</h1>
+            <h2>Listado de reparaciones disponibles</h2>
+            <p></p>
 
             <div class="card rounded-0 col-sm-12 border">
                 <table class="table">
                     <thead>
-                        <tr>
+                        <tr class="table-info">
                             <th scope="col">Cliente</th>
                             <th scope="col">Vehículo</th>
                             <th scope="col">Descripción</th>
@@ -46,7 +47,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Formulario para aceptar la reparación</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">Formulario para aceptar la reparación o para añadir nuevos servicios</h5>
                                             </div>
                                             <form th:action="@{/empleado/aceptarReparacion}" method="POST">
 
@@ -70,7 +71,6 @@
                                     </div>
                                 </div>
 
-
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Rechazar' + ${rep.id}">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
@@ -90,44 +90,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <button type="button" class="btn btn-info" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).ACEPTADO}" th:attr="data-bs-target= '#Info' + ${rep.id}">
-                                    <i class="bi bi-info"></i>
-                                </button>
-                                <div class="modal fade" th:attr="id='Info' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Información sobre la reparación</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                                
-                                                <!-- Nº <label th:text="s.count"></label> -->
-                                                <div id="div_servicios" th:attr="data-id_servicios='id_servicios' + ${rep.id}">
-                                                </div>
-
-                                                <!-- <table>
-                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-                                                    <tr>
-                                                        <th>Servicio</th>
-                                                        <th>Precio</th>
-                                                    </tr>
-                                                    <tr th:each="s: ${lista_servicios}" name="id_reparacion" th:value="${rep.id}">
-                                                        <td th:text="${s.info}">Onions</td>
-                                                        <td th:text="${s.precio}">2.41</td>
-                                                    </tr>
-                                                </table> -->
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                            </div>  
-                                        </div>
-                                    </div>
-                                </div>
-
 
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Pendiente' + ${rep.id}">
                                     <i class="bi bi-arrow-counterclockwise"></i>
@@ -195,30 +157,6 @@
         document.querySelectorAll('.bservicio')
             .forEach(b => botonDeNuevoServicio(b));
 
-
-        // function verServicios()
-        // {
-        //     let serviciosDiv = document.getElementById("div_servicios".dataset.id_servicios);
-        //     console.log("LLEGO HASTA AQUI");
-        //     serviciosDiv.innerHTML = 
-        //     `<table>
-        //         <input type="hidden" name="id_reparacion" th:value="${rep.id}">
-        //         <tr>
-        //             <th>Servicio</th>
-        //             <th>Precio</th>
-        //         </tr>
-        //         <tr th:each="s: ${lista_servicios}" name="id_reparacion" th:value="${rep.id}">
-        //             <td th:text="${s.info}">Onions</td>
-        //             <td th:text="${s.precio}">2.41</td>
-        //         </tr>
-        //     </table>`
-        //     ;
-        //     go("/empleado/verServicios", "GET").then(ms => 
-        //         ms.forEach(s => serviciosDiv.appendChild(s)));
-        // }
-
-        // verServicios();
-        
     </script>
 </body>
 

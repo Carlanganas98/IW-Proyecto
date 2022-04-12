@@ -27,14 +27,15 @@ INSERT INTO "TEXTO_TALLER" VALUES (1, 'asdf');
 -- (1, 'PENDIENTE', '2022-03-22 16:00:00', '2022-03-31 20:00:00', '4', '1');
 
 INSERT INTO "REPARACION" VALUES 
-(1,'Hace un ruido muy raro', 'ACEPTADO', NULL, '2022-05-05', 4, 1),
-(2,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05', NULL, 2),
-(3, 'Rueda pinchada', 'PENDIENTE', '2022-04-01', '2022-03-31 20:00:00', NULL, 1);
+(1, TRUE,'Hace un ruido muy raro', 'ACEPTADO', NULL, '2022-05-05', 4, 1),
+(2, TRUE,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05', NULL, 2),
+(3, TRUE, 'Rueda pinchada', 'PENDIENTE', '2022-04-01', '2022-03-31 20:00:00', NULL, 1);
 
 
 insert into servicio values
-(1, 'condensador', 2, 100, 1);
-                            
+(1, 'condensador', 2, 100, 1),
+(2, 'motor', 5, 250, 1);
+
 
 INSERT INTO "MESSAGE" VALUES 
 (1,'2007-12-03T10:15:30' '2007-12-03T10:15:30', 'Hola buenos dias', 1, 2),

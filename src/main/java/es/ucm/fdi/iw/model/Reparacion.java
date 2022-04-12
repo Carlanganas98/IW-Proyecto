@@ -10,9 +10,13 @@ import lombok.Data;
 @Entity
 @Data
 @NamedQueries({
-    @NamedQuery(name="Reparaciones.listadoReparaciones",
+    @NamedQuery(name="Reparaciones.reparacionesAGestionar",
     query="SELECT r FROM Reparacion r "
-            + "WHERE r.empleado = :mecanico OR r.estado = 'PENDIENTE'"),
+            + "WHERE (r.empleado = :mecanico OR r.estado = 'PENDIENTE') AND r.activo = TRUE"),
+
+    @NamedQuery(name="Reparaciones.reparacionesAceptadas",
+    query="SELECT r FROM Reparacion r "
+            + "WHERE r.empleado = :mecanico AND r.estado = 'ACEPTADO' AND r.activo = TRUE"),
 
     @NamedQuery(name="Reparacion.allReparaciones",
     query="SELECT r "
@@ -52,5 +56,6 @@ public class Reparacion {
     private ESTADO estado = ESTADO.PENDIENTE;
     
     private String descripcion;
+    private boolean activo;
 
 }
