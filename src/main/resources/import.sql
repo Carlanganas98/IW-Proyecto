@@ -33,8 +33,8 @@ INSERT INTO "REPARACION" VALUES
 
 
 insert into servicio values
-(1, 'condensador', 2, 100, 1),
-(2, 'motor', 5, 250, 1);
+(1, TRUE, 'condensador', 2, 100, 1),
+(2, FALSE, 'motor', 5, 250, 1);
 
 
 INSERT INTO "MESSAGE" VALUES 

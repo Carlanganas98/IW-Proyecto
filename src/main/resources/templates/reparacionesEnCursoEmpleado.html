@@ -29,11 +29,16 @@
                         <td th:text="${rep.vehiculo.modelo}"></td>
                         <td th:text="${rep.descripcion}"></td>
                         <td>
-                            <p th:each="serv : ${rep.servicios}">
-                                <!-- checklist -->
-                                <label th:text="${serv.info}"></label> -
-                                <label th:text="${serv.precio}"></label>€
-                            </p>
+                            <div class="form-check" th:each="serv : ${rep.servicios}">
+                                
+                                <input th:if="${serv.finalizado == false}" class="form-check-input" type="checkbox" th:value="${serv.id}" th:id="'flexCheck' + ${serv.id}">
+                                <input th:if="${serv.finalizado == true}" class="form-check-input" type="checkbox" th:value="${serv.id}" th:id="'flexCheck' + ${serv.id}" checked>
+                                
+                                <label class="form-check-label" th:for="'flexCheck' + ${serv.id}"
+                                    th:text="|${serv.info} - ${serv.precio}€|">
+                                </label>
+
+                            </div>
                         </td>
                         <td>
                             Finalizar reparación
@@ -46,6 +51,26 @@
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
+
+    <script>
+
+        function gestionarCheckbox(checkbox)
+        {
+            checkbox.addEventListener("change", validaCheckbox, false);
+            function validaCheckbox()
+            {
+                go("/empleado/finalizacionServicio/" + Number(checkbox.value), "POST");
+
+                // if(checkbox.checked)
+                //     alert(checkbox.id + ' está seleccionado');
+            }
+        }
+
+        document.querySelectorAll('input[type=checkbox]')
+            .forEach(checkbox => gestionarCheckbox(checkbox));
+
+    </script>
+
 </body>
 
 </html>

@@ -406,4 +406,17 @@ public class EmpleadoController {
         return "reparacionesEnCursoEmpleado";
     }
 
+    @PostMapping(path = "/finalizacionServicio/{id_servicio}")
+    @Transactional // para no recibir resultados inconsistentes
+	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
+    public String finalizacionServicio(Model model, HttpSession session, @PathVariable long id_servicio)
+    {
+        Servicio serv = entityManager.find(Servicio.class, id_servicio);
+        //log.info("ID SERVICIO" + id_servicio);
+
+        serv.setFinalizado(!serv.isFinalizado());
+
+        return "";
+    }
+
 }

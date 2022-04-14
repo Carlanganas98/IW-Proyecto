@@ -21,6 +21,7 @@ public class Servicio
     private String info;
     private double precio;
     private int numHoras;
+    private boolean finalizado;
 
     @ManyToOne
     private Reparacion reparacion;
