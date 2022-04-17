@@ -337,22 +337,21 @@ public class EmpleadoController {
 
 	@Transactional
     @PostMapping("/aceptarReparacion")
-    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session, @RequestParam(required=true) List<String> info, @RequestParam(required=true) List<Double> precio)
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session, @RequestParam(required=false) List<String> info, @RequestParam(required=false) List<Double> precio)
     {
         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
         Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
         rep.setEstado(ESTADO.ACEPTADO);
         rep.setEmpleado(u);
 
-        int num_servicios = info.size();
-        if (num_servicios > 0)
+        if (info != null)
         {
-            //log.info("NUMERO DE SERVICIOS: " + num_servicios);
-            for (int i = 0; i < num_servicios; ++i)
+            for (int i = 0; i < info.size(); ++i)
             {
                 Servicio s = new Servicio();
                 s.setInfo(info.get(i));
                 s.setPrecio(precio.get(i));
+                s.setFinalizado(false);
                 s.setReparacion(rep);
 
                 entityManager.persist(s);
@@ -360,8 +359,8 @@ public class EmpleadoController {
             }
         }
         else
-            log.info("[ERROR]: NO HAS INTRODUCIDO NINGÚN SERVICIO EN LA REPARACIÓN");
-            
+            log.info("[WARNING]: NO HAS INTRODUCIDO NINGUN SERVICIO EN LA REPARACION");
+
 
         return gestionarReparaciones(model, session);
     }
