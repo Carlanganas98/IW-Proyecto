@@ -38,10 +38,11 @@
                             <td th:text="${rep.estado}"></td>
                             <td>
 
-                                <button type="button" class="btn btn-success" data-bs-toggle="modal" 
-                                    th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).RECHAZADO}"
-                                    th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
-                                    <i class="bi bi-plus"></i>
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
+                                    <i class="bi bi-check"></i>
+                                </button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).ACEPTADO}" th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
+                                    <i  class="bi bi-plus"></i>
                                 </button>
                                 <div class="modal fade" th:attr="id='Aceptar' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -71,7 +72,7 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Rechazar' + ${rep.id}">
+                                <!-- <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Rechazar' + ${rep.id}">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                                 <div class="modal fade" th:attr="id='Rechazar' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,7 +90,7 @@
                                             </div>  
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Pendiente' + ${rep.id}">
                                     <i class="bi bi-arrow-counterclockwise"></i>
