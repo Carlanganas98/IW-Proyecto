@@ -26,7 +26,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="v: ${vehiculos}" >
+                        <tr th:each="v: ${vehiculos}" th:if="${v.propietario} eq ${v.propietario}">
                             <td th:text="${v.id}"></td>
                             <td th:text="${v.matricula}"></td>
                             <td th:text="${v.tipo}"></td>
@@ -46,20 +46,19 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="col">
-                                                <div>ID vehiculo:</div>
-                                                <div th:text="${v.id}"></div>
+                                                <div>ID vehiculo: <span th:text="${v.id}"></span></div>
                                             </div>
                                             <div class="col">
-                                                <div>Matricula:</div>
-                                                <div th:text="${v.matricula}"></div>
+                                                <div>Matricula: <span th:text="${v.matricula}"></span></div>
                                             </div>
                                             <div class="col">
-                                                <div>Tipo:</div>
-                                                <div th:text="${v.tipo}"></div>
+                                                <div>Tipo: <span th:text="${v.tipo}"></span></div>
                                             </div>
                                             <div class="col">
-                                                <div>Modelo:</div>
-                                                <div th:text="${v.modelo}"></div>
+                                                <div>Modelo: <span th:text="${v.modelo}"></span></div>
+                                            </div>
+                                            <div class="col">
+                                                <div>Año: <span th:text="${v.anyo}"></span></div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">

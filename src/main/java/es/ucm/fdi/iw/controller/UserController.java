@@ -330,7 +330,7 @@ public class UserController {
 			@RequestParam String matricula,
 			@RequestParam String tipo,
 			@RequestParam String modelo,
-			@RequestParam int anyo,
+			@RequestParam LocalDateTime anyo,
 			HttpSession session) {
 
 			User propietario = entityManager.find(
@@ -368,7 +368,7 @@ public class UserController {
 
 	@Transactional
     @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo) {
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam LocalDateTime anyo) {
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 
 
@@ -393,7 +393,7 @@ public class UserController {
     @Transactional
     public String anyadirCoche(Model model, @RequestParam String matricula, 
 	@RequestParam String tipo, @RequestParam String modelo, HttpSession session,
-	@RequestParam int anyo){
+	@RequestParam LocalDateTime anyo){
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
