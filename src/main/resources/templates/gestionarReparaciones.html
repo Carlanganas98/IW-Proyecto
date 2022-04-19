@@ -25,6 +25,7 @@
                             <th scope="col">Fecha inicio</th>
                             <th scope="col">Fecha fin</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Nº servicios</th>
                             <th scope="col">Operaciones</th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@
                             <td th:text="${rep.fechaInicio}"></td>
                             <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
+                            <td th:text="${rep.servicios.size}"></td>
                             <td>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
