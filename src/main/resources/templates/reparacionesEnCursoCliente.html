@@ -47,7 +47,7 @@
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                         <div class="modal-body">
-                                            <form th:action="@{/user/editarVehiculo}" method="POST">
+                                            <form th:action="@{/cliente/editarVehiculo}" method="POST">
                                                 <input type="hidden" name="id" th:value="${v.id}">
                                                 <p>Matricula: </p>
                                                 <input type="text" name="matricula" th:value="${v.matricula}">
