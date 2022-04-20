@@ -100,7 +100,7 @@
  *     text: <describing the error>
  *  }
  */
-    function go(url, method, data = {}, headers = false) {
+    /*function go(url, method, data = {}, headers = false) {
     let params = {
         method: method, // POST, GET, POST, PUT, DELETE, etc.
         headers: headers === false ? {
@@ -129,54 +129,16 @@
                 }));
             }
         });
-    }
+    }*/
 
-    // cómo pintar 1 mensaje (devuelve html que se puede insertar en un div)
-    function renderMsg(msg) {
-        console.log("rendering: ", msg);
-        return '<div>' + msg.from + ': ' + msg.text + '</div>';
-    }
-
-    function sendMessage(id){
-        let msg = document.getElementById("messageBar").value;
-        let params = {message: msg};
-        go("/message/msg/" + id, 'POST', params).then(req => 
-                {
-                    //let resp = resolve(JSON.parse(req.response));
-                    drawAllMesajes(id);
-
-                })
-                .catch(e => "Ha sucedido un error" + e );   
-
-    }
-
+   
     function drawAllMesajes(id){
         let messageDiv = document.getElementById("cuerpoChat");
         messageDiv.innerHTML = "";
         go("/message/received/" + id, "GET").then(ms => 
             ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
     }
-
-    //drawAllMesajes();
-
-
-
-/**
-    // pinta mensajes viejos al cargarse, via AJAX
-    let messageDiv = document.getElementById("mensajes");
-    go(config.rootUrl + "/empleado/received", "GET").then(ms =>
-        ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
-
-    // y aquí pinta mensajes según van llegando
-    if (ws.receive) {
-        const oldFn = ws.receive; // guarda referencia a manejador anterior
-        ws.receive = (m) => {
-            oldFn(m); // llama al manejador anterior
-            messageDiv.insertAdjacentHTML("beforeend", renderMsg(m));
-        }
-    }**/
-
-
+    drawAllMesajes('[[${destination}]]');
     ws.receive = (txt) => {drawAllMesajes('[[${destination}]]')};
 </script>
 </html>
