@@ -356,12 +356,12 @@ public class ClienteController {
 	// Añadir http session
     public String misVehiculos(Model model)
     {
-        List<Vehiculo> lista_vehiculos = null;    
+        List<Vehiculo> vehiculos = null;    
 
         
-        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
-		model.addAttribute("vehiculos", lista_vehiculos);
+        vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
+		model.addAttribute("vehiculos", vehiculos);
 
         return "misVehiculos";
     }
@@ -418,11 +418,11 @@ public class ClienteController {
 	@GetMapping("/reparaciones")
     public String reparaciones(Model model) {
 
-		List<Vehiculo> lista_vehiculos = null; 
+		List<Vehiculo> vehiculos = null; 
 
-		lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
-		model.addAttribute("vehiculos", lista_vehiculos); 
+		vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
+		model.addAttribute("vehiculos", vehiculos); 
 
         return "reparaciones";
     }

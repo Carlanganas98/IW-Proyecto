@@ -30,7 +30,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="rep: ${reparaciones_empleado}" >
+                        <tr th:each="rep: ${reparacionesAGestionar}" >
                             <td th:text="|${rep.vehiculo.propietario.firstName} ${rep.vehiculo.propietario.lastName}|"></td>
                             <td th:text="${rep.vehiculo.modelo}"></td>
                             <td th:text="${rep.descripcion}"></td>
@@ -65,7 +65,7 @@
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                        <input type="hidden" name="idReparacion" th:value="${rep.id}">
                                                         <button type="submit" class="btn btn-primary">Aceptar</button>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </div>  
@@ -85,7 +85,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <form th:action="@{/empleado/rechazarReparacion}" method="POST">
-                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                    <input type="hidden" name="idReparacion" th:value="${rep.id}">
                                                     <button type="submit" class="btn btn-primary">Aceptar</button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </form>
@@ -108,7 +108,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <form th:action="@{/empleado/reparacionPendiente}" method="POST">
-                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                    <input type="hidden" name="idReparacion" th:value="${rep.id}">
                                                     <button type="submit" class="btn btn-primary">Aceptar</button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </form>
