@@ -64,10 +64,9 @@
         </script>
 
 
-        <script>  
-            createToast("funciona?");
+        <script>
+                ws.receive = (txt) => {createToast(txt.text)};
         </script>
-
         
     </footer>
 </body>
