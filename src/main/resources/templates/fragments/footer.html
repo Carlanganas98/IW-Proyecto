@@ -37,7 +37,10 @@
             function renderMsg(msg) {
                 console.log("rendering: ", msg);
                 
-                return '<div>' + msg.from + ': ' + msg.text + '</div>';
+                return `<div class="d-flex flex-row p-3">`+ msg.from + `: <div class="chat ml-2 p-3">`
+                     + msg.text + 
+                     `</div>
+                            </div>`;
             }
 
             function sendMessage(id){
