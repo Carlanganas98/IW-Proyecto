@@ -10,7 +10,18 @@
     <!-- ver https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/ -->
     <footer th:fragment="footer" class="footer mt-auto py-3 bg-light">
 
-        <div id="toastDiv"></div>
+        <div id="toastDiv">
+            <div class="toast" id="myToast">
+                <div class="toast-header">
+                    <strong class="me-auto"><i class="bi bi-chat-dots-fill"></i> Notificación</strong>
+                    <small>Ahora mismo</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body" id="toast-text">
+                    none
+                    </div>
+            </div>
+        </div>
 
         <!-- Bootstrap -->
         <script th:src="@{/js/bootstrap.bundle-5.1.3.js}" src="js/bootstrap.bundle-5.1.3.js"></script>
@@ -22,19 +33,6 @@
         <!-- Otros scripts de interacción, aquí -->
 
         <script>
-             function renderToast(msg){
-                return `<div class="toast" id="myToast">
-                    <div class="toast-header">
-                        <strong class="me-auto"><i class="bi-gift-fill"></i> We miss you!</strong>
-                        <small>10 mins ago</small>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
-                    </div>
-                    <div class="toast-body">`
-                        + msg +
-                        `</div>
-                </div>`
-            }
-
             // cómo pintar 1 mensaje (devuelve html que se puede insertar en un div)
             function renderMsg(msg) {
                 console.log("rendering: ", msg);
@@ -55,13 +53,13 @@
             }
 
             function createToast(msg){
-                console.log("aqui se llama");
-                let toastDiv = document.getElementById("toastDiv");
-                toastDiv.insertAdjacentHTML("beforeend", renderToast(msg))
-                var element = document.getElementById("myToast");
-                var myToast = new bootstrap.Toast(element);
+                document.getElementById("toast-text").innerHTML = msg;
                 myToast.show();
             }
+
+            
+            var element = document.getElementById("myToast");
+            var myToast = new bootstrap.Toast(element);
 
         </script>
 
