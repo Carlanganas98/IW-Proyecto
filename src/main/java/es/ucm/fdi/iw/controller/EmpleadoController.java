@@ -306,41 +306,26 @@ public class EmpleadoController {
 	}	
 
 
-    @GetMapping("/reparaciones")
-    public String reparaciones(Model model) {
-
-		List<Vehiculo> lista_vehiculos = null; 
-
-		lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
-		model.addAttribute("vehiculos", lista_vehiculos); 
-
-        return "reparaciones";
-    }
-
     @GetMapping("/gestionarReparaciones")
     public String gestionarReparaciones(Model model, HttpSession session)
 	{
-		List<Reparacion> lista_reparaciones = null;
-		TypedQuery<Reparacion> query;
 		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+        List<Reparacion> reparaciones = null;
 
-        query = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar", Reparacion.class);
-		query.setParameter("mecanico", empleado);
-		lista_reparaciones = query.getResultList();
-		//log.info("PRIMER CLIENTE CON UNA  REPARACION:" + " " + lista_reparaciones.get(0).getVehiculo().getPropietario().getFirstName());
+        reparaciones = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar", Reparacion.class).
+            setParameter("mecanico", empleado).getResultList();
 
-		model.addAttribute("reparaciones_empleado", lista_reparaciones);
+		model.addAttribute("reparacionesAGestionar", reparaciones);
 
         return "gestionarReparaciones";
 	}
 
 	@Transactional
     @PostMapping("/aceptarReparacion")
-    public String solicitudesReparacionAceptar(Model model, @RequestParam long id_reparacion, HttpSession session, @RequestParam(required=false) List<String> info, @RequestParam(required=false) List<Double> precio)
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long idReparacion, HttpSession session, @RequestParam(required=false) List<String> info, @RequestParam(required=false) List<Double> precio)
     {
         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
         rep.setEstado(ESTADO.ACEPTADO);
         rep.setEmpleado(u);
 
@@ -367,10 +352,10 @@ public class EmpleadoController {
 
     // @Transactional
     // @PostMapping("/rechazarReparacion")
-    // public String solicitudesReparacionRechazar(Model model, @RequestParam long id_reparacion, HttpSession session) {
+    // public String solicitudesReparacionRechazar(Model model, @RequestParam long idReparacion, HttpSession session) {
 
     //     User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-    //     Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+    //     Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
     //     rep.setEstado(ESTADO.RECHAZADO);
     //     rep.setEmpleado(u);
 
@@ -379,10 +364,10 @@ public class EmpleadoController {
 
     @Transactional
     @PostMapping("/reparacionPendiente")
-    public String solicitudesReparacionPendiente(Model model, @RequestParam long id_reparacion, HttpSession session)
+    public String solicitudesReparacionPendiente(Model model, @RequestParam long idReparacion, HttpSession session)
     {
         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-        Reparacion rep = entityManager.find(Reparacion.class, id_reparacion);
+        Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
         rep.setEstado(ESTADO.PENDIENTE);
         rep.setEmpleado(u);
 
@@ -393,25 +378,24 @@ public class EmpleadoController {
     public String reparacionesEnCursoEmpleado(Model model, HttpSession session)
     {
         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-        List<Reparacion> lista_reparaciones = null;
+        List<Reparacion> reparaciones = null;
         TypedQuery<Reparacion> query;
         
         query = entityManager.createNamedQuery("Reparaciones.reparacionesAceptadas", Reparacion.class);
 		query.setParameter("mecanico", u);
-		lista_reparaciones = query.getResultList();
+		reparaciones = query.getResultList();
 
-        model.addAttribute("reparaciones_aceptadas", lista_reparaciones);
+        model.addAttribute("reparacionesAceptadas", reparaciones);
 
         return "reparacionesEnCursoEmpleado";
     }
 
-    @PostMapping(path = "/finalizacionServicio/{id_servicio}")
+    @PostMapping(path = "/finalizacionServicio/{idServicio}")
     @Transactional // para no recibir resultados inconsistentes
 	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
-    public String finalizacionServicio(Model model, HttpSession session, @PathVariable long id_servicio)
+    public String finalizacionServicio(Model model, HttpSession session, @PathVariable long idServicio)
     {
-        Servicio serv = entityManager.find(Servicio.class, id_servicio);
-        //log.info("ID SERVICIO" + id_servicio);
+        Servicio serv = entityManager.find(Servicio.class, idServicio);
 
         serv.setFinalizado(!serv.isFinalizado());
 

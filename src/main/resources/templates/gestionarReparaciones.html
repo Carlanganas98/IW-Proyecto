@@ -25,17 +25,19 @@
                             <th scope="col">Fecha inicio</th>
                             <th scope="col">Fecha fin</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Nº servicios</th>
                             <th scope="col">Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="rep: ${reparaciones_empleado}" >
+                        <tr th:each="rep: ${reparacionesAGestionar}" >
                             <td th:text="|${rep.vehiculo.propietario.firstName} ${rep.vehiculo.propietario.lastName}|"></td>
                             <td th:text="${rep.vehiculo.modelo}"></td>
                             <td th:text="${rep.descripcion}"></td>
                             <td th:text="${rep.fechaInicio}"></td>
                             <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
+                            <td th:text="${rep.servicios.size}"></td>
                             <td>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
@@ -63,7 +65,7 @@
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                        <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                        <input type="hidden" name="idReparacion" th:value="${rep.id}">
                                                         <button type="submit" class="btn btn-primary">Aceptar</button>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </div>  
@@ -83,7 +85,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <form th:action="@{/empleado/rechazarReparacion}" method="POST">
-                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                    <input type="hidden" name="idReparacion" th:value="${rep.id}">
                                                     <button type="submit" class="btn btn-primary">Aceptar</button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </form>
@@ -106,7 +108,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <form th:action="@{/empleado/reparacionPendiente}" method="POST">
-                                                    <input type="hidden" name="id_reparacion" th:value="${rep.id}">
+                                                    <input type="hidden" name="idReparacion" th:value="${rep.id}">
                                                     <button type="submit" class="btn btn-primary">Aceptar</button>
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                                 </form>

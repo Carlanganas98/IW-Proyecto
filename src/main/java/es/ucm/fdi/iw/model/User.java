@@ -46,7 +46,11 @@ public class User implements Transferable<User.Transfer> {
 
     @OneToMany
     @JoinColumn(name="propietario_id") // <-- evita tabla auxiliar 
-    private List<Vehiculo> lista_vehiculos; // = new ArrayList<>();
+    private List<Vehiculo> vehiculos; // = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name = "empleado_id")
+    private List<Reparacion> reparaciones = new ArrayList<>(); // solo para empleados
 
     private String email;
 
