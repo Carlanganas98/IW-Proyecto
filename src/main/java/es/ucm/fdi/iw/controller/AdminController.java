@@ -18,6 +18,10 @@ import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Reparacion.ESTADO;
 import es.ucm.fdi.iw.model.User.Role;
+import org.commonmark.node.*;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+
 
 /**
  *  Site administration.
@@ -94,12 +98,32 @@ public class AdminController {
 
     
     @Transactional
-    @PostMapping("/editarInicio")
-    public String editarIndex(Model model, @RequestParam String texto) {
+    @PostMapping("/editarInicioTexto")
+    public String editarInicioTexto(Model model, @RequestParam String texto) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(texto);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        texto = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
+        
         long id = 1;
         TextoTaller txt = entityManager.find(TextoTaller.class, id);
 
         txt.setTexto(texto);
+
+        return "editarInicio";
+    }
+    @Transactional
+    @PostMapping("/editarInicioTitulo")
+    public String editarInicioTitulo(Model model, @RequestParam String titulo) {
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(titulo);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        titulo = renderer.render(document);  // "<p>This is <em>Sparta</em></p>\n"
+        
+        long id = 1;
+        TextoTaller txt = entityManager.find(TextoTaller.class, id);
+
+        txt.setTitulo(titulo);
 
         return "editarInicio";
     }

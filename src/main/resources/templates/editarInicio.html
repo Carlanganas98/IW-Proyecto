@@ -13,9 +13,13 @@
     <main class="flex-shrink-0">
         <div class="container">
             <h1>Introduce el nuevo texto: </h1>
-            <form th:action="@{/admin/editarInicio}" method="POST">
-                <p>Texto: </p>
-                <input type="text" name="texto" value="Introduce aqui tu texto">
+            <form th:action="@{/admin/editarInicioTexto}" method="POST">
+                <textarea id="" name="texto" rows="4" cols="50"></textarea>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form> 
+            <h1 class="mt-4">Introduce el nuevo titulo: </h1>
+            <form th:action="@{/admin/editarInicioTitulo}" method="POST">
+                <textarea id="" name="titulo" rows="2" cols="50"></textarea>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form> 
         </div>

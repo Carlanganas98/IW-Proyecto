@@ -37,6 +37,7 @@ public class RootController {
         texto = entityManager.find(TextoTaller.class, id);
         log.info(texto.getTexto());
         model.addAttribute("texto", texto.getTexto()); 
+        model.addAttribute("titulo", texto.getTitulo()); 
 
         return "index";
     }
