@@ -21,7 +21,13 @@
             <form th:action="@{/admin/editarInicioTitulo}" method="POST">
                 <textarea id="" name="titulo" rows="2" cols="50"></textarea>
                 <button type="submit" class="btn btn-primary">Guardar</button>
-            </form> 
+            </form>
+            <h1 class="mt-4">Introduce el nuevo logo: </h1>
+            <form name="subida-logo" type="POST" >
+                <input type="file" id="" name="logo" accept="image/jpeg,image/png">
+                <input type="submit" name="subir-imagen" value="Enviar imagen" />
+            </form>
+
         </div>
     </main>
 

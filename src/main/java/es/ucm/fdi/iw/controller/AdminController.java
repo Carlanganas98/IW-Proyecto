@@ -1,5 +1,6 @@
 package es.ucm.fdi.iw.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import antlr.collections.List;
 import es.ucm.fdi.iw.model.Reparacion;
@@ -127,4 +129,54 @@ public class AdminController {
 
         return "editarInicio";
     }
+
+    
+    @PostMapping("/editarInicioLogo")
+		@ResponseBody
+    public String setPic(@RequestParam("logo") MultipartFile photo, @PathVariable long id, 
+        HttpServletResponse response, HttpSession session, Model model) throws IOException {
+        
+        User target = entityManager.find(User.class, id);
+        model.addAttribute("user", target);
+        
+		// check permissions
+		User requester = (User)session.getAttribute("u");
+		if (requester.getId() != target.getId() &&
+				! requester.hasRole(Role.ADMIN)) {
+            throw new NoEsTuPerfilException();
+		}
+
+		log.info("Updating photo for user {}", id);
+		File f = localData.getFile("user", ""+id+".jpg");
+		if (photo.isEmpty()) {
+			log.info("failed to upload photo: emtpy file?");
+		} else {
+			try (BufferedOutputStream stream =
+					new BufferedOutputStream(new FileOutputStream(f))) {
+				byte[] bytes = photo.getBytes();
+				stream.write(bytes);
+                log.info("Uploaded photo for {} into {}!", id, f.getAbsolutePath());
+			} catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				log.warn("Error uploading " + id + " ", e);
+			}
+		}
+		return "{\"status\":\"photo uploaded correctly\"}";
+    }
+
+    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
+    public String submit(@RequestParam("file") MultipartFile multipartFile, ModelMap 
+    modelMap) {
+    //donde guardarás tu archivo, asegurate de que tengas permisos de escritura
+    String pathFinal = "C:/archivosSubidos";
+    //validación básica
+    if(!multipartFile.isEmpty()){
+      //creo un nuevo archivo
+      File file = new File(pathFinal);
+      FileUtils.touch(file);
+      //transfiero el archivo multipart al disco.
+      multipartFile.transferTo(file);
+    }
+    return "fileUploadView";
+}
 }
