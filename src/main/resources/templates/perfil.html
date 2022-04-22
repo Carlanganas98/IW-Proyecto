@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>IW: Perfil</title>
+</head>
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+    <div class="flex-shrink-0 container">
+        <div class="h1">
+            Perfil de <span th:text="${user.username}"></span>
+        </div>
+        <div class="row">
+                <div class="col-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">ID: </li>
+                        <li class="list-group-item">Nombre: </li>
+                        <li class="list-group-item">Apellido: </li>
+                        <div class="nav-link" th:if="${session.u.hasRole('CLIENTE')}">
+                            <li class="list-group-item">Numero de vehiculos: </li>
+                            <li class="list-group-item">Numero de reparaciones: </li>
+                        </div>
+                      </ul>
+                </div>
+                <div class="col-5">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span th:text="${user.id}"></span></li>
+                        <li class="list-group-item"><span th:text="${user.firstName}"></span></li>
+                        <li class="list-group-item"><span th:text="${user.lastName}"></span></li>
+                        <div class="nav-link" th:if="${session.u.hasRole('CLIENTE')}">
+                            <li class="list-group-item"><span th:text="${numVehiculos}"></span></li>
+                            <li class="list-group-item"><span th:text="${numReparaciones}"></span></li>
+                        </div>
+                      </ul>
+                </div>
+            
+        </div>
+    </div>
+    <th:block th:replace="fragments/footer.html :: footer" />
+ 
+</body>
+</html>
