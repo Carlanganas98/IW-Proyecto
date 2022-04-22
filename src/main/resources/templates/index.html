@@ -9,10 +9,12 @@
 
 
 <body class="container">
-        <h1 class="row">Datacar</h1>
+      <div class="col col-8">
+        <p th:utext="${titulo}"></p>
+      </div>
         <div class="row">
           <div class="col col-8">
-            <span th:text="${texto}">Texto</span>
+            <p th:utext="${texto}"></p>
           </div>
           <div class="col col-4">
             <div class="card rounded-0">

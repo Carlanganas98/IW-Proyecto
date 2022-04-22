@@ -18,6 +18,7 @@ public class TextoTaller {
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private long id; 
 
+    private String titulo;
     private String texto;
 
 
