@@ -142,8 +142,7 @@ public class AdminController {
         return "editarInicio";
     }
 
-    @Transactional
-    @PostMapping("/editarInicioLogo")
+
     public String setPic(@RequestParam("logo") MultipartFile logo, HttpServletResponse response, HttpSession session, Model model) throws IOException {
         
         System.out.println(logo);
@@ -167,5 +166,42 @@ public class AdminController {
 		return "editarInicio";
     }
 
+    /**
+     * 
+     * @param  archivo
+     * @param  ruta de acceso de almacenamiento de archivos
+     * @param  fileName el nombre del archivo original
+     * @return
+     */
+    @Transactional
+    @PostMapping("/editarInicioLogo")
+    public static boolean upload(MultipartFile logo){
+
+        // generar nuevo nombre de archivo
+        String realPath = "." + "/" + FileNameUtils.getFileName("logo.png");
+
+        // usa el nombre del archivo original
+       // String realPath = path + "/" + fileName;
+
+        File dest = new File(realPath);
+
+        // Determinar si el directorio padre del archivo existe
+        if(!dest.getParentFile().exists()){
+            dest.getParentFile().mkdir();
+        }
+
+        try {
+            // Guardar el archivo
+            logo.transferTo(dest);
+            return true;
+        } catch (IllegalStateException e) {             
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
  
 }
