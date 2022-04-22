@@ -26,7 +26,7 @@ INSERT INTO "TEXTO_TALLER" VALUES (1, '	<ul>
 <li>Magic</li>
 </ul>', '<h1>Titulo1</h1>
 <h2>Titulo2</h2>
-<h3>Titulo3</h3>');
+<h3>Titulo3</h3>', 1010);
 
 -- INSERT INTO Reparacion (id, estado, fecha_inicio, fecha_fin, empleado_id, vehiculo_id) VALUES
 -- (1, 'PENDIENTE', '2022-03-22 16:00:00', '2022-03-31 20:00:00', '4', '1');

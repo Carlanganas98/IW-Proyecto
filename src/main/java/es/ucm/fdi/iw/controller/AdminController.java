@@ -2,8 +2,10 @@ package es.ucm.fdi.iw.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.persistence.*;
@@ -142,21 +144,38 @@ public class AdminController {
         return "editarInicio";
     }
 
-
+    @Transactional
+    @PostMapping("/editarInicioLogo")
     public String setPic(@RequestParam("logo") MultipartFile logo, HttpServletResponse response, HttpSession session, Model model) throws IOException {
         
         System.out.println(logo);
 		log.info("Cambiando foto del logo");
-		File f = localData.getFile("img","logo.png");
+		File f = localData.getFile("","logo.png");
+        System.out.println(f);
 
 		if (logo.isEmpty()) {
 			log.info("failed to upload logo: emtpy file?");
 		} else {
 			try (BufferedOutputStream stream =
 					new BufferedOutputStream(new FileOutputStream(f))) {
+
 				byte[] bytes = logo.getBytes();
 				stream.write(bytes);
                 log.info("Uploaded logo into {}!", f.getAbsolutePath());
+
+                long id = 1;
+                TextoTaller txt = entityManager.find(TextoTaller.class, id);
+
+
+                File archivoBBDD = new File(f.getAbsolutePath()); //asociamos el archivo fisico
+                InputStream is = new FileInputStream(f); //lo abrimos. Lo importante es que sea un InputStream
+                byte[] buffer = new byte[(int) archivoBBDD.length()]; //creamos el buffer
+                int readers = is.read(buffer); //leemos el archivo al buffer
+                txt.setImagen(buffer); //lo guardamos en la entidad
+                entityManager.persist(txt); //y lo colocamos en el EntityManager
+
+
+
 			} catch (Exception e) {
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				log.warn("Error uploading the logo" + " ", e);
@@ -166,42 +185,4 @@ public class AdminController {
 		return "editarInicio";
     }
 
-    /**
-     * 
-     * @param  archivo
-     * @param  ruta de acceso de almacenamiento de archivos
-     * @param  fileName el nombre del archivo original
-     * @return
-     */
-    @Transactional
-    @PostMapping("/editarInicioLogo")
-    public static boolean upload(MultipartFile logo){
-
-        // generar nuevo nombre de archivo
-        String realPath = "." + "/" + FileNameUtils.getFileName("logo.png");
-
-        // usa el nombre del archivo original
-       // String realPath = path + "/" + fileName;
-
-        File dest = new File(realPath);
-
-        // Determinar si el directorio padre del archivo existe
-        if(!dest.getParentFile().exists()){
-            dest.getParentFile().mkdir();
-        }
-
-        try {
-            // Guardar el archivo
-            logo.transferTo(dest);
-            return true;
-        } catch (IllegalStateException e) {             
-            e.printStackTrace();
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
- 
 }
