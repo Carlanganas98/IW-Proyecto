@@ -124,7 +124,6 @@ public class ClienteController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
         model.addAttribute("user", target);
-		model.addAttribute("numReparaciones", target.getReparaciones().size());
 		model.addAttribute("numVehiculos", target.getVehiculos().size());
         return "perfil";
     }

@@ -18,6 +18,8 @@
                         <li class="list-group-item">Apellido: </li>
                         <div class="nav-link" th:if="${session.u.hasRole('CLIENTE')}">
                             <li class="list-group-item">Numero de vehiculos: </li>
+                        </div>
+                        <div class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}">
                             <li class="list-group-item">Numero de reparaciones: </li>
                         </div>
                       </ul>
@@ -29,6 +31,8 @@
                         <li class="list-group-item"><span th:text="${user.lastName}"></span></li>
                         <div class="nav-link" th:if="${session.u.hasRole('CLIENTE')}">
                             <li class="list-group-item"><span th:text="${numVehiculos}"></span></li>
+                        </div>
+                        <div class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}">
                             <li class="list-group-item"><span th:text="${numReparaciones}"></span></li>
                         </div>
                       </ul>
