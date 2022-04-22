@@ -185,4 +185,10 @@ public class AdminController {
 		return "editarInicio";
     }
 
+    @Transactional
+    @GetMapping("/editarInicioLogo")
+    public String getLogo(HttpServletResponse response, HttpSession session, Model model) throws IOException {
+		
+        return "editarInicio";
+    }
 }
