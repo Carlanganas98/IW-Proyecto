@@ -1,13 +1,16 @@
 package es.ucm.fdi.iw.controller;
 
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Base64;
 
+import javax.annotation.Resource;
 import javax.persistence.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +18,10 @@ import javax.transaction.Transactional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -186,9 +192,17 @@ public class AdminController {
     }
 
     @Transactional
-    @GetMapping("/editarInicioLogo")
-    public String getLogo(HttpServletResponse response, HttpSession session, Model model) throws IOException {
-		
-        return "editarInicio";
+    //@GetMapping(value = "/mostrarLogo", produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "/mostrarLogo")
+    @ResponseBody
+    public byte[] getLogo(HttpServletResponse response, HttpSession session, Model model) throws IOException {
+
+        
+        long id = 1;
+        TextoTaller txt = entityManager.find(TextoTaller.class, id);
+
+        
+        return txt.getImagen();
     }
+
 }
