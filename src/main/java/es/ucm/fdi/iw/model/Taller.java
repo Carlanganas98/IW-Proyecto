@@ -7,9 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
+@ToString
 public class Taller {
 
     @Id

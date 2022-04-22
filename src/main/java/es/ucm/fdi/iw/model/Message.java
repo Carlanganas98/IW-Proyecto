@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.AllArgsConstructor;
 
 /**
@@ -32,6 +33,7 @@ import lombok.AllArgsConstructor;
 	query="SELECT m FROM Message m WHERE m.sender.id = :sesionU AND m.recipient.id = :recip ")
 })
 @Data
+@ToString
 public class Message implements Transferable<Message.Transfer> {
 	
 	private static Logger log = LogManager.getLogger(Message.class);	
