@@ -3,9 +3,11 @@ package es.ucm.fdi.iw.model;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
+@ToString
 // @NamedQueries({
 //     @NamedQuery(name= "Servicio.ServiciosDeUnaReparacion",
 //     query= "SELECT s FROM Servicio s "

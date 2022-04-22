@@ -194,7 +194,7 @@ function postImage(img, endpoint, name, filename) {
  */
 document.addEventListener("DOMContentLoaded", () => {
     if (config.socketUrl) {
-        let subs = config.admin ? ["/topic/admin", "/user/queue/updates"] : ["/user/queue/updates"]
+        let subs = config.admin ? ["/topic/admin", "/user/queue/updates", "/topic/empleado"] : ["/user/queue/updates","/topic/empleado"]
         ws.initialize(config.socketUrl, subs);
         /** creo que da error por los cambios de controladores
         let p = document.querySelector("#nav-unread");

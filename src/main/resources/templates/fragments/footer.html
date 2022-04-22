@@ -55,6 +55,17 @@
                         .catch(e => "Ha sucedido un error" + e );   
             }
 
+            function notifyReparation(){
+                //let params = {message: "Se ha recibido una nueva solicitud de reparación."};
+                go("/message/notifyReparation/", 'POST', null).then(req => 
+                        {
+                            //let resp = resolve(JSON.parse(req.response));
+                            console.log("Solicitud enviada correctamente.")
+
+                        })
+                        .catch(e => "Ha sucedido un error" + e );   
+            }
+
             function createToast(msg){
                 document.getElementById("toast-text").innerHTML = msg;
                 myToast.show();

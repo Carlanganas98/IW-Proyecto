@@ -17,9 +17,13 @@ public class WebSocketSecurityConfig
 
 	
     protected void configureInbound(MessageSecurityMetadataSourceRegistry messages) {
-        messages
-            .simpSubscribeDestMatchers("/topic/admin")	// only admins can subscribe
+        messages.simpSubscribeDestMatchers("/topic/admin")	// only admins can subscribe
             	.hasRole(User.Role.ADMIN.toString())
             .anyMessage().authenticated(); 				// must log in to use websockets
+
+            messages
+            .simpSubscribeDestMatchers("/topic/empleado")	// only admins can subscribe
+            	.hasAnyRole(User.Role.ADMIN.toString(), User.Role.EMPLEADO.toString())
+            .anyMessage().authenticated(); 		
     }
 }

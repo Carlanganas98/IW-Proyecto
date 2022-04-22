@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.Message.Transfer;
 
 /**
  * User-administration controller
@@ -149,6 +150,24 @@ public class MessageController {
 		log.info("Sending a message to {} with contents '{}'", id, json);
 
 		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
+		return "{\"result\": \"message sent.\"}";
+	}	
+
+	@PostMapping("/notifyReparation/")
+	@ResponseBody
+	@Transactional
+	public String postMsg( 
+			Model model, HttpSession session) 
+		throws JsonProcessingException {
+
+		ObjectMapper mapper = new ObjectMapper();
+		Transfer t = new Transfer("Sistema", "", "", "", "Se ha recibido una nueva solicitud de reparacion", 0);
+		String json = mapper.writeValueAsString(t);
+	
+		log.info("Broadcasting to empleados");
+
+		messagingTemplate.convertAndSend("/topic/empleado", json);
+
 		return "{\"result\": \"message sent.\"}";
 	}	
 

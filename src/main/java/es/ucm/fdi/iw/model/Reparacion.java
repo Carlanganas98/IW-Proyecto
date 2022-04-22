@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.*;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -26,6 +27,7 @@ import lombok.Data;
             + "FROM Reparacion r where r.vehiculo "
             + "IN (SELECT v FROM Vehiculo v WHERE v.propietario = :usuario)" )
 })
+@ToString
 public class Reparacion {
 
     @Id
@@ -57,5 +59,7 @@ public class Reparacion {
     
     private String descripcion;
     private boolean activo;
+
+    
 
 }
