@@ -350,17 +350,17 @@ public class EmpleadoController {
         return gestionarReparaciones(model, session);
     }
 
-    // @Transactional
-    // @PostMapping("/rechazarReparacion")
-    // public String solicitudesReparacionRechazar(Model model, @RequestParam long idReparacion, HttpSession session) {
+     @Transactional
+     @PostMapping("/rechazarReparacion")
+     public String solicitudesReparacionRechazar(Model model, @RequestParam long idReparacion, HttpSession session) {
 
-    //     User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-    //     Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
-    //     rep.setEstado(ESTADO.RECHAZADO);
-    //     rep.setEmpleado(u);
+         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+         Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
+         rep.setEstado(ESTADO.RECHAZADO);
+         rep.setEmpleado(u);
 
-    //     return gestionarReparaciones(model, session);
-    // }
+         return gestionarReparaciones(model, session);
+     }
 
     @Transactional
     @PostMapping("/reparacionPendiente")
