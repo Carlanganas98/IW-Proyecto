@@ -324,24 +324,11 @@ public class ClienteController {
 	}	
 
 
-	
-	@GetMapping("/misVehiculos")
-	// Añadir http session
-    public String misVehiculos(Model model)
-    {
-        List<Vehiculo> vehiculos = null;    
 
-        
-        vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
-		model.addAttribute("vehiculos", vehiculos);
-
-        return "misVehiculos";
-    }
 
 	@Transactional
     @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo) {
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session, @RequestParam int anyo) {
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 
 
@@ -350,41 +337,41 @@ public class ClienteController {
 		v.setTipo(tipo);
 		v.setAnyo(anyo);
 
-        return misVehiculos(model);
+        return reparacionesIndex(model, session);
     }
 
 	@PostMapping("/borrarCoche")
     @Transactional
-    public String borrarCoche(Model model, @RequestParam long id){
+    public String borrarCoche(Model model, @RequestParam long id, HttpSession session ){
 
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 		v.setActivo(false);
-        return misVehiculos(model);
+
+        return reparacionesIndex(model, session);
     }
 
 	@PostMapping("/anyadirCoche")
     @Transactional
     public String anyadirCoche(Model model, @RequestParam String matricula, 
-	@RequestParam String tipo, @RequestParam String modelo, HttpSession session,
-	@RequestParam int anyo){
+	@RequestParam String tipo, @RequestParam String modelo, HttpSession session){
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
-		v.setAnyo(anyo);
+		//v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
 				User.class, ((User)session.getAttribute("u")).getId());
 
-		//log.info("PROPIETARIOOOOOOO" + propietario.getId());
+		log.info("PROPIETARIOOOOOOO");
 		v.setPropietario(propietario);
 
 		entityManager.persist(v);
 		entityManager.flush();
 
-        return misVehiculos(model);
+        return reparacionesIndex(model, session);
     }
 
 
@@ -399,7 +386,7 @@ public class ClienteController {
 		TypedQuery<Vehiculo> consultaVehiculos= entityManager.createNamedQuery("verVehiculoR", Vehiculo.class).setParameter("usuario", usuario);
         ArrayList<Vehiculo> lista_vehiculos= (ArrayList<Vehiculo>) consultaVehiculos.getResultList();
 
-
+		
 		model.addAttribute("vehiculos", lista_vehiculos); 
 
 

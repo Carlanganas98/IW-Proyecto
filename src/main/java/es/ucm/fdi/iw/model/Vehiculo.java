@@ -22,7 +22,7 @@ import lombok.ToString;
     query="select v from Vehiculo v WHERE v.activo = TRUE"),
     
     @NamedQuery(name="verVehiculoR",
-    query="select v from Vehiculo v WHERE v.propietario = :usuario"),
+    query="select v from Vehiculo v WHERE v.propietario = :usuario and v.activo = TRUE"),
 
     @NamedQuery(name="verVehiculoDetallado",
     query="SELECT v FROM Vehiculo v WHERE v.propietario = :propietario AND v.id = :idVehiculo")

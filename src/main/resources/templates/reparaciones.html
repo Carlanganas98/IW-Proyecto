@@ -10,11 +10,12 @@
 
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <main class="flex-shrink-0">
-        <div class="container">
-            <h1>Solicita una reparacion de un vehículo</h1>
+    <div class="flex-shrink-0 container">
 
-            <div class="card rounded-0 col-sm-5 border">
+        <div class="row">
+            <h1>Lista de vehiculos </h1>
+
+            <div class="card rounded-0 border">
                 <table class="table">
                     <thead>
                         <tr>
@@ -22,6 +23,7 @@
                         <th scope="col">Matricula</th>
                         <th scope="col">Tipo</th>
                         <th scope="col">Modelo</th>
+                        <th scope="col">Operaciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -29,85 +31,219 @@
                             <td th:text="${v.id}"></td>
                             <td th:text="${v.matricula}"></td>
                             <td th:text="${v.tipo}"></td>
-                            <td th:text="${v.modelo}"></td>
-                            <td>            
-                               
-
-                                    <div class="card rounded-0 col-sm-12 border">
-                                      <!-- Button trigger modal -->
-                                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
-                                          
-                                       <span class="bi bi-wrench"></span> Solicita Reparacion</button>
-                                      </button>
-                                      <!-- Modal -->
-                                      <div class="modal fade" id="modalAnyadirCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
+                            <td th:text="${v.modelo}" th:attr="id='Modelo' + ${v.matricula}"></td>
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target= '#Observar' + ${v.id}">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:attr="id='Observar' +${v.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Observando vehiculo</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col">
+                                                <div>ID vehiculo:</div>
+                                                <div th:text="${v.id}"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div>Matricula:</div>
+                                                <div th:text="${v.matricula}"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div>Tipo:</div>
+                                                <div th:text="${v.tipo}"></div>
+                                            </div>
+                                            <div class="col">
+                                                <div>Modelo:</div>
+                                                <div th:text="${v.modelo}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>           
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target= '#Anyadir' + ${v.id}" >
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:attr="id='Anyadir' +${v.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                        <div class="modal-body">
+                                            <form th:action="@{/cliente/editarVehiculo}" method="POST">
+                                                <input type="hidden" name="id" th:value="${v.id}">
+                                                <p>Matricula: </p>
+                                                <input type="text" name="matricula" th:value="${v.matricula}">
+                                                <p>Tipo: </p>
+                                                <input type="text" name="tipo" th:value="${v.tipo}">
+                                                <p>Modelo: </p>
+                                                <input type="text" name="modelo" th:value="${v.modelo}">
+                                                <p>Año: </p>
+                                                <input type="text" name="anyo" th:value="${v.anyo}">
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target= '#Eliminar' + ${v.id}"><i class="bi bi-trash"></i></button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:attr="id='Eliminar' +${v.id}" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
+                                                <h5 class="modal-title" id="modalEliminarLabel" th:text="'Eliminar ' + ${v.matricula}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
                                             <div class="modal-body">
-                                                <form th:action="@{/cliente/solicitaReparacion}" method="POST">
-                                                    
-          
-                                                    <p>Tipo: </p>
-                                                    <input type="text" name="tipo" th:value="${v.tipo}">
-                                                    <p>Modelo: </p>
-                                                    <input type="text" name="modelo" th:value="${v.modelo}">
+                                                Estas a punto de eliminar este coche. ¿Estás seguro?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <form th:action="@{/cliente/borrarCoche}" method="POST" >
                                                     <input type="hidden" name="id" th:value="${v.id}">
-                                                    <p>Fecha de entrega </p>
-                                                    <input type="date" id="fechaFin" name="fechaFin">
-                                                    <p>Describe brevemente lo que le ocurre a tu vehículo: </p>
-                                                    <textarea rows = "5" cols = "60" name = "descripcion" id ="descripcion">
-                                                    </textarea>
-                                                          <div class="modal-footer">
-                                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                        </div>  
+                                                    <button type="submit" class="btn btn-danger">Eliminar</button>
                                                 </form>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target= '#Reparar' + ${v.id}">
+                                    <span class="bi bi-wrench"></span> Solicita Reparacion</button>
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" th:attr="id='Reparar' +${v.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                        <div class="modal-body">
+                                            <form th:action="@{/cliente/solicitaReparacion}" method="POST">
+                                                <p>Tipo: </p>
+                                                <input type="text" name="tipo" th:value="${v.tipo}">
+                                                <p>Modelo: </p>
+                                                <input type="text" name="modelo" th:value="${v.modelo}">
+                                                <input type="hidden" name="id" th:value="${v.id}">
+                                                <p>Fecha de entrega </p>
+                                                <input type="date" id="fechaFin" name="fechaFin">
+                                                <p>Describe brevemente lo que le ocurre a tu vehículo: </p>
+                                                <textarea rows = "5" cols = "45" name = "descripcion" id ="descripcion">
+                                                </textarea>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Guardar</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>  
+                                            </form>
                                         </div>
                                     </div>
-                                  </div>
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    
+            <div class="card rounded-0 border">
+                <!-- Button trigger modal -->
+                <button type="button" id="AnyVehi" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAnyadirCoche">
+                    <i class="bi bi-plus-circle-fill"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalAnyadirCoche" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeAnyadir"></button>
+                    </div>
+                        <div class="modal-body">
+                            <form th:action="@{/cliente/anyadirCoche}" method="POST">
+                                
+                                    <h6><label>Introduzca la matricula del vehículo:</label> </h6> 
+                                    <input type="text" name="matricula" id="matricula">
+    
+                                    <h6><label>Seleccione el tipo de vehículo</label></h6> 
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tipo" id="coche" value="coche" checked>
+                                        <label class="form-check-label" for="exampleRadios1">
+                                          Coche
+                                        </label>
+                                      </div>
+                                      <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="tipo" id="moto" value="moto">
+                                        <label class="form-check-label" for="exampleRadios2">
+                                          Moto
+                                        </label>
+                                      </div>
+                                    <h6>Introduzca el modelo del vehículo: </h6>
+                                    <input type="text" name="modelo" id="modelo">
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" id="anyadirVehiculo">Añadir</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                    </div>
+    
+    
+                            </form>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+    
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="card rounded-0 col-sm-12 border">
+                <h1>Lista de reparaciones</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Vehículo</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Fecha inicio</th>
+                        <th scope="col">Fecha fin</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Operaciones</th>
+                        <th scope ="col">Chat</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="r: ${reparaciones_cliente}" >
+                            <td th:text="${r.vehiculo.modelo}"></td>
+                            <td th:text="${r.descripcion}"></td>
+                            <td th:text="${r.fechaInicio}"></td>
+                            <td th:text="${r.fechaFin}"></td>
+                            <td th:text="${r.estado}"></td>
+                            <td>
+        
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+        </div>
 
 
-      <div class="card rounded-0 col-sm-12 border">
-        <h1>Lista de reparaciones</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                <th scope="col">Vehículo</th>
-                <th scope="col">Descripción</th>
-                <th scope="col">Fecha inicio</th>
-                <th scope="col">Fecha fin</th>
-                <th scope="col">Estado</th>
-                <th scope="col">Operaciones</th>
-                <th scope ="col">Chat</th>
-            </tr>
-            </thead>
-            <tbody>
-                <tr th:each="r: ${reparaciones_cliente}" >
-                    <td th:text="${r.vehiculo.modelo}"></td>
-                    <td th:text="${r.descripcion}"></td>
-                    <td th:text="${r.fechaInicio}"></td>
-                    <td th:text="${r.fechaFin}"></td>
-                    <td th:text="${r.estado}"></td>
-                    <td>
-
-                    </td>
-                </tr>
-            </tbody>
-            </table>
     </div>
-    </main>
   
 
     <th:block th:replace="fragments/footer.html :: footer" />

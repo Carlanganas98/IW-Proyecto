@@ -37,15 +37,9 @@
                             </li>
 
                             <li class="nav-item ">
-                                <a class="nav-link" id="misVehi" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/misVehiculos}">Mis Vehiculos</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparaciones}">Reparaciones</a>
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparaciones}">Menu Principal - REPARACIONES</a>
                             </li>
 
-                            <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparacionesEnCursoCliente}">Reparaciones en curso</a>
-                            </li>
 
                         </th:block>
                     </ul>
