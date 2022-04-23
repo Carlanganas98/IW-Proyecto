@@ -124,7 +124,8 @@ public class ClienteController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
         model.addAttribute("user", target);
-        return "user";
+		model.addAttribute("numVehiculos", target.getVehiculos().size());
+        return "perfil";
     }
 
     /**
@@ -320,35 +321,6 @@ public class ClienteController {
 		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
 		return "{\"result\": \"message sent.\"}";
 	}	
-
-
-
-		@GetMapping("/anyadeVehiculo")
-		@Transactional
-			public String anyadeVehiculoS(
-			Model model,
-			@RequestParam String matricula,
-			@RequestParam String tipo,
-			@RequestParam String modelo,
-			@RequestParam int anyo,
-			HttpSession session) {
-
-			User propietario = entityManager.find(
-				User.class, ((User)session.getAttribute("u")).getId());
-			
-			Vehiculo v = new Vehiculo();
-			v.setMatricula(matricula);
-			v.setTipo(tipo);
-			v.setModelo(modelo);
-			v.setAnyo(anyo);
-			v.setPropietario(propietario);
-			
-			entityManager.persist(v);
-			entityManager.flush();
-			
-			return "misVehiculos";
-		}
-
 
 
 	

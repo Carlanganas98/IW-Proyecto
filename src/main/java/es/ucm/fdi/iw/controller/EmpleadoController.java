@@ -120,7 +120,8 @@ public class EmpleadoController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
         model.addAttribute("user", target);
-        return "user";
+        model.addAttribute("numReparaciones", target.getReparaciones().size());
+        return "perfil";
     }
 
     /**
