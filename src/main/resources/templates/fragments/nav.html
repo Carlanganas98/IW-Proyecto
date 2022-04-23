@@ -33,19 +33,9 @@
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/gestionarReparaciones}">Gestionar reparaciones</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/reparacionesEnCursoEmpleado}">Reparaciones en curso</a>
+                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparaciones}">Menu Principal - REPARACIONES</a>
                             </li>
 
-                            <li class="nav-item ">
-                                <a class="nav-link" id="misVehi" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/misVehiculos}">Mis Vehiculos</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparaciones}">Reparaciones</a>
-                            </li>
-
-                            <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparacionesEnCursoCliente}">Reparaciones en curso</a>
-                            </li>
 
                         </th:block>
                     </ul>
