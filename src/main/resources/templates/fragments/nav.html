@@ -27,15 +27,8 @@
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" th:if="${session.u.hasRole('ADMIN')}" th:href="@{/admin/editarInicio}">Editar pantalla inicio</a>
-                            </li>
-
-                            <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/chat}">Chat</a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/chat}">Chat</a>
-                            </li>
-
+                            </li> 
+                            
                             <li class="nav-item ">
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/gestionarReparaciones}">Gestionar reparaciones</a>
                             </li>
@@ -61,11 +54,11 @@
 
                             <li class="nav-item mx-2">
                                 <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/{id}(id=${session.u.id})}">
-                                    <img class="iwthumb rounded" th:src="@{/cliente/{id}/pic(id=${session.u.id})}">
+                                    <img class="iwthumb rounded" src="/img/default-pic.svg">
                                     <span th:text="${session.u.username}">Pepe</span>
                                 </a>
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/{id}(id=${session.u.id})}">
-                                    <img class="iwthumb rounded" th:src="@{/empleado/{id}/pic(id=${session.u.id})}">
+                                    <img class="iwthumb rounded" src="/img/default-pic.svg">
                                     <span th:text="${session.u.username}">Pepe</span>
                                 </a>
                             </li>

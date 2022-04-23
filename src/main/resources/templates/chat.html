@@ -22,48 +22,15 @@
         <div class="container h-50">
             <div class="container d-flex justify-content-center">
                 <div class="card mt-5 ">
-                    <div class="card-header d-flex justify-content-center"><h1>Chat</h1></div>
+                    <div class="card-header d-flex justify-content-center"><h2>Contacto con tu mecánico</h2></div>
                         <div class="card-body scroll" id="cuerpoChat">
                             <div class="d-flex flex-row p-3">  
 
                             </div>
-
-                            <!--
-                            <div class="d-flex flex-row p-3"> 
-                                <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
-                                <div class="chat ml-2 p-3">Hello and thankyou for visiting birdlymind. Please click the video above</div>
-                            </div>
-                            <div class="d-flex flex-row p-3 justify-content-end">
-                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
-                            </div>
-                            <div class="d-flex flex-row p-3 justify-content-end">
-                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
-                            </div>
-                            <div class="d-flex flex-row p-3 justify-content-end">
-                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
-                            </div>
-                            <div class="d-flex flex-row p-3 justify-content-end">
-                                <div class="bg-white mr-2 p-3"><span class="text-muted">Hello and thankyou for visiting birdlynind.</span></div> <img src="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-7.png" width="30" height="30">
-                            </div>
-                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
-                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
-                            </div>
-                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
-                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
-                            </div>
-                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
-                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
-                            </div>
-                            <div class="d-flex flex-row p-3"> <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-7.png" width="30" height="30">
-                                <div class="chat ml-2 p-3"><span class="text-muted dot">. . .</span></div>
-                            </div>
-                            -->
                         </div>
-
-
-                        <footer class="d-flex">
-                            <div>
-                                <div class="chat-txt ml-auto m-3" style="width: 90%; height:100%;">
+                        <footer >
+                            <div class="d-flex">
+                                <div class="chat-txt ml-auto m-3" style="width: 60%; height:100%;">
                                     <input id="messageBar" type="text" class="form-control">
                                 </div>
                                 <div class="chat-txt ml-auto m-3" style="width: 10%; height:100%;">
@@ -79,104 +46,14 @@
 
     <th:block th:replace="fragments/footer.html :: footer" />
 </body>
-<script th:inline="javascript">
-
-        /**
- * Sends an "ajax" request using Fetch. Sends JSON and expects JSON back.
- * 
- * @param {string} url 
- * @param {string} method (GET|POST)
- * @param {*} data, typically a JSON-izable object, like a Message
- * @param {*} headers, to be used instead of defaults, if specified. To send NO headers,
- *  use {}. To send defaults, specify no value, or use false
- * 
- * @return {Promise}, which you should chain with `.then()` to manage responses, 
- *             and with `.catch()` to manage possible errors. 
- *             Errors will be notified as
- *  {
- *     url: <that you were accessing>, 
- *     data: <data you sent>,
- *     status: <code, such as 403>, 
- *     text: <describing the error>
- *  }
- */
-    function go(url, method, data = {}, headers = false) {
-    let params = {
-        method: method, // POST, GET, POST, PUT, DELETE, etc.
-        headers: headers === false ? {
-            "Content-Type": "application/json; charset=utf-8",
-        } : headers,
-        body: data instanceof FormData ? data : JSON.stringify(data)
-    };
-    if (method === "GET") {
-        // GET requests cannot have body; I could URL-encode, but it would not be used here
-        delete params.body;
-    } else {
-        params.headers["X-CSRF-TOKEN"] = config.csrf.value;
-    }
-    console.log("sending", url, params)
-    return fetch(url, params)
-        .then(response => {
-            const r = response;
-            if (r.ok) {
-                return r.json().then(json => Promise.resolve(json));
-            } else {
-                return r.text().then(text => Promise.reject({
-                    url,
-                    data: JSON.stringify(data),
-                    status: r.status,
-                    text
-                }));
-            }
-        });
-    }
-
-    // cómo pintar 1 mensaje (devuelve html que se puede insertar en un div)
-    function renderMsg(msg) {
-        console.log("rendering: ", msg);
-        return '<div>' + msg.from + ': ' + msg.text + '</div>';
-    }
-
-    function sendMessage(id){
-        let msg = document.getElementById("messageBar").value;
-        let params = {message: msg};
-        go("/message/msg/" + id, 'POST', params).then(req => 
-                {
-                    //let resp = resolve(JSON.parse(req.response));
-                    drawAllMesajes(id);
-
-                })
-                .catch(e => "Ha sucedido un error" + e );   
-
-    }
-
+<script th:inline="javascript"> 
     function drawAllMesajes(id){
         let messageDiv = document.getElementById("cuerpoChat");
         messageDiv.innerHTML = "";
         go("/message/received/" + id, "GET").then(ms => 
             ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
     }
-
-    //drawAllMesajes();
-
-
-
-/**
-    // pinta mensajes viejos al cargarse, via AJAX
-    let messageDiv = document.getElementById("mensajes");
-    go(config.rootUrl + "/empleado/received", "GET").then(ms =>
-        ms.forEach(m => messageDiv.insertAdjacentHTML("beforeend", renderMsg(m))));
-
-    // y aquí pinta mensajes según van llegando
-    if (ws.receive) {
-        const oldFn = ws.receive; // guarda referencia a manejador anterior
-        ws.receive = (m) => {
-            oldFn(m); // llama al manejador anterior
-            messageDiv.insertAdjacentHTML("beforeend", renderMsg(m));
-        }
-    }**/
-
-
+    drawAllMesajes('[[${destination}]]');
     ws.receive = (txt) => {drawAllMesajes('[[${destination}]]')};
 </script>
 </html>

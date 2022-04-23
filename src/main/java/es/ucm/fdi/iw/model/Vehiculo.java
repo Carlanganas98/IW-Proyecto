@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -25,6 +26,7 @@ import lombok.Data;
     query="SELECT v FROM Vehiculo v WHERE v.propietario = :propietario AND v.id = :idVehiculo")
 
 })
+@ToString
 public class Vehiculo {
 
     @Id

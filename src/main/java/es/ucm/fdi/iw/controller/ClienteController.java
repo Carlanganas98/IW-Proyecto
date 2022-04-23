@@ -124,7 +124,8 @@ public class ClienteController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
         model.addAttribute("user", target);
-        return "user";
+		model.addAttribute("numVehiculos", target.getVehiculos().size());
+        return "perfil";
     }
 
     /**
@@ -322,46 +323,17 @@ public class ClienteController {
 	}	
 
 
-
-		@GetMapping("/anyadeVehiculo")
-		@Transactional
-			public String anyadeVehiculoS(
-			Model model,
-			@RequestParam String matricula,
-			@RequestParam String tipo,
-			@RequestParam String modelo,
-			@RequestParam LocalDateTime anyo,
-			HttpSession session) {
-
-			User propietario = entityManager.find(
-				User.class, ((User)session.getAttribute("u")).getId());
-			
-			Vehiculo v = new Vehiculo();
-			v.setMatricula(matricula);
-			v.setTipo(tipo);
-			v.setModelo(modelo);
-			v.setAnyo(anyo);
-			v.setPropietario(propietario);
-			
-			entityManager.persist(v);
-			entityManager.flush();
-			
-			return "misVehiculos";
-		}
-
-
-
 	
 	@GetMapping("/misVehiculos")
 	// Añadir http session
     public String misVehiculos(Model model)
     {
-        List<Vehiculo> lista_vehiculos = null;    
+        List<Vehiculo> vehiculos = null;    
 
         
-        lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
-		model.addAttribute("vehiculos", lista_vehiculos);
+        vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
+		model.addAttribute("vehiculos", vehiculos);
 
         return "misVehiculos";
     }
@@ -418,11 +390,11 @@ public class ClienteController {
 	@GetMapping("/reparaciones")
     public String reparaciones(Model model) {
 
-		List<Vehiculo> lista_vehiculos = null; 
+		List<Vehiculo> vehiculos = null; 
 
-		lista_vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + lista_vehiculos);
-		model.addAttribute("vehiculos", lista_vehiculos); 
+		vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
+		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
+		model.addAttribute("vehiculos", vehiculos); 
 
         return "reparaciones";
     }
