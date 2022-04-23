@@ -67,13 +67,18 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		session.setAttribute("u", u);
 
 		// add 'url' and 'ws' session variables
-		String url = request.getRequestURL().toString()
-			.replaceFirst("/[^/]*$", "") 	    // .../foo		 => ...
+		String url_base = request.getRequestURL().toString()
+			.replaceFirst("/[^/]*$", "");
+			
+		String url = url_base
 			.replaceFirst("[^/]*", "");			// http[s]:		 => //...
 		session.setAttribute("url", url);
-		String ws = url
+
+		String ws = url_base	//Los websockets no estaban funcionando porque al quitarle el https antes, se quitaba mas de la cuenta
 			.replaceFirst("[^:]*", "ws");       // http[s]://... => ws://...
 		session.setAttribute("ws", ws + "/ws");
+
+		//System.out.println("dskfjhaskdfjhas " + ws + "/ws");
 
 		// redirects to 'admin' or 'user/{id}', depending on the user
 		String nextUrl = u.hasRole(User.Role.ADMIN) ? 
