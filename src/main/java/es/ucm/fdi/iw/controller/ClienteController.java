@@ -50,6 +50,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -416,23 +417,40 @@ public class ClienteController {
 
 
 	@GetMapping("/reparaciones")
-    public String reparaciones(Model model) {
+    public String reparacionesIndex(Model model, HttpSession session) {
+		
 
-		List<Vehiculo> vehiculos = null; 
+		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+		log.info("ID CLIENTE: " + usuario.getId());
 
-		vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
-		model.addAttribute("vehiculos", vehiculos); 
+		
+		TypedQuery<Vehiculo> consultaVehiculos= entityManager.createNamedQuery("verVehiculoR", Vehiculo.class).setParameter("usuario", usuario);
+        ArrayList<Vehiculo> lista_vehiculos= (ArrayList<Vehiculo>) consultaVehiculos.getResultList();
+
+
+		model.addAttribute("vehiculos", lista_vehiculos); 
+
+
+		
+		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
+        ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
+
+		log.info("reparaciones para este cliente");
+		for (Reparacion reparacion : lista) {
+			log.info(reparacion.getDescripcion());
+		}
+
+        model.addAttribute("reparaciones_cliente", lista);
 
         return "reparaciones";
     }
-
 	@PostMapping("/solicitaReparacion")
 	@Transactional
     public String solicitaReparacion(Model model,
 	@RequestParam long id,
 	@RequestParam String fechaFin,
-	@RequestParam String descripcion
+	@RequestParam String descripcion,
+	HttpSession session
 	) throws ParseException
     {
          
@@ -444,7 +462,7 @@ public class ClienteController {
 		r.setVehiculo(v);
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateTime = LocalDateTime.parse(fechaFin, formatter);
+		LocalDateTime dateTime = LocalDate.parse(fechaFin, formatter).atStartOfDay();
 		
 		r.setFechaFin(dateTime);
 		r.setDescripcion(descripcion);
@@ -455,7 +473,7 @@ public class ClienteController {
         
       
 
-        return reparaciones(model);
+        return reparacionesIndex(model,session);
     }
 
 
