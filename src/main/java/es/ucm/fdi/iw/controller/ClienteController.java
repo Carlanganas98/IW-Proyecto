@@ -328,14 +328,14 @@ public class ClienteController {
 
 	@Transactional
     @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session, @RequestParam LocalDateTime anyo) {
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session, @RequestParam int anyo) {
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 
 
         v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
-		v.setAnyo(anyo);
+		//v.setAnyo(anyo);
 
         return reparacionesIndex(model, session);
     }
@@ -353,13 +353,13 @@ public class ClienteController {
 	@PostMapping("/anyadirCoche")
     @Transactional
     public String anyadirCoche(Model model, @RequestParam String matricula, 
-	@RequestParam String tipo, @RequestParam String modelo, HttpSession session, @RequestParam LocalDateTime anyo){
+	@RequestParam String tipo, @RequestParam String modelo, HttpSession session){
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
-		v.setAnyo(anyo);
+		//v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
