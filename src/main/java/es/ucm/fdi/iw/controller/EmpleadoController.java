@@ -318,6 +318,17 @@ public class EmpleadoController {
 
 		model.addAttribute("reparacionesAGestionar", reparaciones);
 
+
+
+        List<Reparacion> reparacionesAceptadas = null;
+        TypedQuery<Reparacion> query;
+        
+        query = entityManager.createNamedQuery("Reparaciones.reparacionesAceptadas", Reparacion.class);
+		query.setParameter("mecanico", empleado);
+		reparacionesAceptadas = query.getResultList();
+
+        model.addAttribute("reparacionesAceptadas", reparacionesAceptadas);
+
         return "gestionarReparaciones";
 	}
 
@@ -375,21 +386,6 @@ public class EmpleadoController {
         return gestionarReparaciones(model, session);
     }
 
-    @GetMapping("/reparacionesEnCursoEmpleado")
-    public String reparacionesEnCursoEmpleado(Model model, HttpSession session)
-    {
-        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-        List<Reparacion> reparaciones = null;
-        TypedQuery<Reparacion> query;
-        
-        query = entityManager.createNamedQuery("Reparaciones.reparacionesAceptadas", Reparacion.class);
-		query.setParameter("mecanico", u);
-		reparaciones = query.getResultList();
-
-        model.addAttribute("reparacionesAceptadas", reparaciones);
-
-        return "reparacionesEnCursoEmpleado";
-    }
 
     @PostMapping(path = "/finalizacionServicio/{idServicio}")
     @Transactional // para no recibir resultados inconsistentes

@@ -33,10 +33,6 @@
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/gestionarReparaciones}">Gestionar reparaciones</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/reparacionesEnCursoEmpleado}">Reparaciones en curso</a>
-                            </li>
-
-                            <li class="nav-item ">
                                 <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/reparaciones}">Menu Principal - REPARACIONES</a>
                             </li>
 
