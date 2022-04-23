@@ -194,13 +194,17 @@ function postImage(img, endpoint, name, filename) {
  */
 document.addEventListener("DOMContentLoaded", () => {
     if (config.socketUrl) {
-        let subs = config.admin ? ["/topic/admin", "/user/queue/updates", "/topic/empleado"] : ["/user/queue/updates","/topic/empleado"]
+        let subs = [];
+        if(config.admin == true){
+            subs = ["/topic/admin", "/user/queue/updates", "/topic/empleado"];
+        }else if (config.employee == true){
+            subs = ["/user/queue/updates", "/topic/empleado"]
+        }else{
+            subs = ["/user/queue/updates"]
+        }
+        console.log(config);
         ws.initialize(config.socketUrl, subs);
-        /** creo que da error por los cambios de controladores
-        let p = document.querySelector("#nav-unread");
-        if (p) {
-            go(`${config.rootUrl}/user/unread`, "GET").then(d => p.textContent = d.unread);
-        } */
+
     } else {
         console.log("Not opening websocket: missing config", config)
     }
