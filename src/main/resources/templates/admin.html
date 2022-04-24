@@ -46,11 +46,11 @@ myModal.addEventListener('shown.bs.modal', function () {
                                 <td th:text="${user.firstName}"></td>
                                 <td>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalObservarTrabajador">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target= '#modalObservarTrabajador' + ${user.id}">
                                         <i class="bi bi-eye"></i>
                                     </button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalObservarTrabajador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" th:attr="id='modalObservarTrabajador' + ${user.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -78,11 +78,11 @@ myModal.addEventListener('shown.bs.modal', function () {
                                         </div>
                                     </div>               
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditarTrabajador">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target= '#modalEditarTrabajador' + ${user.id}">
                                         <i class="bi bi-pencil"></i>
                                     </button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalEditarTrabajador" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade"  th:attr="id='modalEditarTrabajador' + ${user.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -107,9 +107,9 @@ myModal.addEventListener('shown.bs.modal', function () {
                                         </div>
 
 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"><i class="bi bi-trash"></i></button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target= '#modalEliminarTrabajador' + ${user.id}"><i class="bi bi-trash"></i></button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                    <div class="modal fade" th:attr="id='modalEliminarTrabajador' + ${user.id}" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -150,11 +150,11 @@ myModal.addEventListener('shown.bs.modal', function () {
                                 <td th:text="${user.firstName}"></td>
                                 <td>
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalObservarCliente">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:attr="data-bs-target= '#modalObservarCliente' + ${user.id}">
                                         <i class="bi bi-eye"></i>
                                     </button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalObservarCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" th:attr="id='modalObservarCliente' + ${user.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -182,11 +182,11 @@ myModal.addEventListener('shown.bs.modal', function () {
                                         </div>
                                     </div>               
                                     <!-- Button trigger modal -->
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditarCliente">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" th:attr="data-bs-target= '#modalEditarCliente' + ${user.id}">
                                         <i class="bi bi-pencil"></i>
                                     </button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalEditarCliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade"  th:attr="id='modalEditarCliente' + ${user.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -211,9 +211,9 @@ myModal.addEventListener('shown.bs.modal', function () {
                                         </div>
 
 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar"><i class="bi bi-trash"></i></button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target= '#modalEliminarCliente' + ${user.id}"><i class="bi bi-trash"></i></button>
                                     <!-- Modal -->
-                                    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+                                    <div class="modal fade" th:attr="id='modalEliminarCliente' + ${user.id}" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
