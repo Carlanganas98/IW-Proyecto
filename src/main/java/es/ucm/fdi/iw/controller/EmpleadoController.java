@@ -51,6 +51,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -412,5 +413,25 @@ public class EmpleadoController {
 
         return "";
     }
+
+
+    @Transactional
+     @PostMapping("/completarReparacion")
+     public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam int totalReparacion,@RequestParam String fechaFin, HttpSession session) {
+
+         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+         Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
+
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         LocalDateTime dateTime = LocalDate.parse(fechaFin, formatter).atStartOfDay();
+
+         rep.setEstado(ESTADO.FINALIZADO);
+         rep.setTotal(totalReparacion);
+		
+		 rep.setFechaFin(dateTime);
+        
+
+         return gestionarReparaciones(model, session);
+     }
 
 }
