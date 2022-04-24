@@ -36,7 +36,7 @@ public class Reparacion {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
-    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
+    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO,FINALIZADO};
 
     // @ManyToOne
     // private User cliente;
@@ -65,6 +65,7 @@ public class Reparacion {
     private String descripcion;
     private boolean activo;
 
-    
+  
+    private int total;
 
 }
