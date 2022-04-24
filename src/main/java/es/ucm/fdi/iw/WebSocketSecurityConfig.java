@@ -21,7 +21,7 @@ public class WebSocketSecurityConfig
             	.hasRole(User.Role.ADMIN.toString())
             .anyMessage().authenticated(); 				// must log in to use websockets
 
-            messages
+        messages
             .simpSubscribeDestMatchers("/topic/empleado")	// only admins can subscribe
             	.hasAnyRole(User.Role.ADMIN.toString(), User.Role.EMPLEADO.toString())
             .anyMessage().authenticated(); 		

@@ -400,7 +400,7 @@ public class ClienteController {
 		}
 
         model.addAttribute("reparaciones_cliente", lista);
-
+		
         return "reparaciones";
     }
 	@PostMapping("/solicitaReparacion")
