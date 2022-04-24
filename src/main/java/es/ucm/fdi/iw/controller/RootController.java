@@ -51,7 +51,7 @@ public class RootController {
     public String profile(Model model) {
         return "profile";
     }
-    @GetMapping("/chat/{id}")
+    @GetMapping("/chat/{id}")//id es el id de la reparacion de este chat
     public String chat(@PathVariable long id, Model model, HttpSession session) {
         model.addAttribute("destination", (long)id); 
         return "chat";

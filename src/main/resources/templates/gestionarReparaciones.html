@@ -156,7 +156,7 @@
                             Finalizar reparación
                         </td>
                         <td th:if="${rep.vehiculo != null}">
-                            <a class="nav-link" th:href="@{/chat/{id}(id=${rep.vehiculo.propietario.id})}"><i class="bi bi-chat-dots"></i></a>
+                            <a class="nav-link" th:href="@{/chat/{id}(id=${rep.id})}"><i class="bi bi-chat-dots"></i></a>
                         </td>
                     </tr>
                 </tbody>

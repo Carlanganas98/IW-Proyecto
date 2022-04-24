@@ -1,6 +1,7 @@
 package es.ucm.fdi.iw.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -50,6 +51,10 @@ public class Reparacion {
     @OneToMany
     @JoinColumn(name="reparacion_id")
     private List<Servicio> servicios;
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<Message> sent = new ArrayList<>();
     
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
