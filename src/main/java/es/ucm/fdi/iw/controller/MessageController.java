@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import es.ucm.fdi.iw.model.Message;
+import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.Message.Transfer;
@@ -79,17 +80,24 @@ public class MessageController {
 	@Transactional // para no recibir resultados inconsistentes
 	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
 	public List<Message.Transfer> getChatMessages(@PathVariable long id, HttpSession session) {
-		long recipientID = ((User)session.getAttribute("u")).getId();		
-		long senderID = id;//igual estan al reves pero da un poco igual
-		log.info("Buscando los mensajes de los usuarios {} y {}",recipientID, senderID); 
+
+		long idReparacion = id;
+		Reparacion reparacion = ((Reparacion) entityManager.find(Reparacion.class, idReparacion));
+
+		long empleadoID = reparacion.getEmpleado().getId();		
+		long propietarioID = reparacion.getVehiculo().getPropietario().getId();
+		log.info("Buscando los mensajes de los usuarios {} y {}",empleadoID, propietarioID); 
 		
 		TypedQuery<Message> query = entityManager.createNamedQuery("Message.getChat", Message.class);
-		query.setParameter("recip", recipientID);
-		query.setParameter("sesionU", senderID);
+		query.setParameter("recip", empleadoID);
+		query.setParameter("sesionU", propietarioID);
+		query.setParameter("topic", reparacion);
 
 		TypedQuery<Message> query2 = entityManager.createNamedQuery("Message.getChat", Message.class);
-		query2.setParameter("recip", senderID);
-		query2.setParameter("sesionU", recipientID);
+		query2.setParameter("recip", propietarioID);
+		query2.setParameter("sesionU", empleadoID);
+		query2.setParameter("topic", reparacion);
+
 
 		List<Message> mensajes1 = query.getResultList();
 		List<Message> mensajes2 = query2.getResultList();
@@ -119,37 +127,40 @@ public class MessageController {
 			@RequestBody JsonNode o, Model model, HttpSession session) 
 		throws JsonProcessingException {
 		
+		long idReparacion = id;
+		Reparacion reparacion = ((Reparacion) entityManager.find(Reparacion.class, idReparacion));
+
+		long empleadoID = reparacion.getEmpleado().getId();		
+		long propietarioID = reparacion.getVehiculo().getPropietario().getId();
+
 		String text = o.get("message").asText();
-		User u = entityManager.find(User.class, id);
 		User sender = entityManager.find(
 				User.class, ((User)session.getAttribute("u")).getId());
-		model.addAttribute("user", u);
 		
+		long recipientID;//aqui sabemos si quien lo recibe es el propietario o el empleado
+		if(sender.getId() == empleadoID) recipientID = propietarioID;
+		else recipientID = empleadoID;
+
+		User recipient = ((User) entityManager.find(User.class, recipientID));
+
+
 		// construye mensaje, lo guarda en BD
 		Message m = new Message();
-		m.setRecipient(u);
+		m.setRecipient(recipient);
 		m.setSender(sender);
 		m.setDateSent(LocalDateTime.now());
 		m.setText(text);
+		m.setTopic(reparacion);
 		entityManager.persist(m);
 		entityManager.flush(); // to get Id before commit
 		
 		ObjectMapper mapper = new ObjectMapper();
-		/*
-		// construye json: método manual
-		ObjectNode rootNode = mapper.createObjectNode();
-		rootNode.put("from", sender.getUsername());
-		rootNode.put("to", u.getUsername());
-		rootNode.put("text", text);
-		rootNode.put("id", m.getId());
-		String json = mapper.writeValueAsString(rootNode);
-		*/
-		// persiste objeto a json usando Jackson
+
 		String json = mapper.writeValueAsString(m.toTransfer());
 		
 		log.info("Sending a message to {} with contents '{}'", id, json);
 
-		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
+		messagingTemplate.convertAndSend("/user/"+recipient.getUsername()+"/queue/updates", json);
 		return "{\"result\": \"message sent.\"}";
 	}	
 

@@ -41,8 +41,3 @@ insert into servicio values
 (1, TRUE, 'condensador', 2, 100, 1),
 (2, FALSE, 'motor', 5, 250, 1);
 
-
-INSERT INTO "MESSAGE" VALUES 
-(1,'2007-12-03T10:15:30' '2007-12-03T10:15:30', 'Hola buenos dias', 1, 2),
-(2,'2007-12-03T10:15:30', '2007-12-03T10:15:30', 'Hola a ti tambien', 2, 1);
-
