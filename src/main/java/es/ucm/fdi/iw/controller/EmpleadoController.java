@@ -59,6 +59,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import es.ucm.fdi.iw.model.Message.Transfer;
+
+
 @Controller()
 @RequestMapping("empleado")
 public class EmpleadoController {
@@ -390,10 +393,21 @@ public class EmpleadoController {
     @PostMapping(path = "/finalizacionServicio/{idServicio}")
     @Transactional // para no recibir resultados inconsistentes
 	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
-    public String finalizacionServicio(Model model, HttpSession session, @PathVariable long idServicio)
+    public String finalizacionServicio(Model model, HttpSession session, @PathVariable long idServicio) throws JsonProcessingException
     {
         Servicio serv = entityManager.find(Servicio.class, idServicio);
 
+        ObjectMapper mapper = new ObjectMapper();
+        Transfer t = new Transfer("Sistema", "", "", "", "Se ha finalizado el servicio "
+         + serv.getInfo()
+         + " de tu vehiculo "
+         + serv.getReparacion().getVehiculo().getModelo() + ": " + serv.getReparacion().getVehiculo().getMatricula(), 0);
+		String json;
+
+        json = mapper.writeValueAsString(t);
+
+   
+        messagingTemplate.convertAndSend("/user/"+serv.getReparacion().getVehiculo().getPropietario().getUsername()+"/queue/updates", json);
         serv.setFinalizado(!serv.isFinalizado());
 
         return "";
