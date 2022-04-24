@@ -133,6 +133,7 @@
                         <th scope="col">Descripción</th>
                         <th scope="col">Servicios</th>
                         <th scope="col">Operaciones</th>
+                        <th scope="col">Chat con el cliente</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,6 +155,9 @@
                         <td>
                             Finalizar reparación
                         </td>
+                        <td th:if="${rep.vehiculo != null}">
+                            <a class="nav-link" th:href="@{/chat/{id}(id=${rep.vehiculo.propietario.id})}"><i class="bi bi-chat-dots"></i></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -170,8 +174,9 @@
             checkbox.addEventListener("change", validaCheckbox, false);
             function validaCheckbox()
             {
-                go("/empleado/finalizacionServicio/" + Number(checkbox.value), "POST");
 
+                go("/empleado/finalizacionServicio/" + Number(checkbox.value), "POST");
+                
                 // if(checkbox.checked)
                 //     alert(checkbox.id + ' está seleccionado');
             }
