@@ -317,8 +317,8 @@ public class EmpleadoController {
 		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
         List<Reparacion> reparaciones = null;
 
-        reparaciones = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar", Reparacion.class).
-            setParameter("mecanico", empleado).getResultList();
+        reparaciones = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar",
+         Reparacion.class).getResultList();
 
 		model.addAttribute("reparacionesAGestionar", reparaciones);
 
@@ -338,12 +338,21 @@ public class EmpleadoController {
 
 	@Transactional
     @PostMapping("/aceptarReparacion")
-    public String solicitudesReparacionAceptar(Model model, @RequestParam long idReparacion, HttpSession session, @RequestParam(required=false) List<String> info, @RequestParam(required=false) List<Double> precio)
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long idReparacion, HttpSession session)
     {
         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
         Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
         rep.setEstado(ESTADO.ACEPTADO);
         rep.setEmpleado(u);
+
+        return gestionarReparaciones(model, session);
+    }
+
+    @Transactional
+    @PostMapping("/anyadirServicios")
+    public String anyadirServicios(Model model, @RequestParam long idReparacion, HttpSession session, @RequestParam(required=false) List<String> info, @RequestParam(required=false) List<Double> precio)
+    {
+        Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
 
         if (info != null)
         {
