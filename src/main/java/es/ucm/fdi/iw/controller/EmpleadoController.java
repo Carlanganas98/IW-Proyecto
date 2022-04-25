@@ -417,7 +417,7 @@ public class EmpleadoController {
 
     @Transactional
      @PostMapping("/completarReparacion")
-     public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam int totalReparacion,@RequestParam String fechaFin, HttpSession session) {
+     public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam int totalReparacion,@RequestParam String fechaFin, HttpSession session) throws JsonProcessingException {
 
          User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
          Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
@@ -429,7 +429,17 @@ public class EmpleadoController {
          rep.setTotal(totalReparacion);
 		
 		 rep.setFechaFin(dateTime);
-        
+         ObjectMapper mapper = new ObjectMapper();
+         Transfer t = new Transfer("Sistema", "", "", "", "Se ha finalizado la reparacion "
+          + rep.getDescripcion()
+          + " de tu vehiculo "
+          + rep.getVehiculo().getModelo() + ": " + rep.getVehiculo().getMatricula(), 0);
+         String json;
+ 
+         json = mapper.writeValueAsString(t);
+ 
+    
+         messagingTemplate.convertAndSend("/user/"+rep.getVehiculo().getPropietario().getUsername()+"/queue/updates", json);
 
          return gestionarReparaciones(model, session);
      }
