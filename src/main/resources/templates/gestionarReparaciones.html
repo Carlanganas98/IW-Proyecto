@@ -119,11 +119,76 @@
                                     </div>
                                 </div> -->
 
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).ACEPTADO}" th:attr="data-bs-target= '#Completar' + ${rep.id}">
+                                    Completar reparacion
+                                </button>
+                                <div class="modal fade" th:attr="id='Completar' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Completar reparacion</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{/empleado/completarReparacion}" method="POST">
+                                                    <input type="hidden" name="idReparacion" th:value="${rep.id}">
+                                                    <h5>Total</h5>
+                                                    <input type="text" name="totalReparacion" th:value="${rep.total}">
+                                                    <p>Fecha de entrega </p>
+                                                    <input type="date" id="fechaFin" name="fechaFin">
+                                                   
+                                                    
+                                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                </form>
+                                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            
+            <h2>Listado de tus reparaciones</h2>
+            <p></p>
+
+            <table class="table">
+                <thead>
+                    <tr class="table-info">
+                        <th scope="col">Vehículo</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Servicios</th>
+                        <th scope="col">Operaciones</th>
+                        <th scope="col">Chat con el cliente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="rep: ${reparacionesAceptadas}" >
+                        <td th:text="${rep.vehiculo.modelo}"></td>
+                        <td th:text="${rep.descripcion}"></td>
+                        <td>
+                            <div class="form-check" th:each="serv : ${rep.servicios}">
+                                
+                                <input th:if="${serv.finalizado == false}" class="form-check-input" type="checkbox" th:value="${serv.id}" th:id="'flexCheck' + ${serv.id}">
+                                <input th:if="${serv.finalizado == true}" class="form-check-input" type="checkbox" th:value="${serv.id}" th:id="'flexCheck' + ${serv.id}" checked>
+                                
+                                <label class="form-check-label" th:for="'flexCheck' + ${serv.id}"
+                                    th:text="|${serv.info} - ${serv.precio}€|">
+                                </label>
+
+                            </div>
+                        </td>
+                        <td>
+                            Finalizar reparación
+                        </td>
+                        <td th:if="${rep.vehiculo != null}">
+                            <a class="nav-link" th:href="@{/chat/{id}(id=${rep.id})}"><i class="bi bi-chat-dots"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
     </main>
@@ -131,6 +196,24 @@
     <th:block th:replace="fragments/footer.html :: footer" />
     <script>
         
+
+        function gestionarCheckbox(checkbox)
+        {
+            checkbox.addEventListener("change", validaCheckbox, false);
+            function validaCheckbox()
+            {
+
+                go("/empleado/finalizacionServicio/" + Number(checkbox.value), "POST");
+                
+                // if(checkbox.checked)
+                //     alert(checkbox.id + ' está seleccionado');
+            }
+        }
+
+        document.querySelectorAll('input[type=checkbox]')
+            .forEach(checkbox => gestionarCheckbox(checkbox));
+
+
         function botonDeNuevoServicio(boton) {
             const contenedor = document.getElementById(boton.dataset.contenido);
             console.log(boton, contenedor);

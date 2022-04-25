@@ -50,6 +50,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -124,7 +125,8 @@ public class ClienteController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
         model.addAttribute("user", target);
-        return "user";
+		model.addAttribute("numVehiculos", target.getVehiculos().size());
+        return "perfil";
     }
 
     /**
@@ -323,52 +325,10 @@ public class ClienteController {
 
 
 
-		@GetMapping("/anyadeVehiculo")
-		@Transactional
-			public String anyadeVehiculoS(
-			Model model,
-			@RequestParam String matricula,
-			@RequestParam String tipo,
-			@RequestParam String modelo,
-			@RequestParam int anyo,
-			HttpSession session) {
-
-			User propietario = entityManager.find(
-				User.class, ((User)session.getAttribute("u")).getId());
-			
-			Vehiculo v = new Vehiculo();
-			v.setMatricula(matricula);
-			v.setTipo(tipo);
-			v.setModelo(modelo);
-			v.setAnyo(anyo);
-			v.setPropietario(propietario);
-			
-			entityManager.persist(v);
-			entityManager.flush();
-			
-			return "misVehiculos";
-		}
-
-
-
-	
-	@GetMapping("/misVehiculos")
-	// Añadir http session
-    public String misVehiculos(Model model)
-    {
-        List<Vehiculo> vehiculos = null;    
-
-        
-        vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
-		model.addAttribute("vehiculos", vehiculos);
-
-        return "misVehiculos";
-    }
 
 	@Transactional
     @PostMapping("/editarVehiculo")
-    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, @RequestParam int anyo) {
+    public String editarVehiculo(Model model, @RequestParam long id, @RequestParam String matricula, @RequestParam String tipo, @RequestParam String modelo, HttpSession session, @RequestParam int anyo) {
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 
 
@@ -377,62 +337,79 @@ public class ClienteController {
 		v.setTipo(tipo);
 		v.setAnyo(anyo);
 
-        return misVehiculos(model);
+        return reparacionesIndex(model, session);
     }
 
 	@PostMapping("/borrarCoche")
     @Transactional
-    public String borrarCoche(Model model, @RequestParam long id){
+    public String borrarCoche(Model model, @RequestParam long id, HttpSession session ){
 
 		Vehiculo v = entityManager.find(Vehiculo.class, id);
 		v.setActivo(false);
-        return misVehiculos(model);
+
+        return reparacionesIndex(model, session);
     }
 
 	@PostMapping("/anyadirCoche")
     @Transactional
     public String anyadirCoche(Model model, @RequestParam String matricula, 
-	@RequestParam String tipo, @RequestParam String modelo, HttpSession session,
-	@RequestParam int anyo){
+	@RequestParam String tipo, @RequestParam String modelo, HttpSession session){
 
 		Vehiculo v = new Vehiculo();
 		v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
-		v.setAnyo(anyo);
+		//v.setAnyo(anyo);
 		v.setActivo(true);
 		//SACAR ID del usuario actual
 		User propietario = entityManager.find(
 				User.class, ((User)session.getAttribute("u")).getId());
 
-		//log.info("PROPIETARIOOOOOOO" + propietario.getId());
+		log.info("PROPIETARIOOOOOOO");
 		v.setPropietario(propietario);
 
 		entityManager.persist(v);
 		entityManager.flush();
 
-        return misVehiculos(model);
+        return reparacionesIndex(model, session);
     }
 
 
 	@GetMapping("/reparaciones")
-    public String reparaciones(Model model) {
+    public String reparacionesIndex(Model model, HttpSession session) {
+		
 
-		List<Vehiculo> vehiculos = null; 
+		User usuario = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+		log.info("ID CLIENTE: " + usuario.getId());
 
-		vehiculos = entityManager.createNamedQuery("verVehiculos", Vehiculo.class).getResultList();
-		//log.info("ESTAMOS EN VER VEHIOCULOS CONTROLLER" + vehiculos);
-		model.addAttribute("vehiculos", vehiculos); 
+		
+		TypedQuery<Vehiculo> consultaVehiculos= entityManager.createNamedQuery("verVehiculoR", Vehiculo.class).setParameter("usuario", usuario);
+        ArrayList<Vehiculo> lista_vehiculos= (ArrayList<Vehiculo>) consultaVehiculos.getResultList();
 
+		
+		model.addAttribute("vehiculos", lista_vehiculos); 
+
+
+		
+		TypedQuery<Reparacion> consultaAlumnos= entityManager.createNamedQuery("Reparacion.reparacionesPorPropietario", Reparacion.class).setParameter("usuario", usuario);
+        ArrayList<Reparacion> lista= (ArrayList<Reparacion>) consultaAlumnos.getResultList();
+
+		log.info("reparaciones para este cliente");
+		for (Reparacion reparacion : lista) {
+			log.info(reparacion.getDescripcion());
+		}
+
+        model.addAttribute("reparaciones_cliente", lista);
+		
         return "reparaciones";
     }
-
 	@PostMapping("/solicitaReparacion")
 	@Transactional
     public String solicitaReparacion(Model model,
 	@RequestParam long id,
 	@RequestParam String fechaFin,
-	@RequestParam String descripcion
+	@RequestParam String descripcion,
+	HttpSession session
 	) throws ParseException
     {
          
@@ -444,7 +421,7 @@ public class ClienteController {
 		r.setVehiculo(v);
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDateTime dateTime = LocalDateTime.parse(fechaFin, formatter);
+		LocalDateTime dateTime = LocalDate.parse(fechaFin, formatter).atStartOfDay();
 		
 		r.setFechaFin(dateTime);
 		r.setDescripcion(descripcion);
@@ -455,7 +432,7 @@ public class ClienteController {
         
       
 
-        return reparaciones(model);
+        return reparacionesIndex(model,session);
     }
 
 

@@ -30,7 +30,7 @@ import lombok.AllArgsConstructor;
 	query="SELECT COUNT(m) FROM Message m "
 			+ "WHERE m.recipient.id = :userId AND m.dateRead = null"),
 	@NamedQuery(name="Message.getChat",
-	query="SELECT m FROM Message m WHERE m.sender.id = :sesionU AND m.recipient.id = :recip ")
+	query="SELECT m FROM Message m WHERE m.sender.id = :sesionU AND m.recipient.id = :recip AND m.topic = :topic")
 })
 @Data
 @ToString
@@ -46,6 +46,10 @@ public class Message implements Transferable<Message.Transfer> {
 	private User sender;
 	@ManyToOne
 	private User recipient;
+
+	@ManyToOne
+	private Reparacion topic;
+
 	private String text;
 	
 	private LocalDateTime dateSent;

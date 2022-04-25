@@ -37,6 +37,7 @@ public class RootController {
         texto = entityManager.find(TextoTaller.class, id);
         log.info(texto.getTexto());
         model.addAttribute("texto", texto.getTexto()); 
+        model.addAttribute("titulo", texto.getTitulo()); 
 
         return "index";
     }
@@ -50,7 +51,7 @@ public class RootController {
     public String profile(Model model) {
         return "profile";
     }
-    @GetMapping("/chat/{id}")
+    @GetMapping("/chat/{id}")//id es el id de la reparacion de este chat
     public String chat(@PathVariable long id, Model model, HttpSession session) {
         model.addAttribute("destination", (long)id); 
         return "chat";
