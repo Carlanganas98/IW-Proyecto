@@ -335,7 +335,7 @@ public class ClienteController {
         v.setMatricula(matricula);
 		v.setModelo(modelo);
 		v.setTipo(tipo);
-		//v.setAnyo(anyo);
+		v.setAnyo(anyo);
 
         return reparacionesIndex(model, session);
     }

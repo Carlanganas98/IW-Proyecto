@@ -1,5 +1,4 @@
 package es.ucm.fdi.iw.model;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -40,7 +39,7 @@ public class Vehiculo {
     private String matricula;
     private String tipo; // Coche o Moto
     private String modelo;
-    private LocalDateTime anyo;
+    private int anyo;
     private boolean activo;
     
     @OneToMany

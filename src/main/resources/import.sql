@@ -10,8 +10,7 @@ INSERT INTO "IWUSER" VALUES
 (1, 'a@gmail.com', TRUE, 'Nombre1', 'Apellido1', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'ADMIN', 'a'),
 (2, 'b@gmail.com', TRUE, 'Nombre2', 'Apellido2', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'CLIENTE', 'b'),
 (4, 'd@gmail.com', TRUE, 'Manolo', 'Lama', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'EMPLEADO', 'd'),
-(3, 'd@gmail.com', TRUE, 'Paco', 'Garcia', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'EMPLEADO', 'c'),
-(5, 'b@gmail.com', TRUE, 'e', 'Apellido2', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'CLIENTE', 'e');
+(3, 'd@gmail.com', TRUE, 'Paco', 'Garcia', '{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W', 'EMPLEADO', 'c');
 
 
 -- start id numbering from a value that is larger than any assigned above

@@ -17,8 +17,8 @@ Feature: login en servidor
     And input('#username', 'b')
     And input('#password', 'aa')
     When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/cliente/2')
-    Then click("a[id=rep]")
+    Then waitForUrl(baseUrl + '/user/2')
+    Then click("a[id=misVehi]")
     And match html('title') contains 'IW: Mis Vehiculos'
     Then click("button[id=AnyVehi]")
     * delay(1000)

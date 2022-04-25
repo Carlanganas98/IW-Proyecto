@@ -29,4 +29,3 @@
 hs_err_pid*
 target/**
 *.gz
-src/test/java/karate-config.js
