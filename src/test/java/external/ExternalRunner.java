@@ -16,6 +16,6 @@ class ExternalRunner {
 
         @Karate.Test
         Karate testWs() {
-            return Karate.run("anyadirCoche").relativeTo(getClass());
+            return Karate.run("login").relativeTo(getClass());
         }  
 }

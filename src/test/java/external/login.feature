@@ -12,7 +12,7 @@ Feature: login en servidor
 #
 
   Scenario: login malo en plantilla
-    Given driver baseUrl + '/user/2'
+    Given driver baseUrl + '/login'
     And input('#username', 'dummy')
     And input('#password', 'world')
     When submit().click(".form-signin button")
@@ -24,7 +24,7 @@ Feature: login en servidor
     And input('#username', 'b')
     And input('#password', 'aa')
     When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/user/2')
+    Then waitForUrl(baseUrl + '/cliente/2')
 
   @login_a
   Scenario: login correcto como a
