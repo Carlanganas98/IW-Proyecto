@@ -17,8 +17,8 @@ Feature: login en servidor
     And input('#username', 'b')
     And input('#password', 'aa')
     When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/user/2')
-    Then click("a[id=misVehi]")
+    Then waitForUrl(baseUrl + '/cliente/2')
+    Then click("a[id=rep]")
     And match html('title') contains 'IW: Mis Vehiculos'
     Then click("button[id=AnyVehi]")
     * delay(1000)
@@ -29,19 +29,9 @@ Feature: login en servidor
     * delay(1000)
     Then click("button[id=anyadirVehiculo]")
     * delay(1000)
+    Then match html('#Modelo3456W') contains 'Opel corsa'
+    Then click("button[id=AnyVehi]")
+    * delay(1000)
     Then click("button[id=closeAnyadir]")
     * delay(1000)
-    Then match html('#Modelo3456W') contains 'Opel corsa'
     And driver.screenshot()
-
-
-
-
-  Scenario: logout after login
-    Given driver baseUrl + '/login'
-    And input('#username', 'a')
-    And input('#password', 'aa')
-    When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/admin')
-    When submit().click("{button}logout")
-    Then waitForUrl(baseUrl + '/login')
