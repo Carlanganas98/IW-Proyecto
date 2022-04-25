@@ -117,6 +117,32 @@
                                     </div>
                                 </div>
 
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).ACEPTADO}" th:attr="data-bs-target= '#Completar' + ${rep.id}">
+                                    Completar reparacion
+                                </button>
+                                <div class="modal fade" th:attr="id='Completar' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Completar reparacion</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form th:action="@{/empleado/completarReparacion}" method="POST">
+                                                    <input type="hidden" name="idReparacion" th:value="${rep.id}">
+                                                    <h5>Total</h5>
+                                                    <input type="text" name="totalReparacion" th:value="${rep.total}">
+                                                    <p>Fecha de entrega </p>
+                                                    <input type="date" id="fechaFin" name="fechaFin">
+                                                   
+                                                    
+                                                    <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                </form>
+                                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -133,6 +159,7 @@
                         <th scope="col">Descripción</th>
                         <th scope="col">Servicios</th>
                         <th scope="col">Operaciones</th>
+                        <th scope="col">Chat con el cliente</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,6 +181,9 @@
                         <td>
                             Finalizar reparación
                         </td>
+                        <td th:if="${rep.vehiculo != null}">
+                            <a class="nav-link" th:href="@{/chat/{id}(id=${rep.id})}"><i class="bi bi-chat-dots"></i></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -170,8 +200,9 @@
             checkbox.addEventListener("change", validaCheckbox, false);
             function validaCheckbox()
             {
-                go("/empleado/finalizacionServicio/" + Number(checkbox.value), "POST");
 
+                go("/empleado/finalizacionServicio/" + Number(checkbox.value), "POST");
+                
                 // if(checkbox.checked)
                 //     alert(checkbox.id + ' está seleccionado');
             }

@@ -1,6 +1,7 @@
 package es.ucm.fdi.iw.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -35,7 +36,7 @@ public class Reparacion {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
-    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
+    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO,FINALIZADO};
 
     // @ManyToOne
     // private User cliente;
@@ -50,6 +51,10 @@ public class Reparacion {
     @OneToMany
     @JoinColumn(name="reparacion_id")
     private List<Servicio> servicios;
+
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    private List<Message> sent = new ArrayList<>();
     
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFin;
@@ -60,6 +65,7 @@ public class Reparacion {
     private String descripcion;
     private boolean activo;
 
-    
+  
+    private int total;
 
 }

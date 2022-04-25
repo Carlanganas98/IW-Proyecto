@@ -51,6 +51,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -58,6 +59,9 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import es.ucm.fdi.iw.model.Message.Transfer;
+
 
 @Controller()
 @RequestMapping("empleado")
@@ -390,13 +394,44 @@ public class EmpleadoController {
     @PostMapping(path = "/finalizacionServicio/{idServicio}")
     @Transactional // para no recibir resultados inconsistentes
 	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
-    public String finalizacionServicio(Model model, HttpSession session, @PathVariable long idServicio)
+    public String finalizacionServicio(Model model, HttpSession session, @PathVariable long idServicio) throws JsonProcessingException
     {
         Servicio serv = entityManager.find(Servicio.class, idServicio);
 
+        ObjectMapper mapper = new ObjectMapper();
+        Transfer t = new Transfer("Sistema", "", "", "", "Se ha finalizado el servicio "
+         + serv.getInfo()
+         + " de tu vehiculo "
+         + serv.getReparacion().getVehiculo().getModelo() + ": " + serv.getReparacion().getVehiculo().getMatricula(), 0);
+		String json;
+
+        json = mapper.writeValueAsString(t);
+
+   
+        messagingTemplate.convertAndSend("/user/"+serv.getReparacion().getVehiculo().getPropietario().getUsername()+"/queue/updates", json);
         serv.setFinalizado(!serv.isFinalizado());
 
         return "";
     }
+
+
+    @Transactional
+     @PostMapping("/completarReparacion")
+     public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam int totalReparacion,@RequestParam String fechaFin, HttpSession session) {
+
+         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
+         Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
+
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         LocalDateTime dateTime = LocalDate.parse(fechaFin, formatter).atStartOfDay();
+
+         rep.setEstado(ESTADO.FINALIZADO);
+         rep.setTotal(totalReparacion);
+		
+		 rep.setFechaFin(dateTime);
+        
+
+         return gestionarReparaciones(model, session);
+     }
 
 }

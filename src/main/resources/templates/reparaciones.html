@@ -222,7 +222,7 @@
                         <th scope="col">Fecha inicio</th>
                         <th scope="col">Fecha fin</th>
                         <th scope="col">Estado</th>
-                        <th scope="col">Operaciones</th>
+                       <th scope = "col">Servicios</th>
                         <th scope ="col">Chat</th>
                     </tr>
                     </thead>
@@ -233,8 +233,20 @@
                             <td th:text="${r.fechaInicio}"></td>
                             <td th:text="${r.fechaFin}"></td>
                             <td th:text="${r.estado}"></td>
-                            <td>
-        
+                            
+                            <td><div class="form-check" th:each="serv : ${r.servicios}">
+
+                                   
+                                  
+                                <label class="form-check-label" th:for="'flexCheck' + ${serv.id}"
+                                th:if="${serv.finalizado == true}" th:text="|${serv.info} - ${serv.precio}€|">
+                                </label>
+
+                            </td>
+                            
+                            
+                            <td th:if="${r.empleado != null}">
+                                <a class="nav-link" th:href="@{/chat/{id}(id=${r.id})}"><i class="bi bi-chat-dots"></i></a>
                             </td>
                         </tr>
                     </tbody>
