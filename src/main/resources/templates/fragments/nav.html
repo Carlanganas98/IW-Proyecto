@@ -33,7 +33,7 @@
                                 <a class="nav-link" th:if="${session.u.hasRole('EMPLEADO')}" th:href="@{/empleado/gestionarReparaciones}">Gestionar reparaciones</a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/menuPrincipalCliente}">Menú Principal</a>
+                                <a id="rep" class="nav-link" th:if="${session.u.hasRole('CLIENTE')}" th:href="@{/cliente/menuPrincipalCliente}">Menu Principal - REPARACIONES</a>
                             </li>
 
 

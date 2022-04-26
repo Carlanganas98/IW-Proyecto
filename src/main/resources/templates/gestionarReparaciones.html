@@ -179,9 +179,37 @@
                         </tr>
                     </tbody>
                 </table>
+
+                
+        
+
             </div>
             
+            <h2>Listado de reparaciones disponibles en el taller</h2>
+            <p></p>
 
+            <div class="card rounded-0 col-sm-12 border">
+                <table class="table">
+                    <thead>
+                        <tr class="table-info">
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Vehículo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha inicio</th>
+                            <th scope="col">Fecha fin</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="rep: ${Reparaciones.completas}" >
+                            <td th:text="|${rep.vehiculo.propietario.firstName} ${rep.vehiculo.propietario.lastName}|"></td>
+                            <td th:text="${rep.vehiculo.modelo}"></td>
+                            <td th:text="${rep.descripcion}"></td>
+                            <td th:text="${rep.fechaInicio}"></td>
+                            <td th:text="${rep.fechaFin}"></td>
+                            <td th:text="${rep.estado}"></td>
+                            <td>
         </div>
     </main>
 
