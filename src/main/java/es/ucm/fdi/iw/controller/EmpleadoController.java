@@ -387,19 +387,6 @@ public class EmpleadoController {
          return gestionarReparaciones(model, session);
      }
 
-    @Transactional
-    @PostMapping("/reparacionPendiente")
-    public String solicitudesReparacionPendiente(Model model, @RequestParam long idReparacion, HttpSession session)
-    {
-        Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
-        rep.setEstado(ESTADO.PENDIENTE);
-        rep.setEmpleado(null);
-        rep.getServicios().removeAll(rep.getServicios());
-
-        return gestionarReparaciones(model, session);
-    }
-
-
     @PostMapping(path = "/finalizacionServicio/{idServicio}")
     @Transactional // para no recibir resultados inconsistentes
 	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
@@ -428,7 +415,6 @@ public class EmpleadoController {
      @PostMapping("/completarReparacion")
      public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam int totalReparacion,@RequestParam String fechaFin, HttpSession session) {
 
-         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
          Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
 
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

@@ -375,7 +375,7 @@ public class ClienteController {
     }
 
 
-	@GetMapping("/reparaciones")
+	@GetMapping("/menuPrincipalCliente")
     public String reparacionesIndex(Model model, HttpSession session) {
 		
 
@@ -401,7 +401,7 @@ public class ClienteController {
 
         model.addAttribute("reparaciones_cliente", lista);
 		
-        return "reparaciones";
+        return "menuPrincipalCliente";
     }
 	@PostMapping("/solicitaReparacion")
 	@Transactional

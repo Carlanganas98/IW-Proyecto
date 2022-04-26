@@ -64,8 +64,6 @@ public class Reparacion {
     
     private String descripcion;
     private boolean activo;
-
-  
-    private int total;
+    private double total;
 
 }

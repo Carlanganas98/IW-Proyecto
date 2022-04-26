@@ -124,7 +124,6 @@
                             <th scope="col">Fecha inicio</th>
                             <th scope="col">Fecha fin</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Nº servicios</th>
                             <th scope="col">Operaciones</th>
                         </tr>
                     </thead>
@@ -136,7 +135,6 @@
                             <td th:text="${rep.fechaInicio}"></td>
                             <td th:text="${rep.fechaFin}"></td>
                             <td th:text="${rep.estado}"></td>
-                            <td th:text="${rep.servicios.size}" style=text-align:center></td>
                             <td>
 
                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" th:if="${rep.estado == T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Aceptar' + ${rep.id}">
@@ -178,30 +176,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <button type="button" class="btn btn-warning" data-bs-toggle="modal" th:if="${rep.estado != T(es.ucm.fdi.iw.model.Reparacion.ESTADO).PENDIENTE}" th:attr="data-bs-target= '#Pendiente' + ${rep.id}">
-                                    <i class="bi bi-arrow-counterclockwise"></i>
-                                </button>
-                                <div class="modal fade" th:attr="id='Pendiente' + ${rep.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">¿Seguro que deseas anular esta reparación?</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p>Recuerda que esta opción eliminará todos los servicios que hayas creado para esta reparación.</p>
-                                                <p>La reparación se añadirá a la lista de reparaciones disponibles para que cualquier empleado se la pueda asignar.</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <form th:action="@{/empleado/reparacionPendiente}" method="POST">
-                                                    <input type="hidden" name="idReparacion" th:value="${rep.id}">
-                                                    <button type="submit" class="btn btn-primary">Aceptar</button>
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                </form>
-                                            </div>  
-                                        </div>
-                                    </div>
-                                </div> -->
 
                             </td>
                         </tr>
