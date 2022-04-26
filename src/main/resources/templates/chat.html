@@ -38,9 +38,6 @@
                                     <div>
                                         <div class="form-check" th:each="serv : ${reparacion.servicios}">
                                             
-                                            <input th:if="${serv.finalizado == false}" class="form-check-input" type="checkbox" th:value="${serv.id}" th:id="'flexCheck' + ${serv.id}">
-                                            <input th:if="${serv.finalizado == true}" class="form-check-input" type="checkbox" th:value="${serv.id}" th:id="'flexCheck' + ${serv.id}" checked>
-                                            
                                             <label class="form-check-label" th:for="'flexCheck' + ${serv.id}"
                                                 th:text="|${serv.info} - ${serv.precio}€|">
                                             </label>
