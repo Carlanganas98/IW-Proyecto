@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.TextoTaller;
 
 /**
@@ -54,6 +55,8 @@ public class RootController {
     @GetMapping("/chat/{id}")//id es el id de la reparacion de este chat
     public String chat(@PathVariable long id, Model model, HttpSession session) {
         model.addAttribute("destination", (long)id); 
+        Reparacion rep = entityManager.find(Reparacion.class, id);
+        model.addAttribute("reparacion", rep);
         return "chat";
     }
 
