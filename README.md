@@ -36,7 +36,7 @@ En la parte superior, donde la Lista de Vehículos, aparecen los vehículos que 
 Desde esta tabla también puede observar en detalle un vehículo, editar sus atributos, eliminarlo y solicitar una reparación. 
 Al solicitar una reparación debe poner una fecha en la que puede dejar el vehículo en el taller e indicar brevemente qué le ocurre.
 
-En la parte inferior el cliente puede ver el estado de las reparaciones solicitadas, junto con los servicios que se le están realizando. También puede iniciar un chat con el mecánico responsable de esa reparación. Hay un chat por reparación, no por mecánico ya que nos parece más oportuno.
+En la parte inferior el cliente puede ver el estado de las reparaciones solicitadas, junto con los servicios que se le están realizando. También puede iniciar un chat con el mecánico responsable de esa reparación. Hay un chat por reparación, no por mecánico ya que nos parece más oportuno, por lo que tambien se muestra información específica de esta reparacion, asi como una imagen del vehículo.
 
 ![Screenshot 2022-04-26 at 21 33 52](https://user-images.githubusercontent.com/46989089/165378097-17db3a3b-a60e-44c9-8859-dda15dd5670c.png)
 
