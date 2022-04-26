@@ -14,7 +14,7 @@ import lombok.ToString;
 @NamedQueries({
     @NamedQuery(name="Reparaciones.reparacionesAGestionar",
     query="SELECT r FROM Reparacion r "
-            + "WHERE (r.empleado = :mecanico OR r.estado = 'PENDIENTE') AND r.activo = TRUE"),
+            + "WHERE (r.estado = 'PENDIENTE') AND r.activo = TRUE"),
 
     @NamedQuery(name="Reparaciones.reparacionesAceptadas",
     query="SELECT r FROM Reparacion r "
@@ -36,7 +36,7 @@ public class Reparacion {
     @SequenceGenerator(name = "gen", sequenceName = "gen")
     private long id;
 
-    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO};
+    public enum ESTADO { ACEPTADO, PENDIENTE, RECHAZADO,FINALIZADO};
 
     // @ManyToOne
     // private User cliente;
@@ -64,7 +64,6 @@ public class Reparacion {
     
     private String descripcion;
     private boolean activo;
-
-    
+    private double total;
 
 }
