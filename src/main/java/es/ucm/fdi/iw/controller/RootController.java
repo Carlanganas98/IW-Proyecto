@@ -10,15 +10,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
 import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.TextoTaller;
+import es.ucm.fdi.iw.model.User;
 
 /**
  *  Non-authenticated requests only.
  */
+
+
+
+
 @Controller
 public class RootController {
+
+    @ResponseStatus(
+        value=HttpStatus.FORBIDDEN, 
+        reason="No eres administrador, y éste no es tu perfil")  // 403
+    public static class ReparacionSinPermisoException extends RuntimeException {}
 
 	private static final Logger log = LogManager.getLogger(RootController.class);
 
@@ -57,7 +69,12 @@ public class RootController {
         model.addAttribute("destination", (long)id); 
         Reparacion rep = entityManager.find(Reparacion.class, id);
         model.addAttribute("reparacion", rep);
-        return "chat";
+
+        if(  rep.getEmpleado() != null && ( (User)session.getAttribute("u") ).getId() == rep.getEmpleado().getId() || (  (User) session.getAttribute("u") ).getId() == rep.getVehiculo().getPropietario().getId() ){
+            return "chat";
+        }else{
+            throw new ReparacionSinPermisoException();
+        }
     }
 
    
