@@ -193,6 +193,8 @@ public class ClienteController {
                 "static/img/default-pic.jpg")));
     }
 
+
+
     /**
      * Downloads a profile pic for a user id
      * 
@@ -207,6 +209,7 @@ public class ClienteController {
             new FileInputStream(f) : ClienteController.defaultPic());
         return os -> FileCopyUtils.copy(in, os);
     }
+
 
     /**
      * Uploads a profile pic for a user id
@@ -352,7 +355,7 @@ public class ClienteController {
 
 	@PostMapping("/anyadirCoche")
     @Transactional
-    public String anyadirCoche(Model model, @RequestParam String matricula, 
+    public String anyadirCoche(Model model, @RequestParam MultipartFile foto, @RequestParam String matricula, 
 	@RequestParam String tipo, @RequestParam String modelo, HttpSession session){
 
 		Vehiculo v = new Vehiculo();
@@ -371,6 +374,22 @@ public class ClienteController {
 		entityManager.persist(v);
 		entityManager.flush();
 
+		long id = v.getId();
+		log.info("Updating photo for user {}", id);
+		File f = localData.getFile("vehicle", ""+id+".jpg");
+		if (foto.isEmpty()) {
+			log.info("failed to upload photo: emtpy file?");
+		} else {
+			try (BufferedOutputStream stream =
+					new BufferedOutputStream(new FileOutputStream(f))) {
+				byte[] bytes = foto.getBytes();
+				stream.write(bytes);
+                log.info("Uploaded photo for {} into {}!", id, f.getAbsolutePath());
+			} catch (Exception e) {
+                //response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				log.warn("Error uploading " + id + " ", e);
+			}
+		}	
         return reparacionesIndex(model, session);
     }
 
@@ -425,6 +444,7 @@ public class ClienteController {
 		
 		r.setFechaFin(dateTime);
 		r.setDescripcion(descripcion);
+		r.setActivo(true);
 
 		entityManager.persist(r);
 		entityManager.flush();

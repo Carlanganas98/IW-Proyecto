@@ -176,7 +176,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeAnyadir"></button>
                     </div>
                         <div class="modal-body">
-                            <form th:action="@{/cliente/anyadirCoche}" method="POST">
+                            <form th:action="@{/cliente/anyadirCoche}" method="POST" enctype="multipart/form-data">
                                 
                                     <h6><label>Introduzca la matricula del vehículo:</label> </h6> 
                                     <input type="text" name="matricula" id="matricula">
@@ -196,14 +196,16 @@
                                       </div>
                                     <h6>Introduzca el modelo del vehículo: </h6>
                                     <input type="text" name="modelo" id="modelo">
+
+                                    <h1 class="mt-4">Introduce la imagen del coche: </h1>
+                                    <input type="file" id="" name="foto" accept="image/jpeg,image/png, image/svg">
+
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary" id="anyadirVehiculo">Añadir</button>
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  id="closeAnyadir">Cerrar</button>
                                     </div>
 
-                                    <h1 class="mt-4">Introduce el nuevo logo: </h1>
-                                    <input type="file" id="" name="logo" accept="image/jpeg,image/png, image/svg">
-                                    <input type="submit" name="subir-imagen" value="Enviar imagen" />
+
     
     
                             </form>
