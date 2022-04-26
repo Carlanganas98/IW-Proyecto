@@ -320,6 +320,8 @@ public class EmpleadoController {
         reparaciones = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar",
          Reparacion.class).getResultList();
 
+         
+
 		model.addAttribute("reparacionesAGestionar", reparaciones);
 
 

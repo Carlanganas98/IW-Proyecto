@@ -1,5 +1,12 @@
 package es.ucm.fdi.iw.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
+
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
@@ -8,11 +15,14 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.springframework.http.HttpStatus;
 
+import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.model.Reparacion;
 import es.ucm.fdi.iw.model.TextoTaller;
 import es.ucm.fdi.iw.model.User;
@@ -34,8 +44,27 @@ public class RootController {
 
 	private static final Logger log = LogManager.getLogger(RootController.class);
 
+    
+	@Autowired
+    private LocalData localData;
+
     @Autowired
     private EntityManager entityManager;
+
+    private static InputStream defaultVehiclePic() {
+	    return new BufferedInputStream(Objects.requireNonNull(
+            ClienteController.class.getClassLoader().getResourceAsStream(
+                "static/img/default-vehicle-pic.jpg")));
+    }
+
+    @GetMapping("{id}/vehiclepic")
+    public StreamingResponseBody vehiclepic(@PathVariable long id) throws IOException {
+        File f = localData.getFile("vehicle", ""+id+".jpg");
+        InputStream in = new BufferedInputStream(f.exists() ?
+            new FileInputStream(f) : RootController.defaultVehiclePic());
+        return os -> FileCopyUtils.copy(in, os);
+    }
+
 
 	@GetMapping("/login")
     public String login(Model model) {

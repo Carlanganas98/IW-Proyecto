@@ -32,6 +32,10 @@
                             <div class="card-body scroll">
                                 <div class="flex-row p-3">  
     
+                                    <img th:src="@{/{id}/vehiclepic(id=${reparacion.id})}" style="
+                                        height: 200px;
+                                        width: 200px;
+                                       ">
                                     <h3>Problema: </h3><br>
                                     <div th:text="${reparacion.descripcion}"></div><br>
                                     <h3>Servicios: </h3><br>    
