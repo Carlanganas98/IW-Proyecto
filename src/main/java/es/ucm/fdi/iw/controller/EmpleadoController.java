@@ -417,7 +417,7 @@ public class EmpleadoController {
 
     @Transactional
      @PostMapping("/completarReparacion")
-     public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam int totalReparacion,@RequestParam String fechaFin, HttpSession session) throws JsonProcessingException {
+     public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam double totalReparacion,@RequestParam String fechaFin, HttpSession session) throws JsonProcessingException {
         log.info("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
          Reparacion rep = entityManager.find(Reparacion.class, idReparacion);

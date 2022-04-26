@@ -22,8 +22,8 @@ function fn() {
         //type: 'chrome',
         // descomentar para chromium bajo linux
         // executable: '/usr/bin/chromium-browser',
-        executable: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-        //executable: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        //executable: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
+        executable: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
         showDriverLog: true
     })
 
