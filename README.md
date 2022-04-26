@@ -76,4 +76,9 @@ En la parte inferior aparecen todas las reparaciones que han llegado al taller, 
 Una vez que un mecánico las acepta, pasan a la tabla superior y se le asignan a ese mecánico. 
 También se puede rechazar una reparación, por ser inviable y no le aparecerá a ningún mecánico.  Tenemos pensado seguir añadiendo funcionalidad a esta vista, haciendo que cuando una reparación es rechazada, se le indique al cliente el porqué de ese rechazo.
 
+# TESTS
+
+Para finalizar, destacar que se ha realizado una prueba externa con Karate. Se prueba a añadir un nuevo vehiculo como usuario registrado y se valida posteriormente que los datos del vehiculo añadido son los correctos.
+
+
 
