@@ -407,11 +407,9 @@ public class EmpleadoController {
         messagingTemplate.convertAndSend("/user/"+serv.getReparacion().getVehiculo().getPropietario().getUsername()+"/queue/updates", json);
         serv.setFinalizado(!serv.isFinalizado());
 
-        Reparacion rep = entityManager.find(Reparacion.class, serv.getReparacion());
-
-        double acum = rep.getTotal() + serv.getPrecio();
-        
-        rep.setTotal(acum);
+        // Reparacion rep = entityManager.find(Reparacion.class, serv.getReparacion().getId());
+        // double acum = rep.getTotal() + serv.getPrecio();
+        // rep.setTotal(acum);
 
         return "";
     }
