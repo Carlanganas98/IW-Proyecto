@@ -78,7 +78,7 @@ También se puede rechazar una reparación, por ser inviable y no le aparecerá 
 
 # TESTS
 
-Para finalizar, destacar que se ha realizado una prueba externa con Karate. Se prueba a añadir un nuevo vehiculo como usuario registrado y se valida posteriormente que los datos del vehiculo añadido son los correctos.
+Para finalizar, destacar que se ha realizado una prueba externa con Karate. Se prueba a añadir un nuevo vehiculo como usuario registrado CLIENTE y se valida posteriormente que los datos del vehiculo añadido son los correctos.
 
 
 
