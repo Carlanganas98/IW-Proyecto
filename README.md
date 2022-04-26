@@ -1,80 +1,79 @@
-# DataCar --> Entrega 3
+# DataCar 
 
-Esta aplicación será usada internamente por un taller para gestionar las reparaciones de sus clientes.
-Habrá 3 tipos de usuarios, el admin, el trabajador del taller y el cliente.
-Cada cliente tendrá acceso a una página donde verá sus vehículos y podrá chatear con el taller. Así mismo también podrá ver el estado de sus reparaciones.
-Los trabajadores podrán chatear con los clientes y marcar los servicios de una reparación como completados.
+La finalidad de esta aplicación es ser usada internamente por los usuarios y trabajadores de un taller de vehículos.
+Habrá 3 tipos de usuarios, el administrador, el trabajador del taller y el cliente del taller.
+
+A continuación se explica la funcionalidad que puede realizar cada uno de los usuarios.
+ 
 También se ha añadido una prueba en src/test llamada anyadirCoche.feature que realiza un test de añadir el coche.
 
+# ------------ Funcionalidad común a todos los usuarios ------------
 
------------------- TODOS LOS USUARIOS ---------------------
+### Página de inicio 
+Es la página que aparece por defecto cuando entras. Contiene información sobre el funcionamiento de la misma. Además esta página puede ser modificada por los usuarios administradores y permite el uso MarkDown.
 
-### [inicio](http://localhost:8080/) 
-Es la página que aparece por defecto cuando entras. Contiene información sobre el funcionamiento de la misma.
+### Página de perfil de usuario
+Se puede acceder a ella estando loggeado como cliente y como trabajador. Se accede pulsando en el icono de arriba a la derecha. Esta página varía en función del rol y contiene información básica sobre la persona registrada en ese momento.
 
-### [login](http://localhost:8080/login)
-Un usuario de cualquier tipo (administrador, cliente o trabajador del taller) iniciará sesión introduciendo su correo y su contraseña.
+# ------------ FUNCIONALIDADES DEL ADMINISTRADOR ------------
 
-### [Formulario de registro](http://localhost:8080/registro)
-Un usuario de cualquier tipo (administrador, cliente o trabajador del taller) se registrará introduciendo su correo y una contraseña cualquiera.
+### Página del panel de administración
+Desde esta página, el administrador podrá observar y modificar los datos de los usuarios, tanto de los trabajadores (rol empleado) como de los los clientes (rol cliente). También podrá eliminar cualquiera de ellos si se desea.
 
-### [Perfil de usuario](http://localhost:8080/profile)
-En esta página se podrán ver y modificar los datos propios de cada usuario. En caso de ser un cliente, podrá ver un listado de sus coches en propiedad.
-
-
------------------- ADMINISTRADOR ---------------------
-
-### [admin](http://localhost:8080/admin/)           
-En esta página el administrador podrá gestionar a los trabajadores y a los clientes, añadiendo, eliminando o editando datos de estos manualmente cuando sea necesario.
-
-### [editarInicio](http://localhost:8080/admin/editarInicio)
-En esta página el adimistrador puede editar la pantalla de incio del taller.De momento sólo deja cambiar una fras de momento.
-
-### [Gestión del taller](http://localhost:8080/taller)
-En esta vista se va a poder gestionar todo lo relacionado con los servicios del taller, notificar al usuario de servicios finalizados, asignar trabajadores, iniciar chats con usuarios.
+### Página de editar pantalla de inicio
+Desde esta página el administrador podrá modificar la información que se muestra nada más lanzar la aplicacion, es decir la informacion que todo usuario (hasta los no registrados) puede visualizar. Además los campos de texto soportan MarkDOwn gracias a la librería https://github.com/commonmark/commonmark-java. 
+El cambio de la imágen de perfil todavía no funciona (lo conseguiremos en los próximos días :) ).
 
 
------------------- CLIENTE ---------------------
+# ------------ FUNCIONALIDADES DEL USUARIO CLIENTE ------------
 
-### [Mis vehículos](http://localhost:8080/misVehiculos)
-En esta página el usuario podrá ver que vehículos tiene registrados en la página, podrá seleccionar cualquiera de ellos para ver su información relevante (redirige a vehiculoDetallado).
+El usuario cliente tiene una única vista desde donde realizará todas las operaciones. Hemos creído que era lo más conveniente para facilitar la experiencia de usuario. Se debe pulsar en el link del nav para acceder, ya que inicialmente sale la página del perfil de usuario.
 
-### [Vehículo detallado](http://localhost:8080/vehiculoDetallado)
-En esta página se muestra toda la información relevante acerca del vehículo seleccionado, como la marca, el modelo, ITV, año de fabricación, matrícula, foto del vehículo y el historial de reparaciones.
+![Screenshot 2022-04-26 at 21 32 01](https://user-images.githubusercontent.com/46989089/165377833-c27a2db8-b138-4762-bf7d-9244f46b859c.png)
 
-### [Formulario de reparación](http://localhost:8080/reparaciones)
-En esta página se van a rellenar los formularios de la reparación asignando los campos necesarios. Después se mostrará tanto en la vista taller como en la del propio usuario que reparaciones se están y se han realizado.
 
-### [Reparaciones en curso](http://localhost:8080/reparacionesEnCursoCliente)
-En esta página se van a ver todas las reparaciones asignadas al cliente.Esta vista se modificará llevándola a la página de reparaciones.
+En la parte superior, donde la Lista de Vehículos, aparecen los vehículos que el usuario ya añadió, además puede añadir nuevos vehículos pulsando en el botón verde del +.
+Desde esta tabla también puede observar en detalle un vehículo, editar sus atributos, eliminarlo y solicitar una reparación. 
+Al solicitar una reparación debe poner una fecha en la que puede dejar el vehículo en el taller e indicar brevemente qué le ocurre.
+
+En la parte inferior el cliente puede ver el estado de las reparaciones solicitadas, junto con los servicios que se le están realizando. También puede iniciar un chat con el mecánico responsable de esa reparación. Hay un chat por reparación, no por mecánico ya que nos parece más oportuno.
+
+![Screenshot 2022-04-26 at 21 33 52](https://user-images.githubusercontent.com/46989089/165378097-17db3a3b-a60e-44c9-8859-dda15dd5670c.png)
+
+
+Si el usario no se encuentra en el chat, se le comunicara el mensaje via toast
+
+Abajo a la izq esta el toast.
+
+![Screenshot 2022-04-26 at 21 34 31](https://user-images.githubusercontent.com/46989089/165378185-a27e1324-016c-483d-8cb6-ab8f087581fd.png)
 
 
 
------------------- EMPLEADO ---------------------
+Además cuando un servicio se marca como completado, se le emite una notificación vía toast al cliente (solo si el cliente se encuentra fuera del chat).
 
-### [Gestionar reparaciones](http://localhost:8080/user/gestionarReparaciones)
-El mecánico dispone de un listado de todas las reparaciones que están disponibles, y él puede decidir si aceptar la reparación, por el contrario, rechazarla, si por ejemplo no dispone de tiempo suficiente para llevar a cabo la reparación antes de la fecha establecida por el cliente.
-
-
------------------- CLIENTE Y EMPLEADO ---------------------
-
-### [chat](http://localhost:8080/chat/{ID_DESTINATARIO})          
-En esta página podrán chatear 2 usuarios entre sí. Por ejemplo, un trabajador del taller con un cliente. Próximamente aparecerá la imágen de cada usuario, así como su nombre de perfil. También se verá si un mensaje ha sido leído o no.
+![Screenshot 2022-04-26 at 21 37 23](https://user-images.githubusercontent.com/46989089/165378768-41427b40-1bea-46d7-991e-45c217c5c2b7.png)
 
 
+Tambien cuando una reparacion es finalizada , se le emite una notificación vía toast al cliente (solo si el cliente se encuentra fuera del chat).
 
-### -------------- NUEVOS CAMBIOS -------------------------
+![Screenshot 2022-04-26 at 21 37 41](https://user-images.githubusercontent.com/46989089/165378815-9914d4ac-e6c6-428a-b263-3d5d0031862e.png)
 
 
--------------------- EMPLEADO ----------------------------
+Para probar el chat y las notificaciones, recomendamos abrir 2 navegadores distintos, uno con el rol de cliente y otro con el rol de empleado vía los botones de debug.
 
-Vista gestionarReparaciones.html:
-    - Si se acepta o rechaza una reparación, y se quiere deshacer esta acción, ahora se puede ya que se ha añadido un botón para volver a poner la reparación en estado pendiente.
-    - Al aceptar una reparación, ahora aparece un formulario que permite añadir todos los servicios que se deseen (con un botón hecho con ajax).
-    
--------------------- GENERAL ----------------------------
+# ------------ FUNCIONALIDADES DEL USUARIO EMPLEADO ------------
 
-Vista chat.html:
-    -Ya funcionan. Para hacer la prueba se tiene que entrar en /chat/{id_destinatario}. Recordar que el cliente debug tiene id 2 y el empleado debug tiene id 4. 
-    -La peticion de los mensajes del chat, asi como enviar un mensaje se hace con ajax. Una vez el servidor recibe el mensaje, notifica al destinatario a través de websockets. 
+
+El usuario empleado tiene una única vista desde donde realizará todas las operaciones. Hemos creído que era lo más conveniente para facilitar el uso de la web por los empleados del taller. Se debe pulsar en el link del nav para acceder, ya que inicialmente sale la página del perfil de usuario.
+
+![Screenshot 2022-04-26 at 21 38 34](https://user-images.githubusercontent.com/46989089/165378967-552e96eb-cf16-434b-812f-9ed66fc91e7d.png)
+
+
+En la parte superior están las reparaciones que ese empleado ha aceptado y está llevando a cabo. A estas reparaciones se le pueden añadir servicios, marcalos como completados (con la notificación al usuario correspondiente) y marcar como finalizada la reparación (con la notificación al usuario correspondiente). También se puede iniciar un chat con el cliente en caso de ser necesario.
+
+
+En la parte inferior aparecen todas las reparaciones que han llegado al taller, pero que no han sido aceptadas por ningún mecánico. 
+Una vez que un mecánico las acepta, pasan a la tabla superior y se le asignan a ese mecánico. 
+También se puede rechazar una reparación, por ser inviable y no le aparecerá a ningún mecánico.  Tenemos pensado seguir añadiendo funcionalidad a esta vista, haciendo que cuando una reparación es rechazada, se le indique al cliente el porqué de ese rechazo.
+
 
