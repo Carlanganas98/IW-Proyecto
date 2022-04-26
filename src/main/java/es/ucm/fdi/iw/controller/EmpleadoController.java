@@ -317,8 +317,8 @@ public class EmpleadoController {
 		User empleado = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
         List<Reparacion> reparaciones = null;
 
-        reparaciones = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar", Reparacion.class).
-            setParameter("mecanico", empleado).getResultList();
+        reparaciones = entityManager.createNamedQuery("Reparaciones.reparacionesAGestionar",
+         Reparacion.class).getResultList();
 
 		model.addAttribute("reparacionesAGestionar", reparaciones);
 
@@ -338,12 +338,21 @@ public class EmpleadoController {
 
 	@Transactional
     @PostMapping("/aceptarReparacion")
-    public String solicitudesReparacionAceptar(Model model, @RequestParam long idReparacion, HttpSession session, @RequestParam(required=false) List<String> info, @RequestParam(required=false) List<Double> precio)
+    public String solicitudesReparacionAceptar(Model model, @RequestParam long idReparacion, HttpSession session)
     {
         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
         Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
         rep.setEstado(ESTADO.ACEPTADO);
         rep.setEmpleado(u);
+
+        return gestionarReparaciones(model, session);
+    }
+
+    @Transactional
+    @PostMapping("/anyadirServicios")
+    public String anyadirServicios(Model model, @RequestParam long idReparacion, HttpSession session, @RequestParam(required=false) List<String> info, @RequestParam(required=false) List<Double> precio)
+    {
+        Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
 
         if (info != null)
         {
@@ -378,19 +387,6 @@ public class EmpleadoController {
          return gestionarReparaciones(model, session);
      }
 
-    @Transactional
-    @PostMapping("/reparacionPendiente")
-    public String solicitudesReparacionPendiente(Model model, @RequestParam long idReparacion, HttpSession session)
-    {
-        User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
-        Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
-        rep.setEstado(ESTADO.PENDIENTE);
-        rep.setEmpleado(u);
-
-        return gestionarReparaciones(model, session);
-    }
-
-
     @PostMapping(path = "/finalizacionServicio/{idServicio}")
     @Transactional // para no recibir resultados inconsistentes
 	@ResponseBody  // para indicar que no devuelve vista, sino un objeto (jsonizado)
@@ -411,6 +407,10 @@ public class EmpleadoController {
         messagingTemplate.convertAndSend("/user/"+serv.getReparacion().getVehiculo().getPropietario().getUsername()+"/queue/updates", json);
         serv.setFinalizado(!serv.isFinalizado());
 
+        // Reparacion rep = entityManager.find(Reparacion.class, serv.getReparacion().getId());
+        // double acum = rep.getTotal() + serv.getPrecio();
+        // rep.setTotal(acum);
+
         return "";
     }
 
@@ -419,7 +419,6 @@ public class EmpleadoController {
      @PostMapping("/completarReparacion")
      public String completarReparacion(Model model, @RequestParam long idReparacion,@RequestParam int totalReparacion,@RequestParam String fechaFin, HttpSession session) {
 
-         User u = entityManager.find(User.class, ((User)session.getAttribute("u")).getId());
          Reparacion rep = entityManager.find(Reparacion.class, idReparacion);
 
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

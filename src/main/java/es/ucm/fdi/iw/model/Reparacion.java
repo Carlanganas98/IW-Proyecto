@@ -14,7 +14,7 @@ import lombok.ToString;
 @NamedQueries({
     @NamedQuery(name="Reparaciones.reparacionesAGestionar",
     query="SELECT r FROM Reparacion r "
-            + "WHERE (r.empleado = :mecanico OR r.estado = 'PENDIENTE') AND r.activo = TRUE"),
+            + "WHERE (r.estado = 'PENDIENTE') AND r.activo = TRUE"),
 
     @NamedQuery(name="Reparaciones.reparacionesAceptadas",
     query="SELECT r FROM Reparacion r "
@@ -64,8 +64,6 @@ public class Reparacion {
     
     private String descripcion;
     private boolean activo;
-
-  
-    private int total;
+    private double total;
 
 }
