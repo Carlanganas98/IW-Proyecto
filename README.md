@@ -7,7 +7,7 @@ A continuación se explica la funcionalidad que puede realizar cada uno de los u
  
 También se ha añadido una prueba en src/test llamada anyadirCoche.feature que realiza un test de añadir el coche.
 
-# ------------ Funcionalidad común a todos los usuarios ------------
+# ------------ FUNCIONALIDAD COMUN A TODOS LOS USUARIOS 
 
 ### Página de inicio 
 Es la página que aparece por defecto cuando entras. Contiene información sobre el funcionamiento de la misma. Además esta página puede ser modificada por los usuarios administradores y permite el uso MarkDown.
@@ -15,7 +15,7 @@ Es la página que aparece por defecto cuando entras. Contiene información sobre
 ### Página de perfil de usuario
 Se puede acceder a ella estando loggeado como cliente y como trabajador. Se accede pulsando en el icono de arriba a la derecha. Esta página varía en función del rol y contiene información básica sobre la persona registrada en ese momento.
 
-# ------------ FUNCIONALIDADES DEL ADMINISTRADOR ------------
+# ------------ FUNCIONALIDADES DEL ADMINISTRADOR 
 
 ### Página del panel de administración
 Desde esta página, el administrador podrá observar y modificar los datos de los usuarios, tanto de los trabajadores (rol empleado) como de los los clientes (rol cliente). También podrá eliminar cualquiera de ellos si se desea.
@@ -25,7 +25,7 @@ Desde esta página el administrador podrá modificar la información que se mues
 El cambio de la imágen de perfil todavía no funciona (lo conseguiremos en los próximos días :) ).
 
 
-# ------------ FUNCIONALIDADES DEL USUARIO CLIENTE ------------
+# ------------ FUNCIONALIDADES DEL USUARIO CLIENTE 
 
 El usuario cliente tiene una única vista desde donde realizará todas las operaciones. Hemos creído que era lo más conveniente para facilitar la experiencia de usuario. Se debe pulsar en el link del nav para acceder, ya que inicialmente sale la página del perfil de usuario.
 
@@ -61,7 +61,7 @@ Tambien cuando una reparacion es finalizada , se le emite una notificación vía
 
 Para probar el chat y las notificaciones, recomendamos abrir 2 navegadores distintos, uno con el rol de cliente y otro con el rol de empleado vía los botones de debug.
 
-# ------------ FUNCIONALIDADES DEL USUARIO EMPLEADO ------------
+# ------------ FUNCIONALIDADES DEL USUARIO EMPLEADO 
 
 
 El usuario empleado tiene una única vista desde donde realizará todas las operaciones. Hemos creído que era lo más conveniente para facilitar el uso de la web por los empleados del taller. Se debe pulsar en el link del nav para acceder, ya que inicialmente sale la página del perfil de usuario.
