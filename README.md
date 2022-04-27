@@ -38,16 +38,13 @@ Al solicitar una reparación debe poner una fecha en la que puede dejar el vehí
 
 En la parte inferior el cliente puede ver el estado de las reparaciones solicitadas, junto con los servicios que se le están realizando. También puede iniciar un chat con el mecánico responsable de esa reparación. Hay un chat por reparación, no por mecánico ya que nos parece más oportuno, por lo que tambien se muestra información específica de esta reparacion, asi como una imagen del vehículo.
 
-![Screenshot 2022-04-26 at 21 33 52](https://user-images.githubusercontent.com/46989089/165378097-17db3a3b-a60e-44c9-8859-dda15dd5670c.png)
-
+![Screenshot 2022-04-27 at 06 45 33](https://user-images.githubusercontent.com/46989089/165442491-dc547924-eaba-4fd9-92c4-ebd3918996af.png)
 
 Si el usario no se encuentra en el chat, se le comunicara el mensaje via toast
 
 Abajo a la izq esta el toast.
 
-![Screenshot 2022-04-26 at 21 34 31](https://user-images.githubusercontent.com/46989089/165378185-a27e1324-016c-483d-8cb6-ab8f087581fd.png)
-
-
+![Screenshot 2022-04-27 at 06 46 16](https://user-images.githubusercontent.com/46989089/165442564-7970807d-7847-403c-9718-e848d4913431.png)
 
 Además cuando un servicio se marca como completado, se le emite una notificación vía toast al cliente (solo si el cliente se encuentra fuera del chat).
 
