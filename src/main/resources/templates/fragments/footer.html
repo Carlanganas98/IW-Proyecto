@@ -19,7 +19,7 @@
                 </div>
                 <div class="toast-body" id="toast-text">
                     none
-                    </div>
+                </div>
             </div>
         </div>
 
@@ -37,10 +37,15 @@
             function renderMsg(msg) {
                 console.log("rendering: ", msg);
                 
-                return `<div class="d-flex flex-row p-3">`+ msg.from + `: <div class="chat ml-2 p-3">`
-                     + msg.text + 
-                     `</div>
-                            </div>`;
+                return `<div class="d-flex flex-row p-3">`+ 
+                            msg.from + 
+                            `:<div class="chat ml-2 p-3">`
+                                + msg.text +
+                                `<div class="chat thumbnail"> Enviado: `
+                                    + msg.sent +
+                                `</div> 
+                            </div> 
+                        </div>`;
             }
 
             function sendMessage(id){
@@ -66,7 +71,11 @@
             }
 
             function createToast(msg){
-                document.getElementById("toast-text").innerHTML = msg;
+                let mensajeToast =
+                                msg.text +
+                                `<p></p><a href="/chat/` + msg.idRepa + `">Pulsa aqui</a>`;
+
+                document.getElementById("toast-text").innerHTML = mensajeToast;
                 myToast.show();
             }
 
@@ -78,7 +87,7 @@
 
 
         <script>
-                ws.receive = (txt) => {createToast(txt.text)};
+                ws.receive = (txt) => {createToast(txt)};
         </script>
         
     </footer>
