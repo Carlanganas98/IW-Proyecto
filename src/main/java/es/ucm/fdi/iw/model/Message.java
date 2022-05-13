@@ -48,6 +48,7 @@ public class Message implements Transferable<Message.Transfer> {
 	private User recipient;
 
 	private String idRepa;
+	private String vehiculo;
 
 	@ManyToOne
 	private Reparacion topic;
@@ -68,6 +69,7 @@ public class Message implements Transferable<Message.Transfer> {
 		private String to;
 		private String sent;
 		private String idRepa;
+		private String vehiculo;
 		private String received;
 		private String text;
 		long id;
@@ -76,6 +78,7 @@ public class Message implements Transferable<Message.Transfer> {
 			this.to = m.getRecipient().getUsername();
 			this.sent = DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(m.getDateSent());
 			this.idRepa = m.getIdRepa();
+			this.vehiculo = m.getVehiculo();
 			this.received = m.getDateRead() == null ?
 					null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(m.getDateRead());
 			this.text = m.getText();
@@ -88,6 +91,7 @@ public class Message implements Transferable<Message.Transfer> {
 		return new Transfer(sender.getUsername(), recipient.getUsername(), 
 			DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateSent),
 			idRepa,
+			vehiculo,
 			dateRead == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateRead),
 			text, id
         );

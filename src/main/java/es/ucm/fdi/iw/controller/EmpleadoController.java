@@ -397,7 +397,7 @@ public class EmpleadoController {
         Servicio serv = entityManager.find(Servicio.class, idServicio);
 
         ObjectMapper mapper = new ObjectMapper();
-        Transfer t = new Transfer("Sistema", "", "", "", "", "Se ha finalizado el servicio "
+        Transfer t = new Transfer("Sistema", "", "", "", "", "", "Se ha finalizado el servicio "
          + serv.getInfo()
          + " de tu vehiculo "
          + serv.getReparacion().getVehiculo().getModelo() + ": " + serv.getReparacion().getVehiculo().getMatricula(), 0);
@@ -432,7 +432,7 @@ public class EmpleadoController {
 		
 		 rep.setFechaFin(dateTime);
          ObjectMapper mapper = new ObjectMapper();
-         Transfer t = new Transfer("Sistema", "", "", "", "", "Se ha finalizado la reparacion "
+         Transfer t = new Transfer("Sistema", "", "", "", "", "", "Se ha finalizado la reparacion "
           + rep.getDescripcion()
           + " de tu vehiculo "
           + rep.getVehiculo().getModelo() + ": " + rep.getVehiculo().getMatricula(), 0);

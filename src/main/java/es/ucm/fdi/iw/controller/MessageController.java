@@ -152,6 +152,7 @@ public class MessageController {
 		m.setText(text);
 		m.setTopic(reparacion);
 		m.setIdRepa("" + idReparacion);
+		m.setVehiculo(reparacion.getVehiculo().getModelo());
 		entityManager.persist(m);
 		entityManager.flush(); // to get Id before commit
 		
@@ -173,7 +174,7 @@ public class MessageController {
 		throws JsonProcessingException {
 
 		ObjectMapper mapper = new ObjectMapper();
-		Transfer t = new Transfer("Sistema", "", "", "","", "Se ha recibido una nueva solicitud de reparacion", 0);
+		Transfer t = new Transfer("Sistema", "", "", "","", "", "Se ha recibido una nueva solicitud de reparacion", 0);
 		String json = mapper.writeValueAsString(t);
 	
 		log.info("Broadcasting to empleados");

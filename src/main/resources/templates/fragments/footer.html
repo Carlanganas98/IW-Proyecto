@@ -42,7 +42,7 @@
                             `:<div class="chat ml-2 p-3">`
                                 + msg.text +
                                 `<div class="chat thumbnail" style="color:#A9A9A9"> Enviado: `
-                                    + msg.sent.substring(0, 16).replace('T', ' ') +
+                                    + msg.sent.substring(0, 16).replaceAll('-', '/').replace('T', ' - ') +
                                 `</div> 
                             </div> 
                         </div>`;
@@ -73,7 +73,7 @@
             function createToast(msg){
                 let mensajeToast =
                                 msg.text +
-                                `<p></p><a href="/chat/` + msg.idRepa + `">Pulsa aqui</a>`;
+                                `<p></p><a href="/chat/` + msg.idRepa + `">Reparación de ` + msg.vehiculo +  `</a>`;
 
                 document.getElementById("toast-text").innerHTML = mensajeToast;
                 myToast.show();
