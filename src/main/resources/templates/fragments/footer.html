@@ -41,8 +41,8 @@
                             msg.from + 
                             `:<div class="chat ml-2 p-3">`
                                 + msg.text +
-                                `<div class="chat thumbnail"> Enviado: `
-                                    + msg.sent +
+                                `<div class="chat thumbnail" style="color:#A9A9A9"> Enviado: `
+                                    + msg.sent.substring(0, 16).replace('T', ' ') +
                                 `</div> 
                             </div> 
                         </div>`;
