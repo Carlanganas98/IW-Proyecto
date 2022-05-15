@@ -11,31 +11,28 @@ Feature: anyadir coche
 #    Then match html('.flash-error') contains 'Incorrect username or password.'
 #
 
-  @login_b
-  Scenario: login correcto como b
-    Given driver baseUrl + '/login'
-    And input('#username', 'b')
-    And input('#password', 'aa')
-    When submit().click(".form-signin button")
-    Then waitForUrl(baseUrl + '/cliente/2')
+  Background: 
+    # login del cliente 'b'
+    * call read('login.feature@login_b')
+    # login completado, ahora tengo que ir a la página donde se encuentra el menú principal
     Then click("a[id=rep]")
     And match html('title') contains 'IW: Menú principal'
-    * delay(1000)
-    Then click("button[id=AnyVehi]")
-    * delay(1000)
+    * delay(2000)
+
+  @add_car
+  Scenario: anyadir coche
+    * click("button[id=AnyVehi]")
+    * delay(2000)
     And input('#matricula', '3456W')
-    * delay(1000)
     Then click("input[id=coche]")
-    * delay(1000)
     And input('#modelo', 'Opel corsa')
-    * delay(1000)
+    * delay(2000)
     Then click("button[id=anyadirVehiculo]")
-    * delay(1000)
+    * delay(2000)
     Then match html('#Modelo3456W') contains 'Opel corsa'
-    * delay(1000)
+    * delay(2000)
     Then click("button[id=AnyVehi]")
-    * delay(1000)
+    * delay(2000)
     Then click("button[id=closeAnyadir]")
-    * delay(1000)
     And driver.screenshot()
-    * delay(1000)
+    * delay(2000)

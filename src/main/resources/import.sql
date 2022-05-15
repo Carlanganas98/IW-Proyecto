@@ -50,7 +50,7 @@ INSERT INTO "REPARACION" VALUES
 (4, TRUE,'Cambio chapa', 'PENDIENTE', '2022-04-01', '2022-05-05',500, NULL, 2),
 (5, TRUE,'No arranca', 'ACEPTADO', NULL, '2022-05-05',900, 4, 1),
 (6, TRUE,'Cambio de llantas', 'ACEPTADO', NULL, '2022-05-05',265, NULL, 4),
-(7, TRUE, 'Pintura', 'ACEPTADO', '2022-04-01', '2022-03-31 20:00:00',40, NULL, 5);
+(7, TRUE, 'Pintura', 'ACEPTADO', '2022-04-01', '2022-03-31 20:00:00',40, NULL, 5),
 (8, TRUE,'Actualizacion de GPS', 'PENDIENTE', NULL, '2022-05-05',30, NULL, 1),
 (9, TRUE,'Puesta a punto', 'PENDIENTE', '2022-04-09', '2022-04-15',90, NULL, 2),
 (10, TRUE,'Cambio de aceite', 'PENDIENTE', '2022-04-09', '2022-04-09',60, NULL, 2);
@@ -60,4 +60,9 @@ insert into servicio values
 (2, FALSE, 'motor', 5, 250, 1),
 (3, TRUE, 'aceite', 1, 40, 1),
 (4, FALSE, 'frenos', 2, 70, 5),
-(5, TRUE, 'espejo retrovisor', 5, 250, 5);
+(5, TRUE, 'espejo retrovisor', 5, 250, 5),
+(6, FALSE, 'chapa', 9, 1000, 6),
+(7, FALSE, 'pintura', 4, 500, 6),
+(8, TRUE, 'liquido de frenos', 1, 40, 7),
+(9, FALSE, 'cambio de ruedas', 1, 80, 5),
+(10, FALSE, 'cambio de llantas', 1, 60, 7);

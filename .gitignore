@@ -29,4 +29,6 @@
 hs_err_pid*
 target/**
 *.gz
+
+# Configuración para tests
 src/test/java/karate-config.js
