@@ -365,6 +365,7 @@ public class EmpleadoController {
                 s.setPrecio(precio.get(i));
                 s.setFinalizado(false);
                 s.setReparacion(rep);
+                rep.setTotal(rep.getTotal() + s.getPrecio());
 
                 entityManager.persist(s);
                 entityManager.flush();
@@ -405,13 +406,10 @@ public class EmpleadoController {
 
         json = mapper.writeValueAsString(t);
 
-   
+        
         messagingTemplate.convertAndSend("/user/"+serv.getReparacion().getVehiculo().getPropietario().getUsername()+"/queue/updates", json);
         serv.setFinalizado(!serv.isFinalizado());
 
-        // Reparacion rep = entityManager.find(Reparacion.class, serv.getReparacion().getId());
-        // double acum = rep.getTotal() + serv.getPrecio();
-        // rep.setTotal(acum);
 
         return "";
     }

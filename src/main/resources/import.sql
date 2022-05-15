@@ -30,7 +30,7 @@ INSERT INTO Vehiculo (id, activo, matricula, tipo, modelo, anyo, propietario_id)
 (4, TRUE, '0725JRD', 'MOTO', 'Yamaha FZ 9', 2010, 9),
 (5, TRUE, '4599IJK', 'MOTO', 'Mitsubhisi', 2008, 8),
 (6, TRUE, '7925LQE', 'COCHE', 'Ferrari enzo', 2005, 9),
-(7, TRUE, '2569STE', 'COCHE', 'Toyota prius', 20010, 3),
+(7, TRUE, '2569STE', 'COCHE', 'Toyota prius', 2010, 3),
 (8, TRUE, '4322MKI', 'MOTO', 'Suzuki e99', 2009, 2),
 (9, TRUE, '9214SWQ', 'COCHE', 'Ford focus', 2003, 5),
 (10, TRUE, '5678HSM', 'COCHE', 'Wolswagen golf', 2022, 9);
@@ -44,16 +44,16 @@ INSERT INTO "TEXTO_TALLER" VALUES (1, '', '<h1>DataCar</h1>
 -- (1, 'PENDIENTE', '2022-03-22 16:00:00', '2022-03-31 20:00:00', '4', '1');
 
 INSERT INTO "REPARACION" VALUES 
-(1, TRUE,'Hace un ruido muy raro', 'ACEPTADO', NULL, '2022-05-05',100, 4, 1),
-(2, TRUE,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05',250, NULL, 2),
+(1, TRUE,'Hace un ruido muy raro', 'ACEPTADO', NULL, '2022-05-05',390, 4, 1),
+(2, TRUE,'Parabrisas roto', 'PENDIENTE', NULL, '2022-05-05',0, NULL, 2),
 (3, TRUE, 'Rueda pinchada', 'PENDIENTE', '2022-04-01', '2022-03-31 20:00:00',0, NULL, 1),
-(4, TRUE,'Cambio chapa', 'PENDIENTE', '2022-04-01', '2022-05-05',500, NULL, 2),
-(5, TRUE,'No arranca', 'ACEPTADO', NULL, '2022-05-05',900, 4, 1),
-(6, TRUE,'Cambio de llantas', 'ACEPTADO', NULL, '2022-05-05',265, NULL, 4),
-(7, TRUE, 'Pintura', 'ACEPTADO', '2022-04-01', '2022-03-31 20:00:00',40, NULL, 5),
-(8, TRUE,'Actualizacion de GPS', 'PENDIENTE', NULL, '2022-05-05',30, NULL, 1),
-(9, TRUE,'Puesta a punto', 'PENDIENTE', '2022-04-09', '2022-04-15',90, NULL, 2),
-(10, TRUE,'Cambio de aceite', 'PENDIENTE', '2022-04-09', '2022-04-09',60, NULL, 2);
+(4, TRUE,'Cambio chapa', 'PENDIENTE', '2022-04-01', '2022-05-05',0, NULL, 2),
+(5, TRUE,'No arranca', 'ACEPTADO', NULL, '2022-05-05',400, 4, 1),
+(6, TRUE,'Cambio de llantas', 'ACEPTADO', NULL, '2022-05-05',1500, 3, 4),
+(7, TRUE, 'Pintura', 'ACEPTADO', '2022-04-01', '2022-03-31 20:00:00',100, 3, 5),
+(8, TRUE,'Actualizacion de GPS', 'PENDIENTE', NULL, '2022-05-05',0, NULL, 1),
+(9, TRUE,'Puesta a punto', 'PENDIENTE', '2022-04-09', '2022-04-15',0, NULL, 2),
+(10, TRUE,'Cambio de aceite', 'PENDIENTE', '2022-04-09', '2022-04-09',0, NULL, 2);
 
 insert into servicio values
 (1, TRUE, 'condensador', 2, 100, 1),
