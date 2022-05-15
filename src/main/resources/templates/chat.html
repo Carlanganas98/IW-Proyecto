@@ -71,7 +71,7 @@
                                         <input id="messageBar" type="text" class="form-control">
                                     </div>
                                     <div class="chat-txt ml-auto m-3" style="width: 10%; height:100%;">
-                                        <button class="btn btn-primary" th:onclick="'javascript:sendMessage(' + ${destination} + ');'">Enviar</button>
+                                        <button id="sendMessage" class="btn btn-primary" th:onclick="'javascript:sendMessage(' + ${destination} + ');'">Enviar</button>
                                     </div>
                                 </div>
                             </footer>

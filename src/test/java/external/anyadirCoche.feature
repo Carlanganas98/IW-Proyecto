@@ -14,25 +14,24 @@ Feature: anyadir coche
   Background: 
     # login del cliente 'b'
     * call read('login.feature@login_b')
-    # login completado, ahora tengo que ir a la página donde se encuentra el menú principal
+    # login completado, ahora pulso el link del header 'Menu Principal - REPARACIONES' para ir a la página donde se encuentra el menú principal
     Then click("a[id=rep]")
     And match html('title') contains 'IW: Menú principal'
     * delay(2000)
 
   @add_car
   Scenario: anyadir coche
+    # Pulso el botón verde con un '+' que se encuentra en 'Lista de vehiculos'
     * click("button[id=AnyVehi]")
     * delay(2000)
+    # Completo los campos
     And input('#matricula', '3456W')
     Then click("input[id=coche]")
     And input('#modelo', 'Opel corsa')
     * delay(2000)
+    # Pulso el botón 'Añadir'
     Then click("button[id=anyadirVehiculo]")
     * delay(2000)
     Then match html('#Modelo3456W') contains 'Opel corsa'
-    * delay(2000)
-    Then click("button[id=AnyVehi]")
-    * delay(2000)
-    Then click("button[id=closeAnyadir]")
     And driver.screenshot()
     * delay(2000)

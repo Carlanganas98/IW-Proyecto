@@ -15,14 +15,14 @@ class ExternalRunner {
   //  return Karate.run("login").relativeTo(getClass());
   // }
 
-  // @Karate.Test
-  // Karate tesAddCar() {
-  //     return Karate.run("anyadirCoche").relativeTo(getClass());
-  // }
-
   @Karate.Test
-  Karate tesReparaciones() {
-      return Karate.run("operacionesEmpleado").relativeTo(getClass());
+  Karate tesAddCar() {
+      return Karate.run("anyadirCoche").relativeTo(getClass());
   }
+
+  // @Karate.Test
+  // Karate tesReparaciones() {
+  //     return Karate.run("operacionesEmpleado").relativeTo(getClass());
+  // }
 
 }

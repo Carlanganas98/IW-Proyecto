@@ -78,7 +78,7 @@
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel"></h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Editar vehículo</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                         <div class="modal-body">
@@ -107,7 +107,7 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEliminarLabel" th:text="'Eliminar ' + ${v.matricula}"></h5>
+                                                <h5 class="modal-title" id="modalEliminarLabel" th:text="'¿Eliminar ' + ${v.matricula} + '?'"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -133,7 +133,7 @@
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Formulario para solicitar una reparación</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                         <div class="modal-body">
@@ -172,7 +172,7 @@
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Añadir vehículo</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeAnyadir"></button>
                     </div>
                         <div class="modal-body">
@@ -197,7 +197,7 @@
                                     <h6>Introduzca el modelo del vehículo: </h6>
                                     <input type="text" name="modelo" id="modelo">
 
-                                    <h1 class="mt-4">Introduce la imagen del coche: </h1>
+                                    <h6>Introduce la imagen del coche: </h6>
                                     <input type="file" id="" name="foto" accept="image/jpeg,image/png, image/svg">
 
                                     <div class="modal-footer">
@@ -240,14 +240,10 @@
                             <td th:text="${r.fechaFin}"></td>
                             <td th:text="${r.estado}"></td>
                             
-                            <td><div class="form-check" th:each="serv : ${r.servicios}">
-
-                                   
-                                  
-                                <label class="form-check-label" th:for="'flexCheck' + ${serv.id}"
-                                th:if="${serv.finalizado == true}" th:text="|${serv.info} - ${serv.precio}€|">
-                                </label>
-
+                            <td>
+                                <div th:each="serv : ${r.servicios}">
+                                    <label th:if="${serv.finalizado == true}" th:text="|${serv.info} - ${serv.precio}€|" ></label>
+                                </div>
                             </td>
                             
                             
