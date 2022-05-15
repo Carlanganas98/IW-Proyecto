@@ -16,12 +16,12 @@ class ExternalRunner {
   // }
 
   @Karate.Test
-  Karate tesAddCar() {
-      return Karate.run("anyadirCoche").relativeTo(getClass());
+  Karate testCliente() {
+      return Karate.run("operacionesCliente").relativeTo(getClass());
   }
 
   // @Karate.Test
-  // Karate tesReparaciones() {
+  // Karate testEmpleado() {
   //     return Karate.run("operacionesEmpleado").relativeTo(getClass());
   // }
 

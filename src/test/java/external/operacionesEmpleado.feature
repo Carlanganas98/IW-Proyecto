@@ -1,4 +1,4 @@
-Feature: operaciones sobre las reparaciones
+Feature: operaciones mas importantes sobre los empleados
 
 # Este test consiste en que el usuario con rol 'empleado' realice distintas operaciones
 # sobre las reparaciones que solicitan los clientes
