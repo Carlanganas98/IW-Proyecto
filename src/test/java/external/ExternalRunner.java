@@ -10,19 +10,19 @@ class ExternalRunner {
   //     return Karate.run("ws").relativeTo(getClass());
   // }  
 
-  // @Karate.Test
-  // Karate testLogin() {
-  //  return Karate.run("login").relativeTo(getClass());
-  // }
+  @Karate.Test
+  Karate testLogin() {
+   return Karate.run("login").relativeTo(getClass());
+  }
 
   @Karate.Test
   Karate testCliente() {
       return Karate.run("operacionesCliente").relativeTo(getClass());
   }
 
-  // @Karate.Test
-  // Karate testEmpleado() {
-  //     return Karate.run("operacionesEmpleado").relativeTo(getClass());
-  // }
+  @Karate.Test
+  Karate testEmpleado() {
+      return Karate.run("operacionesEmpleado").relativeTo(getClass());
+  }
 
 }
