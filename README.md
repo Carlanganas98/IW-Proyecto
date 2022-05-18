@@ -31,7 +31,7 @@ Desde esta página el administrador podrá modificar la información que se mues
 El cambio de la imágen de perfil todavía no funciona (lo conseguiremos en los próximos días :) ).
 
 
-# ------------ FUNCIONALIDADES DEL USUARIO CLIENTE 
+# FUNCIONALIDADES DEL USUARIO CLIENTE 
 
 El usuario cliente tiene una única vista desde donde realizará todas las operaciones. Hemos creído que era lo más conveniente para facilitar la experiencia de usuario. Se debe pulsar en el link del nav para acceder, ya que inicialmente sale la página del perfil de usuario.
 
@@ -81,7 +81,41 @@ También se puede rechazar una reparación, por ser inviable y no le aparecerá 
 
 # TESTS
 
-Para finalizar, destacar que se ha realizado una prueba externa con Karate. Se prueba a añadir un nuevo vehiculo como usuario registrado CLIENTE y se valida posteriormente que los datos del vehiculo añadido son los correctos.
+Para finalizar, se han realizado varias pruebas externas con Karate. A continuación se explican en las diferentes categorías que las hemos dividido:
+
+### Login
+- Login incorrecto, con mensaje de error
+- Login del cliente
+- Login del empleado
+- Login del administrador
+- Login como admin; logout
+
+### Pruebas sobre un cliente
+- Añadir un nuevo vehiculo
+- Solicitar una reparación de un vehículo
+
+### Pruebas sobre un empleado
+- Aceptar una reparación de un cliente
+- Añadir un servicio a una reparación
+- Enviar un mensaje a un cliente
 
 
+# USUARIOS DE PRUEBA
 
+Nombre usuario      Contraseña              Rol
+
+a                       aa              administrador
+b                       aa              cliente
+c                       aa              empleado
+d                       aa              empleado
+estherFdz               aa              cliente
+jmm                     aa              cliente
+alopez                  aa              cliente
+mtena                   aa              empleado
+jsma99                  aa              cliente
+lssw                    aa              empleado
+
+
+## FUNCIONALIDADES SIN IMPLEMENTAR 
+
+El resgistro de un usuario no está implementado.
